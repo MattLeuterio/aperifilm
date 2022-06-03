@@ -1,0 +1,13 @@
+$fontWeight: (
+  thin: 'MontserratThin',
+  extralight: 'MontserratExtraLight',
+  light: 'MontserratLight',
+  regular: 'MontserratRegular',
+  medium: 'MontserratMedium',
+  semibold: 'MontserratSemibold',
+  bold: 'MontserratBold'
+);
+
+@function typography($base, $type) {
+  @return map-get($base, $type);
+}

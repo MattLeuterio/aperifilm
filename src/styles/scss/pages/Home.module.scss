@@ -1,3 +1,5 @@
+@import "../main.scss";
+
 .container {
   padding: 0 2rem;
 }
@@ -10,6 +12,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: colors($gradients, 'primary');
+}
+
+.active {
+  background-color: colors($mainBrandColor, 'dark');
 }
 
 .footer {
@@ -29,8 +36,9 @@
 }
 
 .title a {
-  color: #0070f3;
+  color: #fff;
   text-decoration: none;
+  font-family: typography($fontWeight, 'bold');
 }
 
 .title a:hover,
