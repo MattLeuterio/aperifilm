@@ -2,7 +2,17 @@
 // to pass the props down to the real one.
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useLayoutEffect, useState } from 'react';
-import { breakpoint } from '../ui/theme/partials/device';
+
+const breakpoint = {
+  mobileS: 320,
+  mobileM: 375,
+  mobileL: 425,
+  tablet: 768,
+  tabletL: 950,
+  laptop: 1024,
+  desktop: 1480
+};
+
 
 const defaultMediaQueries = {
   mediaIsPhone: false,
