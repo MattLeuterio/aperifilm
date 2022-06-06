@@ -1,7 +1,7 @@
 html,
 body {
-  padding: 0;
-  margin: 0;
+  background: radial-gradient(50% 50% at 50% 50%, #302E42 31.25%, #1F1D2B 100%);
+  color: #ffffff;
   font-family: 'MontserratRegular', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
@@ -13,4 +13,6 @@ a {
 
 * {
   box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }

@@ -7,6 +7,7 @@ import "../src/styles/index.css";
 import { FormattedMessage, IntlProvider } from "react-intl";
 import it from "../lang/it.json";
 import en from "../lang/en.json";
+import { UserProvider } from "@auth0/nextjs-auth0";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
@@ -23,16 +24,19 @@ const MyApp = ({ Component, pageProps }) => {
     const l = language === "" ? router.locale : language;
     setLanguageSelected(l);
   }, [language]);
+
   return (
     <Provider store={store}>
       <IntlProvider
         locale={languageSelected}
         messages={messages[languageSelected]}
       >
-        <GlobalLayout>
-          <FormattedMessage defaultMessage="test2" id="test" />
-          <Component {...pageProps} />
-        </GlobalLayout>
+        <UserProvider>
+          <GlobalLayout>
+            <FormattedMessage defaultMessage="test2" id="test" />
+            <Component {...pageProps} />
+          </GlobalLayout>
+        </UserProvider>
       </IntlProvider>
     </Provider>
   );
