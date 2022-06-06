@@ -1,0 +1,19 @@
+@import "../../styles/scss/main.scss";
+
+.container {
+  position: relative;
+  max-width: utilities($layout, 'max-width');
+  margin: 0 auto;
+  display: flex;
+}
+
+.content {
+  position: relative;
+  width: calc(100% - utilities($layout-sizes, 'sidebarWidthDSK'));
+  margin-left: utilities($layout-sizes, 'sidebarWidthDSK');
+}
+
+.main {
+  background-color: yellow;
+  min-height: calc(200px + 100vh - utilities($layout-sizes, 'HeaderHeightDSK'));
+}

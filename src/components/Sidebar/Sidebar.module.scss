@@ -1,0 +1,10 @@
+@import "../../styles/scss/main.scss";
+
+.container {
+  position: fixed;
+  top: 0;
+  left: auto;
+  background-color: red;
+  width: utilities($layout-sizes, 'sidebarWidthDSK');
+  min-height: 100vh;
+}

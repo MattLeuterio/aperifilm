@@ -1,0 +1,13 @@
+$layout: (
+  max-width: 1280px,
+);
+
+$layout-sizes: (
+  sidebarWidthDSK: 200px,
+  HeaderWidthDSK: 100%,
+  HeaderHeightDSK: 125px,
+);
+
+@function utilities($type, $value) {
+  @return map-get($type, $value);
+}
