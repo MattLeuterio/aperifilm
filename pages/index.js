@@ -1,28 +1,41 @@
-import Head from 'next/head'
-import { useEffect, useContext } from 'react';
-import { FormattedMessage } from 'react-intl';
-import styles from '../src/styles/scss/pages/Home.module.scss';
-import { minifyRecords, tableVocabulary } from './api/vocabulary';
+import Head from "next/head";
+import { useEffect, useContext } from "react";
+import { FormattedMessage } from "react-intl";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "../src/store/actions/userAction";
+import { setUserLanguage } from "../src/store/actions/userDataAction";
+import styles from "../src/styles/scss/pages/Home.module.scss";
+import { minifyRecords, tableVocabulary } from "./api/vocabulary";
 
 export async function getServerSideProps() {
   try {
     const records = await tableVocabulary.select({}).firstPage();
     return {
       props: {
-        initialVocabulary: minifyRecords(records)
-      }
-    }
+        initialVocabulary: minifyRecords(records),
+      },
+    };
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return {
       props: {
-        err: "Something went wrong"
-      }
-    }
+        err: "Something went wrong",
+      },
+    };
   }
 }
 
-export default function Home({initialVocabulary}) {
+export default function Home({ initialVocabulary }) {
+  const dispatch = useDispatch();
+  const usersList = useSelector((state) => state.usersList);
+  const userData = useSelector(state => state.userData);
+
+  const { loading, error, users } = usersList;
+
+  useEffect(() => {
+    dispatch(getUsers());
+    dispatch(setUserLanguage('it'));
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>
@@ -34,8 +47,8 @@ export default function Home({initialVocabulary}) {
 
       <div>
         HOME
-        <FormattedMessage defaultMessage="test2" id="test2"/>
+        <FormattedMessage defaultMessage="test2" id="test2" />
       </div>
     </div>
-  )
+  );
 }

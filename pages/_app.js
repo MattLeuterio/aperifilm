@@ -1,25 +1,41 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { Provider, useSelector } from "react-redux";
+import { wrapper, store } from "../src/store/store";
 import { GlobalLayout } from "../src/components";
-import it from '../lang/it.json';
-import en from '../lang/en.json';
 import "../src/styles/index.css";
 import { FormattedMessage, IntlProvider } from "react-intl";
-import { useRouter } from "next/router";
+import it from "../lang/it.json";
+import en from "../lang/en.json";
 
 const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
+  const [languageSelected, setLanguageSelected] = 
+  useState(router.locale);
+  const { language } = useSelector((state) => state.userData);
+
   const messages = {
     it,
-    en
-  }
+    en,
+  };
+
+  useEffect(() => {
+    const l = language === "" ? router.locale : language;
+    setLanguageSelected(l);
+  }, [language]);
   return (
-    <IntlProvider locale={router.locale} messages={messages[router.locale]}>
-      <GlobalLayout>
-        <FormattedMessage defaultMessage="test2" id="test"/>
-        <Component {...pageProps} />
-      </GlobalLayout>
-    </IntlProvider>
+    <Provider store={store}>
+      <IntlProvider
+        locale={languageSelected}
+        messages={messages[languageSelected]}
+      >
+        <GlobalLayout>
+          <FormattedMessage defaultMessage="test2" id="test" />
+          <Component {...pageProps} />
+        </GlobalLayout>
+      </IntlProvider>
+    </Provider>
   );
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
