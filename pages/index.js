@@ -5,42 +5,26 @@ import { useEffect, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "../src/store/actions/userAction";
-import { setUserLanguage } from "../src/store/actions/userDataAction";
+import { setUserDataFromLogin, setUserLanguage } from "../src/store/actions/userDataAction";
 import styles from "../src/styles/scss/pages/Home.module.scss";
-import { minifyRecords, tableVocabulary } from "./api/vocabulary";
 import Logo from '../src/assets/images/logo-aperifilm.svg';
 
-export async function getServerSideProps() {
-  try {
-    const records = await tableVocabulary.select({}).firstPage();
-    return {
-      props: {
-        initialVocabulary: minifyRecords(records),
-      },
-    };
-  } catch (err) {
-    console.error(err);
-    return {
-      props: {
-        err: "Something went wrong",
-      },
-    };
-  }
-}
+//export async function getServerSideProps() {}
 
 export default function Home({ initialVocabulary }) {
   const { user, error, isLoading } = useUser();
-  console.log('user', user);
   const dispatch = useDispatch();
   const usersList = useSelector((state) => state.usersList);
-  const userData = useSelector(state => state.userData);
-
-  const { loading, users } = usersList;
 
   useEffect(() => {
     dispatch(getUsers());
     dispatch(setUserLanguage('it'));
   }, [dispatch]);
+
+  useEffect(() => {
+    console.log('user', user);
+    dispatch(setUserDataFromLogin(user));
+  }, [user])
 
   if (isLoading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
@@ -61,8 +45,14 @@ export default function Home({ initialVocabulary }) {
           </div>
 
           <div>
-            <Image src={user?.picture} width={50} height={50} layout="fixed" />
-            Welcome {user?.name}! <a href="/api/auth/logout">Logout</a>
+            <Image 
+              src={user?.picture} 
+              width={50} 
+              height={50} 
+              layout="fixed" 
+             />
+              Welcome {user?.name}! 
+              <a href="/api/auth/logout">Logout</a>
           </div>
         </div>
       </div>
