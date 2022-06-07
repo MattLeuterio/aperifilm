@@ -1,5 +1,4 @@
 import { SET_LANGUAGE, SET_USER_DATA_FROM_LOGIN } from "../types";
-import axios from "axios";
 
 export const setUserLanguage = (lang) => async (dispatch) => {
   try {

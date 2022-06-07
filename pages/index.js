@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useEffect, useContext } from "react";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsers } from "../src/store/actions/userAction";
 import { setUserDataFromLogin, setUserLanguage } from "../src/store/actions/userDataAction";
 import styles from "../src/styles/scss/pages/Home.module.scss";
 import Logo from '../src/assets/images/logo-aperifilm.svg';
@@ -14,10 +13,8 @@ import Logo from '../src/assets/images/logo-aperifilm.svg';
 export default function Home({ initialVocabulary }) {
   const { user, error, isLoading } = useUser();
   const dispatch = useDispatch();
-  const usersList = useSelector((state) => state.usersList);
 
   useEffect(() => {
-    dispatch(getUsers());
     dispatch(setUserLanguage('it'));
   }, [dispatch]);
 
