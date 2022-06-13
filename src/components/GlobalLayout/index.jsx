@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { Header, Sidebar } from '../index';
-import styles from './GlobalLayout.module.scss';
+import { Container, Content, Main } from './style';
 
 const GlobalLayout = ({ children }) => {
 	return (
-			<div className={styles.container}>
+			<Container>
         <Sidebar />
-				<div className={styles.content}>
+				<Content>
 					<Header />
-					<main className={styles.main}>
+					<Main>
 						{ children }
-					</main>
-				</div>
-			</div>
+					</Main>
+				</Content>
+			</Container>
 	)
 };
 

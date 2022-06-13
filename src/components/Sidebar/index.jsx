@@ -1,10 +1,10 @@
-import styles from './Sidebar.module.scss';
+import { SidebarContainer } from "./style";
 
 const Sidebar = ({}) => {
 	return (
-			<div className={styles.container}>
+			<SidebarContainer>
         Sidebar
-			</div>
+			</SidebarContainer>
 	)
 };
 

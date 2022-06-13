@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth0/nextjs-auth0": "^1.9.0",
+    "@heroicons/react": "^1.0.6",
     "airtable": "^0.11.4",
     "axios": "^0.27.2",
     "next": "12.1.6",
@@ -21,11 +22,13 @@
     "redux": "^4.2.0",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.1",
-    "sass": "^1.52.1"
+    "sass": "^1.52.1",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@formatjs/cli": "^5.0.2",
     "babel-plugin-formatjs": "^10.3.24",
+    "babel-plugin-styled-components": "^2.0.7",
     "eslint": "8.16.0",
     "eslint-config-next": "12.1.6"
   }

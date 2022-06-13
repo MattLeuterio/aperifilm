@@ -1,11 +1,11 @@
-import styles from './Header.module.scss';
+import { HeaderContainer } from "./style";
 
 const Header = ({}) => {
 	
 	return (
-			<div className={styles.container}>
+			<HeaderContainer>
         Header
-			</div>
+			</HeaderContainer>
 	)
 };
 

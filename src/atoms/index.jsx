@@ -1,5 +1,9 @@
 import ActiveLink from "./ActiveLink";
+import Icon from "./Icon";
+import Image from "./Image";
 
 export {
-  ActiveLink
+  ActiveLink,
+  Icon,
+  Image
 }
