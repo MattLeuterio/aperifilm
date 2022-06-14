@@ -18,5 +18,6 @@ export const Content = styled.div`
 
 export const Main = styled.main`
   min-height: calc(200px + 100vh - ${HeaderHeightDSK});
+  overflow-x: hidden;
 `;
 

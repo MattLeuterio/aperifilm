@@ -6,7 +6,8 @@ const colors = {
   },
   element: {
     light: '#FFFFFF',
-    dark: '#B7B9D2'
+    dark: '#B7B9D2',
+    hover: '#615f6e'
   },
   component: {
     light: '#302E42',

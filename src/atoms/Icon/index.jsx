@@ -2,11 +2,13 @@ import theme from '../../theme';
 import { ApericonsContainer, IconContainer } from './style';
 
 const Icon = ({
-	children, size, fill, stroke, strokeWidth, src
+	children, width, height, fill, stroke, strokeWidth, className
 }) => {
 		return (
 				<IconContainer
-					size={size}
+					className={className}
+					width={width}
+					height={height}
 					fill={fill}
 					stroke={stroke}
 					strokeWidth={strokeWidth}
@@ -19,7 +21,8 @@ const Icon = ({
 Icon.defaultProps = {
 	fill: 'transparent',
 	stroke: theme.colors.element.light,
-	size: '20px',
+	width: '20px',
+	height: '20px',
 	strokeWidth: '2px',
 }
 

@@ -1,11 +1,12 @@
 import { HeaderContainer } from "./style";
+import { Searchbar } from "../../atoms";
 
 const Header = ({}) => {
-	
+
 	return (
-			<HeaderContainer>
-        Header
-			</HeaderContainer>
+		<HeaderContainer>
+			<Searchbar />
+		</HeaderContainer>
 	)
 };
 

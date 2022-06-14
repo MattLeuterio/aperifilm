@@ -1,4 +1,8 @@
 {
   "test": "English",
-  "test2": "English 2"
+  "test2": "English 2",
+
+  "goToPage": "Go to page",
+
+  "pageTitleSearchResults": "Search results"
 }

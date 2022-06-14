@@ -33,7 +33,6 @@ const MyApp = ({ Component, pageProps }) => {
       >
         <UserProvider>
           <GlobalLayout>
-            <FormattedMessage defaultMessage="test2" id="test" />
             <Component {...pageProps} />
           </GlobalLayout>
         </UserProvider>

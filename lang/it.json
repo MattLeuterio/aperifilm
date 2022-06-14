@@ -1,4 +1,8 @@
 {
   "test": "Italiano",
-  "test2": "Italiano 2"
+  "test2": "Italiano 2",
+
+  "goToPage": "Vai alla pagina",
+
+  "pageTitleSearchResults": "Risultati ricerca"
 }

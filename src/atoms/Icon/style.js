@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 
 export const IconContainer = styled.div`
-  width: ${props => props.size};
-  height: ${props => props.size};
+  width: ${props => props.width};
+  height: ${props => props.height};
 
   > svg {
     fill: ${props => props.fill};
