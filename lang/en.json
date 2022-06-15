@@ -4,5 +4,7 @@
 
   "goToPage": "Go to page",
 
-  "pageTitleSearchResults": "Search results"
+  "pageTitleSearchResults": "Search results",
+
+  "buttonLogin": "Login"
 }

@@ -4,7 +4,7 @@ import { Provider, useSelector } from "react-redux";
 import { wrapper, store } from "../src/store/store";
 import { GlobalLayout } from "../src/components";
 import "../src/styles/index.css";
-import { FormattedMessage, IntlProvider } from "react-intl";
+import { IntlProvider } from "react-intl";
 import it from "../lang/it.json";
 import en from "../lang/en.json";
 import { UserProvider } from "@auth0/nextjs-auth0";
@@ -13,6 +13,7 @@ const MyApp = ({ Component, pageProps }) => {
   const router = useRouter();
   const [languageSelected, setLanguageSelected] = 
   useState(router.locale);
+  
   const { language } = useSelector((state) => state.userData);
 
   const messages = {

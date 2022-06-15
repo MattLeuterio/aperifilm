@@ -14,17 +14,7 @@ import { HomeContainer } from "../src/styles/Pages/style";
 //export async function getServerSideProps() {}
 
 export default function Home({}) {
-  const { user, error, isLoading } = useUser();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setUserLanguage('it'));
-  }, [dispatch]);
-
-  useEffect(() => {
-    dispatch(setUserDataFromLogin(user));
-  }, [user]);
-
+  const user = useSelector((state) => state.userData);
   return (
     <HomeContainer>
       <Head>
