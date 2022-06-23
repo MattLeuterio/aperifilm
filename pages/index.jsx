@@ -1,13 +1,8 @@
-import { useUser } from "@auth0/nextjs-auth0";
 import Head from "next/head";
-import { useEffect, useContext } from "react";
 import { FormattedMessage } from "react-intl";
-import { useDispatch, useSelector } from "react-redux";
-import { setUserDataFromLogin, setUserLanguage } from "../src/store/actions/userDataAction";
+import { useSelector } from "react-redux";
 import Logo from '../src/assets/images/logo-aperifilm.svg';
-import Logo2 from '../src/assets/icons/aperitif-bottle-full.png';
-import { HeartIcon } from '@heroicons/react/outline';
-import { Icon, Image } from "../src/atoms";
+import { Image } from "../src/atoms";
 import { HomeContainer } from "../src/styles/Pages/style";
 
 
@@ -25,7 +20,7 @@ export default function Home({}) {
 
       <div>
         <div>
-          <FormattedMessage defaultMessage="test2" id="test2" />
+          <FormattedMessage defaultMessage="languageName" id="languageName" />
         </div>
 
         <Image 
@@ -34,29 +29,11 @@ export default function Home({}) {
           layout="fixed" 
         />
       </div>
-      {user ? (
+      {user?.email ? (
         <div>
-          <Image 
-            src={user?.picture} 
-            width="50px"
-            layout="fixed" 
-          />
-            <Icon 
-            size="40px"
-            stroke="#983295"
-            >
-              <HeartIcon />
-            </Icon>
-            Welcome {user?.name}! 
-
-            <div>
-              <a href="/api/auth/logout">Logout</a>
-            </div>
-            <div>
           {user && Object.entries(user).map(([key, value], i) => (
               <p key={i}>{i + 1} - {key}: {value}</p>
             ))}
-          </div>
         </div>
       ) : (
         <div>

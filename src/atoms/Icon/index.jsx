@@ -2,7 +2,8 @@ import theme from '../../theme';
 import { ApericonsContainer, IconContainer } from './style';
 
 const Icon = ({
-	children, width, height, fill, stroke, strokeWidth, className
+	children, width, height, fill, stroke, 
+	strokeWidth, className, handleOnClick
 }) => {
 		return (
 				<IconContainer
@@ -12,6 +13,7 @@ const Icon = ({
 					fill={fill}
 					stroke={stroke}
 					strokeWidth={strokeWidth}
+					onClick={handleOnClick}
 				>
 					{children}
 				</IconContainer>

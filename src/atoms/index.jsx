@@ -4,6 +4,7 @@ import Image from "./Image";
 import Searchbar from "./Searchbar";
 import GoTo from "./GoTo";
 import Button from "./Button";
+import CustomSelect from "./CustomSelect";
 
 export {
   ActiveLink,
@@ -11,5 +12,6 @@ export {
   Image,
   Searchbar,
   GoTo,
-  Button
+  Button,
+  CustomSelect
 }

@@ -1,10 +1,13 @@
 {
-  "test": "Italiano",
-  "test2": "Italiano 2",
+  "languageName": "Italiano",
 
   "goToPage": "Vai alla pagina",
 
   "pageTitleSearchResults": "Risultati ricerca",
 
-  "buttonLogin": "Entra"
+  "buttonLogin": "Entra",
+  "buttonLogout": "Esci",
+  "settingButtonSettings": "Impostazioni",
+  "settingButtonTitleTranslate": "Traduzione Contenuti",
+  "settingButtonTitleLanguage": "Preferenze di lingua"
 }

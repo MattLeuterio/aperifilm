@@ -1,4 +1,4 @@
-import { SET_LANGUAGE, SET_USER_DATA_FROM_LOGIN } from "../types";
+import { SET_LANGUAGE, SET_TRANSLATE, SET_USER_DATA_FROM_LOGIN } from "../types";
 
 export const setUserLanguage = (lang) => async (dispatch) => {
   try {
@@ -13,6 +13,20 @@ export const setUserLanguage = (lang) => async (dispatch) => {
     });
   }
 };
+
+export const setUserTranslate = (lang) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SET_TRANSLATE,
+      payload: lang,
+    });
+  } catch (error) {
+    dispatch({
+      type: USERS_ERROR,
+      payload: error,
+    });
+  }
+}
 
 export const setUserDataFromLogin = (data) => async (dispatch) => {
   try {

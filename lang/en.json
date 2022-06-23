@@ -1,10 +1,13 @@
 {
-  "test": "English",
-  "test2": "English 2",
+  "languageName": "English",
 
   "goToPage": "Go to page",
 
   "pageTitleSearchResults": "Search results",
 
-  "buttonLogin": "Login"
+  "buttonLogin": "Login",
+  "buttonLogout": "Logout",
+  "settingButtonSettings": "Settings",
+  "settingButtonTitleTranslate": "Content translation",
+  "settingButtonTitleLanguage": "Language preferences"
 }

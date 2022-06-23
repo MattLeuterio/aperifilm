@@ -1,4 +1,4 @@
-
+export const FontBase = 14;
 export const maxWidth = '1280px';
 
 // Layout
