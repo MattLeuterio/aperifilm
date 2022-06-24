@@ -4,10 +4,14 @@ const colors = {
     light: '#DF0012',
     transparent: 'rgba(194, 0, 16, 0.7)',
   },
+  base: {
+    darkGray: '#ACACA7',
+  },
   element: {
     light: '#FFFFFF',
     dark: '#B7B9D2',
-    hover: '#615f6e'
+    hover: '#615f6e',
+    select: '#252434',
   },
   component: {
     light: '#302E42',

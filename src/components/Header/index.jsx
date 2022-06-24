@@ -13,9 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Flagen from "../../assets/images/flag-en.webp";
 import Flagit from "../../assets/images/flag-it.webp";
-import { countryTranslation } from "../../js/utility";
-import it from "../../../lang/it.json";
-import en from "../../../lang/en.json";
+import { languageOption, countryTranslation } from "../../js";
 
 const Header = ({}) => {
 	const { user, error, isLoading } = useUser();
@@ -32,17 +30,6 @@ const Header = ({}) => {
 	const wrapperRefUserDropdown = useRef(null);
 	const wrapperRefLanguageDropdown = useRef(null);
 
-	const languageOption = [
-		{
-			value: 'it',
-			label: it.languageName
-		},
-		{
-			value: 'en',
-			label: en.languageName
-		}
-	]
-
 	useEffect(() => {
 		const list = countryTranslation?.reduce((acc, obj) => {
 			return [
@@ -58,10 +45,10 @@ const Header = ({}) => {
 		
 		const language = userData?.language?.length > 0 ? userData.language : router.locale;
 
-		handleOnChangeLanguage(languageOption.filter(el => el.value === language)[0])
+		handleOnChangeLanguage(languageOption?.filter(el => el.value === language)[0])
 
 		const langTranslate = userData?.translate?.lenght > 0 ? userData?.translate : userData?.language?.length > 0 ? userData.language : router.locale;
-		handleOnChangeTranslate(list.filter(el => el.value.substr(0, 2) === langTranslate)[0]);
+		handleOnChangeTranslate(list?.filter(el => el.value.substr(0, 2) === langTranslate)[0]);
 	}, []);
 
   useEffect(() => {
@@ -113,12 +100,12 @@ const Header = ({}) => {
 
 	const handleOnChangeTranslate = (el) => {
 		setDefaultValueSelectTranslate(el);
-		dispatch(setUserTranslate(el.value));
+		dispatch(setUserTranslate(el?.value));
 	}
 
 	const handleOnChangeLanguage = (el) => {
 		setDefaultValueSelectLanguage(el);
-		dispatch(setUserLanguage(el.value));
+		dispatch(setUserLanguage(el?.value));
 	}
 
 	return (

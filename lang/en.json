@@ -9,5 +9,16 @@
   "buttonLogout": "Logout",
   "settingButtonSettings": "Settings",
   "settingButtonTitleTranslate": "Content translation",
-  "settingButtonTitleLanguage": "Language preferences"
+  "settingButtonTitleLanguage": "Language preferences",
+
+  "sidebarMenuTitle": "Menu",
+  "sidebarYourListTitle" : "Your lists",
+
+  "menuLinkTitleDiscover": "Discover",
+  "menuLinkTitleTrending": "Trending",
+  "menuLinkTitleFavorite": "Favorite",
+  "menuLinkTitleVoted": "Voted",
+  "menuLinkTitleToWatch": "To watch",
+  "menuLinkTitleHowItWorks": "How it works",
+  "menuLinkTitleAboutUs": "About us"
 }

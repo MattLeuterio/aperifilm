@@ -56,6 +56,13 @@ const types = {
     fontSize: 12,
     lineHeight: 1.5,
     color: theme.colors.element.dark
+  },
+  sidebarMenuSectionTitle: {
+    fontSize: 12,
+    fontWeight: 600,
+    color: theme.colors.base.darkGray,
+    letterSpacing: '1.5px',
+    textTransform: 'uppercase'
   }
 };
 

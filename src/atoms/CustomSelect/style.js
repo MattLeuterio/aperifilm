@@ -25,6 +25,7 @@ export const CustomSelectContainer = styled.div`
 
       .select__input-container {
         color: ${theme.colors.element.light};
+        cursor: pointer;
       }
 
       .select__single-value {
@@ -63,11 +64,11 @@ export const CustomSelectContainer = styled.div`
         background-color: transparent;
 
         &:hover {
-          background-color: #252434;
+          background-color: ${theme.colors.element.hover};
         }
 
         &--is-selected {
-          background-color: #252434;
+          background-color: ${theme.colors.element.select};
         }
       }
     }
