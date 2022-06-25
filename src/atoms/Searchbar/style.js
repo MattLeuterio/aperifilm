@@ -3,7 +3,7 @@ import theme from '../../theme';
 
 export const SearchContainer = styled.div`
   position: relative;
-  width: 60%;
+  width: 100%;
 
   > div.icn-search {
     position: absolute;
@@ -47,7 +47,8 @@ export const SuggestionProduct = styled.div`
   overflow-y: auto;
   background: ${theme.colors.component.light};
   box-shadow: ${theme.utils.elementShadow};
-  max-height: 250px;
+  max-height: ${props => props.isVisible ? '225px' : '0'};
+  transition: all .5s ease-in-out;
 
   > a:not(:last-child) {
     margin-bottom: 10px;

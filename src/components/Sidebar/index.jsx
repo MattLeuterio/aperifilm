@@ -5,10 +5,10 @@ import { ActiveLink, Icon } from "../../atoms";
 import theme from "../../theme";
 import { infoRoutes, primaryRoutes, userRoutes } from "../../routes";
 
-const Sidebar = ({}) => {
+const Sidebar = () => {
 
 	return (
-			<SidebarContainer>
+			<SidebarContainer className="sidebar">
 				<MenuContainer>
 					<MenuSection>
 						<Montserrat type="sidebarMenuSectionTitle">

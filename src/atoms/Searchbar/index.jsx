@@ -114,8 +114,8 @@ const Searchbar = ({}) => {
 							/>
 						)}
 					</Icon>
-				{suggestionBoxVisibility && (
-					<SuggestionProduct>
+
+					<SuggestionProduct isVisible={suggestionBoxVisibility}>
 						{suggestionProduct?.map((item) => (
 							// <Link
 							// 	key={item?.id}
@@ -152,7 +152,7 @@ const Searchbar = ({}) => {
 							</GoTo>
 						</GoToWrapper>
 					</SuggestionProduct>
-				)}
+				
 		</SearchContainer>
 		)
 };
