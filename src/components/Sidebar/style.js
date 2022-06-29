@@ -49,7 +49,7 @@ export const MenuSectionLinks = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-right: 5px;
+      margin-right: 10px;
 
       > div.icon-image--active {
         display: none;

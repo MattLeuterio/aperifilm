@@ -17,11 +17,16 @@ import { languageOption, countryTranslation } from "../../js";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { infoRoutes, primaryRoutes, userRoutes } from "../../routes";
+import { createUser, updateUser } from "../../../pages/api/auth/users";
+import { getUsersList } from "../../store/actions/userAction";
 
 const Header = ({}) => {
 	const { user, error, isLoading } = useUser();
+  const dispatch = useDispatch();
+	const router = useRouter();
+
 	const [userData, setUserData] = useState({});
-	const [flag, setFlag] = useState(Flagen.src);
+	const [usersList, setUsersList] = useState(null);
 	const [userDropdownStatus, setUserDropdownStatus] = useState(false);
 	const [languageDropdownStatus, setLanguageDropdownStatus] = useState(false);
 	const [countryList, setCountryList] = useState([]);
@@ -29,9 +34,10 @@ const Header = ({}) => {
 	const [visibilitySearchBar, setVisibilitySearchBar] = useState(false);
 	const [visibilityMobileMenu, setVisibilityMobileMenu] = useState(false);
 	const [defaultValueSelectLanguage, setDefaultValueSelectLanguage] = useState({});
-  const dispatch = useDispatch();
-	const router = useRouter();
+	
 	const userDataSelector = useSelector((state) => state.userData);
+	const userListSelector = useSelector((state) => state.usersList.list);
+
 	const wrapperRefUserDropdown = useRef(null);
 	const wrapperRefLanguageDropdown = useRef(null);
 
@@ -54,8 +60,16 @@ const Header = ({}) => {
 
 		handleOnChangeLanguage(languageOption?.filter(el => el.value === language)[0])
 
-		const langTranslate = userData?.translate?.lenght > 0 ? userData?.translate : userData?.language?.length > 0 ? userData.language : router.locale;
-		handleOnChangeTranslate(list?.filter(el => el.value.substr(0, 2) === langTranslate)[0]);
+		const langTranslate = Boolean(userData?.translate) 
+		? userData?.translate 
+			: Boolean(userData?.language)
+		? userData.language === 'en' ? 'en-US' : 'it-IT'
+			: router.locale;
+		handleOnChangeTranslate(list?.filter(el => el.value === langTranslate)[0]);
+	}, [usersList]);
+
+	useEffect(() => {
+		dispatch(getUsersList());
 	}, []);
 
   useEffect(() => {
@@ -88,9 +102,46 @@ const Header = ({}) => {
     dispatch(setUserDataFromLogin(user));
   }, [user]);
 
+  useEffect(() => {
+		if(usersList && user) {
+			const userLogged = usersList.filter(u => u.fields.sub === user?.sub)[0];
+
+			if (Boolean(userLogged)) {
+				dispatch(setUserDataFromLogin({...userLogged.fields}));
+			}
+			
+		}
+  }, [usersList]);
+
+	useEffect(() => {
+		if (usersList && user) {
+			const exist = usersList.filter(u => u.fields.sub === user?.sub).length > 0;
+
+			if (!exist) {
+				const body = {
+					"sub": user?.sub,
+					"given_name": user?.given_name,
+					"family_name": user?.family_name,
+					"nickname": user?.nickname,
+					"picture": user?.picture,
+					"locale": user?.locale,
+					"updated_at": user?.updated_at,
+					"email": user?.email,
+				}
+				createUser(body);
+			}
+		}
+	}, [usersList])
+
+ 
+
 	useEffect(() => {
     setUserData(userDataSelector);
   }, [userDataSelector]);
+
+	useEffect(() => {
+    setUsersList(userListSelector);
+  }, [userListSelector]);
 
 	const handleOnClickUser = () => {
 		setUserDropdownStatus(!userDropdownStatus);
@@ -108,11 +159,17 @@ const Header = ({}) => {
 	const handleOnChangeTranslate = (el) => {
 		setDefaultValueSelectTranslate(el);
 		dispatch(setUserTranslate(el?.value));
+		if (userData.record_id) {
+			updateUser(userData.record_id, {"translate": el?.value})
+		}
 	}
 
 	const handleOnChangeLanguage = (el) => {
 		setDefaultValueSelectLanguage(el);
 		dispatch(setUserLanguage(el?.value));
+		if (userData.record_id) {
+			updateUser(userData.record_id, {"language": el?.value})
+		}
 	}
 
 	const handleOnClickLoginButton = (url) => {
@@ -200,7 +257,7 @@ const Header = ({}) => {
 							<UserName
 								onClick={() => handleOnClickUser()}
 							>
-								{userData.given_name}
+								{userData.given_name ? userData.given_name : userData.nickname }
 							</UserName>
 							<Icon
 								className="icn-arrow-user"
@@ -344,8 +401,8 @@ const Header = ({}) => {
 					<MenuSection>
 						<MenuSectionLinks>
 							{primaryRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											className="icn-page"
 											stroke="transparent"
@@ -372,8 +429,8 @@ const Header = ({}) => {
 						</Montserrat>
 						<MenuSectionLinks>
 							{userRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											className="icn-page"
 											stroke="transparent"
@@ -397,8 +454,8 @@ const Header = ({}) => {
 						</MenuSectionLinks>
 						<MenuSectionLinks>
 							{infoRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											className="icn-page"
 											stroke="transparent"

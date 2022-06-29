@@ -122,6 +122,12 @@ export const UserImageWrapper = styled.div`
 export const UserName = styled.div`
   cursor: pointer;
   margin: 0 5px 0 10px;
+  max-width: 160px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  word-break: break-word;
   
   @media ${props => props.theme.device.tabletL} {
     display: none;
@@ -283,7 +289,7 @@ export const MenuSectionLinks = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-right: 5px;
+      margin-right: 10px;
 
       > div.icon-image--active {
         display: none;

@@ -16,8 +16,8 @@ const Sidebar = () => {
 						</Montserrat>
 						<MenuSectionLinks>
 							{primaryRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											stroke="transparent"
 											fill={theme.colors.element.dark}
@@ -36,8 +36,8 @@ const Sidebar = () => {
 						</Montserrat>
 						<MenuSectionLinks>
 							{userRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											stroke="transparent"
 											fill={theme.colors.element.dark}
@@ -53,8 +53,8 @@ const Sidebar = () => {
 						</MenuSectionLinks>
 						<MenuSectionLinks>
 							{infoRoutes?.map((route, index) => (
-								<ActiveLink activeClassName="active" href={route.to}>
-									<div key={index} className="link">
+								<ActiveLink key={index} activeClassName="active" href={route.to}>
+									<div className="link">
 										<Icon
 											stroke="transparent"
 											fill={theme.colors.element.dark}
