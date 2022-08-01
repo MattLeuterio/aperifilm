@@ -11,7 +11,8 @@ export const TypefaceInterface = PropTypes.shape({
   fontStretch: PropTypes.oneOf(['normal', 'condensed']),
   lineHeight: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   letterSpacing: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  fontSize: PropTypes.number
+  fontSize: PropTypes.number,
+  textDecoration: PropTypes.string
 });
 
 const defaultConfig = {
@@ -24,7 +25,8 @@ const defaultConfig = {
   letterSpacing: 'normal',
   fontSize: 14,
   textAlign: 'unset',
-  textTransform: 'unset'
+  textTransform: 'unset',
+  textDecoration: 'underline'
 };
 
 const getTypefaceBaseStyle = (props) => `
@@ -38,6 +40,7 @@ const getTypefaceBaseStyle = (props) => `
   line-height: ${props.config.lineHeight};
   text-align: ${props.config.textAlign};
   text-transform: ${props.config.textTransform};
+  text-decoration: ${props.config.textDecoration}
   //transition: all 250ms ease-in-out;
 `;
 

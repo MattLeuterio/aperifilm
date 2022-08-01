@@ -11,6 +11,7 @@ const baseConfig = {
   fontWeight: 400,
   lineHeight: 1,
   letterSpacing: 'normal',
+  textDecoration: 'none',
   fontSize: FontBase
 };
 
@@ -51,6 +52,15 @@ const types = {
   },
   error: {
     fontSize: 12
+  },
+  titlePage: {
+    fontSize: 32,
+    fontWeight: 600,
+    lineHeight: '39px'
+  },
+  link: {
+    textDecoration: 'underline',
+    fontWeight: 700
   },
   settingButton: {
     fontSize: 12,

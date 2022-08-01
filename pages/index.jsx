@@ -2,14 +2,24 @@ import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import Logo from '../src/assets/images/logo-aperifilm.svg';
-import { Image } from "../src/atoms";
-import { HomeContainer } from "../src/styles/Pages/style";
+import { Icon, Image, TitlePage } from "../src/atoms";
+import { Container, HomeContainer, Welcome, WelcomeDescription, WelcomeTitle } from "../src/styles/Pages/style";
+import theme from "../src/theme";
+import Montserrat from "../src/typography/montserrat";
+import IconWelcome from "../src/assets/icons/apericheers-red.png";
+import { XCircleIcon } from '@heroicons/react/outline';
+import { useState } from "react";
 
 
 //export async function getServerSideProps() {}
 
 export default function Home({}) {
+  const [welcomeVisible, setWelcomeVisible] = useState(true);
   const user = useSelector((state) => state.userData);
+  const userProductList = useSelector((state) => state.userData.list_products);
+
+  console.log('userProductList', userProductList);
+
   return (
     <HomeContainer>
       <Head>
@@ -26,16 +36,94 @@ export default function Home({}) {
       </Head>
 
       {user?.email ? (
-        <div>
-          {user && Object.entries(user).map(([key, value], i) => (
-              <p key={i}>{i + 1} - {key}: {value}</p>
-            ))}
-        </div>
+        <Container>
+          {user && Object.entries(user).map(([key, value], i) => {
+            if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
+              return (
+                <p key={i}>{i + 1} - {key}: {value}</p>
+              )
+            } 
+            })}
+
+            {user?.favorite && (
+              <>
+                <p><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></p>
+                {user.favorite.map((elm, index) => (
+                  <p key={index}>{elm.title}</p>
+                ))}
+              </>
+            )}
+
+            {user?.voted && (
+              <>
+                <p><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></p>
+                {user.voted.map((elm, index) => (
+                  <p key={index}>{elm.title}</p>
+                ))}
+              </>
+            )}
+
+            {user?.towatch && (
+              <>
+                <p><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></p>
+                {user.towatch.map((elm, index) => (
+                  <p key={index}>{elm.title}</p>
+                ))}
+              </>
+            )}
+            
+        </Container>
       ) : (
-        <div>
-          <a href="/api/auth/login">Login</a>
-        </div>
+        <Container>
+          {welcomeVisible && (
+            <Welcome>
+              <Icon
+                className="welcome-close-icon"
+                handleOnClick={() => setWelcomeVisible(false)}
+                stroke={theme.colors.element.dark}
+                fill="transparent"
+                width="25px"
+                height="25px"
+              >
+                <XCircleIcon />
+              </Icon>
+              <WelcomeTitle>
+              <Image
+                className="apericheers-red-icon" 
+                src={IconWelcome.src}
+                alt="aperifilm.com logo" 
+                width="32px"
+                layout="fixed" 
+              />
+                <Montserrat htmlAttribute={'span'} type="h1">
+                  {user.language === 'it' ? 'Benvenuto!' : 'Welcome!'}
+                </Montserrat>
+              </WelcomeTitle>
+              <WelcomeDescription>
+                <Montserrat type="h1">
+                  {user.language === 'it' ? (
+                    <Montserrat configuration={{lineHeight: '17px'}}>
+                      <a href="/api/auth/login">
+                        <Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
+                      </a> e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+                      Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
+                    </Montserrat>
+                  ) : (
+                    <Montserrat configuration={{lineHeight: '17px'}}>
+                      <a href="/api/auth/login">
+                        <Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
+                      </a> INGLESE <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+                      Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
+                    </Montserrat>
+                  )}
+                </Montserrat>
+              </WelcomeDescription>
+            </Welcome>
+          )}
+        </Container>
       )}
+
+      <TitlePage title="menuLinkTitleDiscover" />
     </HomeContainer>
   );
 }

@@ -5,7 +5,7 @@ import { UserIcon, ChevronDownIcon, ChevronUpIcon, AdjustmentsIcon, TranslateIco
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
-import { setUserDataFromLogin, setUserLanguage, setUserTranslate } from "../../store/actions/userDataAction";
+import { setUserDataFromLogin, setUserLanguage, setUserProducts, setUserTranslate } from "../../store/actions/userDataAction";
 import theme from "../../theme";
 import { FormattedMessage } from "react-intl";
 import Montserrat from "../../typography/montserrat";
@@ -27,6 +27,7 @@ const Header = ({}) => {
 
 	const [userData, setUserData] = useState({});
 	const [usersList, setUsersList] = useState(null);
+	const [userListProducts, setUserListProducts] = useState([]);
 	const [userDropdownStatus, setUserDropdownStatus] = useState(false);
 	const [languageDropdownStatus, setLanguageDropdownStatus] = useState(false);
 	const [countryList, setCountryList] = useState([]);
@@ -142,6 +143,38 @@ const Header = ({}) => {
 	useEffect(() => {
     setUsersList(userListSelector);
   }, [userListSelector]);
+
+	useEffect(() => {
+		if (
+					Object.keys(userData).length > 0 
+					&& Boolean(userData?.list_products) 
+					&& typeof userData?.list_products === 'string') 
+		{
+			const listProducts = JSON.parse(userData?.list_products);
+			setUserListProducts(listProducts);
+		}
+  }, [userData]);
+	
+	useEffect(() => {
+		if (Object.keys(userListProducts).length > 0) {
+			dispatch(setUserProducts(userListProducts));
+		} else {
+			console.log('qui')
+		}
+  }, [userListProducts]);
+
+
+
+	useEffect(() => {
+		// if (userData.list_products) {
+		// 	const json = JSON.parse(usersList[0].fields.list_products).voted;
+		// 	console.log(json);
+		// 	json.push({id: '12132132', title: 'new'})
+		// 	console.log(json);
+		// 	console.log(JSON.stringify(json));
+		// }
+  }, [userListProducts]);
+
 
 	const handleOnClickUser = () => {
 		setUserDropdownStatus(!userDropdownStatus);

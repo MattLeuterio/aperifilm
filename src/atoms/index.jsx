@@ -5,6 +5,7 @@ import Searchbar from "./Searchbar";
 import GoTo from "./GoTo";
 import Button from "./Button";
 import CustomSelect from "./CustomSelect";
+import TitlePage from "./TitlePage";
 
 export {
   ActiveLink,
@@ -13,5 +14,6 @@ export {
   Searchbar,
   GoTo,
   Button,
-  CustomSelect
+  CustomSelect,
+  TitlePage
 }
