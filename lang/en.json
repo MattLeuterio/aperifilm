@@ -2,6 +2,8 @@
   "languageName": "English",
 
   "goToPage": "Go to page",
+  "goToDiscoverNewFilm": "Discover new Films",
+  "goToDiscoverNewTvSeries": "Discover new Tv-series",
 
   "pageTitleSearchResults": "Search results",
 
@@ -20,5 +22,15 @@
   "menuLinkTitleVoted": "Voted",
   "menuLinkTitleToWatch": "To watch",
   "menuLinkTitleHowItWorks": "How it works",
-  "menuLinkTitleAboutUs": "About us"
+  "menuLinkTitleAboutUs": "About us",
+
+  "productTypeFilm": "Film",
+  "productTypeTvSeries": "Tv-series",
+
+  "cardStatsViews": "views",
+  "cardStatsVotes": "votes",
+
+  "sectionTitleComingOutFilm": "Coming soon",
+  "sectionTitlePopularPeople": "Popular people",
+  "sectionTitlePopularTvSeries": "Popular Tv-series"
 }

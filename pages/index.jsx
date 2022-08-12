@@ -1,24 +1,56 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
-import Logo from '../src/assets/images/logo-aperifilm.svg';
-import { Icon, Image, TitlePage } from "../src/atoms";
-import { Container, HomeContainer, Welcome, WelcomeDescription, WelcomeTitle } from "../src/styles/Pages/style";
+import { GoTo, Icon, Image, TitlePage } from "../src/atoms";
+import { Container, HomeContainer, Row, RowCards, RowHeader, Welcome, WelcomeDescription, WelcomeTitle } from "../src/styles/Pages/style";
 import theme from "../src/theme";
 import Montserrat from "../src/typography/montserrat";
 import IconWelcome from "../src/assets/icons/apericheers-red.png";
 import { XCircleIcon } from '@heroicons/react/outline';
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Card } from "../src/components";
+import useMediaQuery from "../src/hooks/useMediaQuery";
+import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
+import { FireIcon } from "@heroicons/react/solid";
 
+export async function getServerSideProps() {
+  try {
+    const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
+    const discoverMovieList = await res.json()
+    
+    return {
+      props: {
+        discoverMovieList
+      },
+    };
+  } catch (err) {
+    console.error(err);
+    return {
+      props: {
+        err: "Something went wrong",
+      },
+    };
+  }
+}
 
-//export async function getServerSideProps() {}
-
-export default function Home({}) {
+export default function Home({discoverMovieList}) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
+  const [discoverMovieListState, setDiscoverMovieListState] = useState([]);
   const user = useSelector((state) => state.userData);
+  const userLanguageState = useSelector((state) => state.userData.language);
   const userProductList = useSelector((state) => state.userData.list_products);
 
-  console.log('userProductList', userProductList);
+  //console.log('userProductList', userProductList);
+  const isTablet = useMediaQuery(769);
+
+  useEffect(() => {
+    setDiscoverMovieListState(discoverMovieList.results.slice(0, 2));
+  }, [discoverMovieList])
+
+  RowCards.TYPE = {
+    DISCOVER: 'discover',
+    DEFAULT: 'default'
+  }
 
   return (
     <HomeContainer>
@@ -124,6 +156,154 @@ export default function Home({}) {
       )}
 
       <TitlePage title="menuLinkTitleDiscover" />
+
+      {/* Discover FILM */}
+      <Row>
+        <RowCards type="discover">
+          {discoverMovieListState.map((item, index) => {
+            return (
+              <Card key={index} product={item} productType="productTypeFilm" className="card" type="discover" />
+            )
+          })}
+        </RowCards>
+        <GoTo fontSize="16px" text="goToDiscoverNewFilm" className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
+          <Icon
+            fill={theme.colors.mainBrandColors.dark}
+            strokeWidth={0}
+            width="20px"
+            height="20px"
+          >
+            <FireIcon />
+          </Icon>
+        </GoTo>
+      </Row>
+
+      {/* COMING SOON */}
+      {/* <Row>
+        <RowHeader>
+          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitleComingOutFilm" id="sectionTitleComingOutFilm" /></Montserrat>
+
+          {!isTablet && (
+            <GoTo handleOnClick={() => onClose()} url="/search-results">
+              <Icon 
+                stroke={theme.colors.mainBrandColors.dark}
+                width="18px"
+                height="17px"
+              >
+                <ArrowNarrowRightIcon />
+              </Icon>
+            </GoTo>
+          )}				
+        </RowHeader>
+        <RowCards type="default">
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+        </RowCards>
+        {isTablet && (
+          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
+            <Icon 
+              stroke={theme.colors.mainBrandColors.dark}
+              width="18px"
+              height="17px"
+            >
+              <ArrowNarrowRightIcon />
+            </Icon>
+          </GoTo>
+          )}
+      </Row> */}
+
+      {/* POPULAR PEOPLE */}
+      {/* <Row>
+        <RowHeader>
+          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitlePopularPeople" id="sectionTitlePopularPeople" /></Montserrat>
+
+          {!isTablet && (
+            <GoTo handleOnClick={() => onClose()} url="/search-results">
+              <Icon 
+                stroke={theme.colors.mainBrandColors.dark}
+                width="18px"
+                height="17px"
+              >
+                <ArrowNarrowRightIcon />
+              </Icon>
+            </GoTo>
+          )}				
+        </RowHeader>
+        <RowCards>
+          <Card className="card" type="person" />
+          <Card className="card" type="person" />
+          <Card className="card" type="person" />
+          <Card className="card" type="person" />
+          <Card className="card" type="person" />
+        </RowCards>
+        {isTablet && (
+          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
+            <Icon 
+              stroke={theme.colors.mainBrandColors.dark}
+              width="18px"
+              height="17px"
+            >
+              <ArrowNarrowRightIcon />
+            </Icon>
+          </GoTo>
+          )}
+      </Row> */}
+
+      {/* DISCOVER SERIE TV */}
+      {/* <Row>
+        <RowCards type="discover">
+          <Card className="card" type="discover" />
+          <Card className="card" type="discover" />
+        </RowCards>
+        <GoTo fontSize="16px" text="goToDiscoverNewTvSeries" className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
+          <Icon
+            fill={theme.colors.mainBrandColors.dark}
+            strokeWidth={0}
+            width="20px"
+            height="20px"
+          >
+            <FireIcon />
+          </Icon>
+        </GoTo>
+      </Row> */}
+
+      {/* POPULAR SERIE TV */}
+      {/* <Row>
+        <RowHeader>
+          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitlePopularTvSeries" id="sectionTitlePopularTvSeries" /></Montserrat>
+
+          {!isTablet && (
+            <GoTo handleOnClick={() => onClose()} url="/search-results">
+              <Icon 
+                stroke={theme.colors.mainBrandColors.dark}
+                width="18px"
+                height="17px"
+              >
+                <ArrowNarrowRightIcon />
+              </Icon>
+            </GoTo>
+          )}				
+        </RowHeader>
+        <RowCards type="default">
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+          <Card className="card" type="default"/>
+        </RowCards>
+        {isTablet && (
+          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
+            <Icon 
+              stroke={theme.colors.mainBrandColors.dark}
+              width="18px"
+              height="17px"
+            >
+              <ArrowNarrowRightIcon />
+            </Icon>
+          </GoTo>
+          )}
+      </Row> */}
     </HomeContainer>
   );
 }

@@ -41,7 +41,7 @@ export const userRoutes = [
           /></>)
   },
   {
-    to: "/user/voted",
+    to: "/user/to-watch",
     title: 'menuLinkTitleToWatch',
     icon: <EyeIcon />
   },

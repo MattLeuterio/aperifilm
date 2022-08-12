@@ -6,6 +6,11 @@ import GoTo from "./GoTo";
 import Button from "./Button";
 import CustomSelect from "./CustomSelect";
 import TitlePage from "./TitlePage";
+import Badge from "./Badge";
+import ActionButtons from "./ActionButtons";
+import StatisticsRowCard from "./StatisticsRowCard";
+import RatingBottle from "./RatingBottle";
+import RenderBottles from "./RenderBottles";
 
 export {
   ActiveLink,
@@ -15,5 +20,10 @@ export {
   GoTo,
   Button,
   CustomSelect,
-  TitlePage
+  TitlePage,
+  Badge,
+  ActionButtons,
+  StatisticsRowCard,
+  RatingBottle,
+  RenderBottles
 }

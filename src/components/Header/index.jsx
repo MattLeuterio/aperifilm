@@ -42,7 +42,7 @@ const Header = ({}) => {
 	const wrapperRefUserDropdown = useRef(null);
 	const wrapperRefLanguageDropdown = useRef(null);
 
-  const isTablet = useMediaQuery(1024);
+  const isLaptop = useMediaQuery(1024);
 
 	useEffect(() => {
 		const list = countryTranslation?.reduce((acc, obj) => {
@@ -231,7 +231,7 @@ const Header = ({}) => {
 					width="159px"
 					layout="fixed" 
 				/>
-				{isTablet && (
+				{isLaptop && (
 					<MobileActionsWrapper>
 						<Icon
 							handleOnClick={() => handleOnClickMenuIcon()}
@@ -429,7 +429,7 @@ const Header = ({}) => {
 				</ActionWrapper>
 			</HeaderContainer>
 			
-			{isTablet && (
+			{isLaptop && (
 				<MenuWrapper isVisible={visibilityMobileMenu}>
 					<MenuSection>
 						<MenuSectionLinks>

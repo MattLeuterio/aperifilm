@@ -2,6 +2,8 @@
   "languageName": "Italiano",
 
   "goToPage": "Vai alla pagina",
+  "goToDiscoverNewFilm": "Scopri nuovi Film",
+  "goToDiscoverNewTvSeries": "Scopri nuove Serie Tv",
 
   "pageTitleSearchResults": "Risultati ricerca",
 
@@ -20,5 +22,15 @@
   "menuLinkTitleVoted": "Votati",
   "menuLinkTitleToWatch": "Da guardare",
   "menuLinkTitleHowItWorks": "Come funziona",
-  "menuLinkTitleAboutUs": "Chi siamo"
+  "menuLinkTitleAboutUs": "Chi siamo",
+
+  "productTypeFilm": "Film",
+  "productTypeTvSeries": "Serie Tv",
+
+  "cardStatsViews": "visualizzazioni",
+  "cardStatsVotes": "voti",
+
+  "sectionTitleComingOutFilm": "Film in uscita",
+  "sectionTitlePopularPeople": "Persone popolari",
+  "sectionTitlePopularTvSeries": "Serie Tv popolari"
 }

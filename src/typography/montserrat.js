@@ -82,6 +82,7 @@ const Montserrat = ({
   children,
   htmlAttribute,
   onClick,
+  className,
   mediaIsDesktop,
   mediaIsLaptop
 }) => {
@@ -99,6 +100,7 @@ const Montserrat = ({
           : { ...finalConfiguration }
       }
       onClick={onClick}
+      className={className}
     >
       {children}
     </Typeface>

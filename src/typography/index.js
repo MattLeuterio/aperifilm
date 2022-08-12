@@ -54,13 +54,13 @@ export const TypefaceStyledSpan = styled.span`
 `;
 
 const Typeface = ({
-  configuration, children, htmlAttribute, onClick
+  configuration, children, htmlAttribute, onClick, className
 }) => {
   const config = { ...defaultConfig, ...configuration };
   if (htmlAttribute === 'div') {
-    return <TypefaceStyledDiv config={config} onClick={onClick}>{children}</TypefaceStyledDiv>;
+    return <TypefaceStyledDiv config={config} onClick={onClick} className={className}>{children}</TypefaceStyledDiv>;
   }
-  return <TypefaceStyledSpan config={config} onClick={onClick}>{children}</TypefaceStyledSpan>;
+  return <TypefaceStyledSpan config={config} onClick={onClick} className={className}>{children}</TypefaceStyledSpan>;
 };
 
 Typeface.propTypes = {

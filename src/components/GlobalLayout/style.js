@@ -31,6 +31,7 @@ export const Main = styled.main`
   min-height: calc(200px + 100vh - ${HeaderHeightDSK});
   overflow-x: hidden;
   padding: 0 20px;
+  padding-bottom: 50px;
   @media ${props => props.theme.device.tabletL} {
     padding: 20px;
   }
