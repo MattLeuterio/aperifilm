@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BadgeContainer = styled.div`
-  position: absolute;
+  position: ${props => props.isRelative ? 'relative ' : 'absolute'};
   padding: 5px 16px;
   border-radius: 10px;
   width: fit-content;

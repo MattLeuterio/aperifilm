@@ -2,10 +2,10 @@ import { Container } from './style';
 import { RenderBottles } from '..';
 
 const RatingBottle = ({
-  vote, size, className
+  vote, size, className, personalVote
 }) => {
   return (
-    <Container size={size} className={className}>
+    <Container personalVote={personalVote} size={size} className={className}>
       <RenderBottles size={size} vote={vote}/>
     </Container>
   );

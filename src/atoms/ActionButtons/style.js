@@ -1,10 +1,10 @@
 import styled, { css } from 'styled-components';
 import Button from '.';
+import { DisplayFlex } from '../../js/Mixins';
 import theme from '../../theme';
 
 export const ActionButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
+  ${DisplayFlex({alignItems: 'center'})};
   width: fit-content;
   height: fit-content;
 

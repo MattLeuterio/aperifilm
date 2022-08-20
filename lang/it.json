@@ -4,6 +4,7 @@
   "goToPage": "Vai alla pagina",
   "goToDiscoverNewFilm": "Scopri nuovi Film",
   "goToDiscoverNewTvSeries": "Scopri nuove Serie Tv",
+  "goToAllCast": "Vai al cast completo",
 
   "pageTitleSearchResults": "Risultati ricerca",
 
@@ -32,5 +33,21 @@
 
   "sectionTitleComingOutFilm": "Film in uscita",
   "sectionTitlePopularPeople": "Persone popolari",
-  "sectionTitlePopularTvSeries": "Serie Tv popolari"
+  "sectionTitlePopularTvSeries": "Serie Tv popolari",
+  "sectionTitleCast": "Cast",
+
+  "elementMinutes": "minuti",
+
+  "roleDirector": "Regia",
+  "roleScreenplayStory": "Sceneggiatura",
+  "roleDirPhotography": "Direttore della Fotografia",
+  "roleEditor": "Montaggio video",
+
+  "averageVote": "Voto medio",
+  "yourVote": "Il tuo voto",
+
+  "infoSectionElementOriginalTitle": "Titolo originale",
+  "infoSectionElementStatus": "Stato",
+  "infoSectionElementBudget": "Budget",
+  "infoSectionElementRevenue": "Incasso"
 }

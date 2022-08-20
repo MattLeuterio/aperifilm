@@ -1,26 +1,25 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
-import { GoTo, Icon, Image, TitlePage } from "../src/atoms";
-import { Container, HomeContainer, Row, RowCards, RowHeader, Welcome, WelcomeDescription, WelcomeTitle } from "../src/styles/Pages/style";
-import theme from "../src/theme";
-import Montserrat from "../src/typography/montserrat";
-import IconWelcome from "../src/assets/icons/apericheers-red.png";
-import { XCircleIcon } from '@heroicons/react/outline';
+import { TitlePage } from "../src/atoms";
+import { Container, HomeContainer} from "../src/styles/Pages/homeStyle";
 import { useEffect, useState } from "react";
-import { Card } from "../src/components";
+import { RowCard } from "../src/components";
 import useMediaQuery from "../src/hooks/useMediaQuery";
-import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
-import { FireIcon } from "@heroicons/react/solid";
+import { langConverter, tmdbApiKey } from "../src/js/utility";
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
-    const discoverMovieList = await res.json()
+    const resDiscoverMovie = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
+    const discoverMovieList = await resDiscoverMovie.json();
+
+    const resComingSoon = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT&region=IT');
+    const comingSoonMovieList = await resComingSoon.json()
     
     return {
       props: {
-        discoverMovieList
+        discoverMovieList,
+        comingSoonMovieList
       },
     };
   } catch (err) {
@@ -33,24 +32,35 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({discoverMovieList}) {
+export default function Home({discoverMovieList, comingSoonMovieList}) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [discoverMovieListState, setDiscoverMovieListState] = useState([]);
+  const [comingSoonMovieListState, setComingSoonListState] = useState([]);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
-  const userProductList = useSelector((state) => state.userData.list_products);
 
-  //console.log('userProductList', userProductList);
   const isTablet = useMediaQuery(769);
 
-  useEffect(() => {
-    setDiscoverMovieListState(discoverMovieList.results.slice(0, 2));
-  }, [discoverMovieList])
+  const getComingSoonByRegion = async () => {
+    // setIsLoaded(false);
+    if (userLanguageState) {
+      console.log('query', `https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}&region=${userLanguageState.toUpperCase()}`)
+      const coming = await fetch(
+        `https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}&language=it-IT&region=${userLanguageState === 'it' ? 'IT' : 'US'}`
+        ).then(res => res.json());
+        console.log('coming', coming)
+      setComingSoonListState(coming?.results.slice(0, 4));
+    }
+  };
 
-  RowCards.TYPE = {
-    DISCOVER: 'discover',
-    DEFAULT: 'default'
-  }
+  useEffect(() => {
+    getComingSoonByRegion();
+  }, [userLanguageState]);
+
+  useEffect(() => {
+    setDiscoverMovieListState(discoverMovieList?.results.slice(0, 2));
+    setComingSoonListState(comingSoonMovieList?.results.slice(0, 4));
+  }, [discoverMovieList, comingSoonMovieList])
 
   return (
     <HomeContainer>
@@ -67,7 +77,7 @@ export default function Home({discoverMovieList}) {
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
-      {user?.email ? (
+      {user?.email && (
         <Container>
           {user && Object.entries(user).map(([key, value], i) => {
             if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
@@ -105,80 +115,26 @@ export default function Home({discoverMovieList}) {
             )}
             
         </Container>
-      ) : (
-        <Container>
-          {welcomeVisible && (
-            <Welcome>
-              <Icon
-                className="welcome-close-icon"
-                handleOnClick={() => setWelcomeVisible(false)}
-                stroke={theme.colors.element.dark}
-                fill="transparent"
-                width="25px"
-                height="25px"
-              >
-                <XCircleIcon />
-              </Icon>
-              <WelcomeTitle>
-              <Image
-                className="apericheers-red-icon" 
-                src={IconWelcome.src}
-                alt="aperifilm.com logo" 
-                width="32px"
-                layout="fixed" 
-              />
-                <Montserrat htmlAttribute={'span'} type="h1">
-                  {user.language === 'it' ? 'Benvenuto!' : 'Welcome!'}
-                </Montserrat>
-              </WelcomeTitle>
-              <WelcomeDescription>
-                <Montserrat type="h1">
-                  {user.language === 'it' ? (
-                    <Montserrat configuration={{lineHeight: '17px'}}>
-                      <a href="/api/auth/login">
-                        <Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
-                      </a> e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
-                      Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
-                    </Montserrat>
-                  ) : (
-                    <Montserrat configuration={{lineHeight: '17px'}}>
-                      <a href="/api/auth/login">
-                        <Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
-                      </a> INGLESE <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
-                      Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
-                    </Montserrat>
-                  )}
-                </Montserrat>
-              </WelcomeDescription>
-            </Welcome>
-          )}
-        </Container>
       )}
 
       <TitlePage title="menuLinkTitleDiscover" />
 
       {/* Discover FILM */}
-      <Row>
-        <RowCards type="discover">
-          {discoverMovieListState.map((item, index) => {
-            return (
-              <Card key={index} product={item} productType="productTypeFilm" className="card" type="discover" />
-            )
-          })}
-        </RowCards>
-        <GoTo fontSize="16px" text="goToDiscoverNewFilm" className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
-          <Icon
-            fill={theme.colors.mainBrandColors.dark}
-            strokeWidth={0}
-            width="20px"
-            height="20px"
-          >
-            <FireIcon />
-          </Icon>
-        </GoTo>
-      </Row>
+      <RowCard 
+        listProducts={discoverMovieListState}
+        type="discover"
+        productType="productTypeFilm"
+        goToText="goToDiscoverNewFilm"
+      />
 
       {/* COMING SOON */}
+      <RowCard 
+        listProducts={comingSoonMovieListState}
+        type="default"
+        title="sectionTitleComingOutFilm"
+        productType="productTypeFilm"
+        goToText="goToPage"
+      />
       {/* <Row>
         <RowHeader>
           <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitleComingOutFilm" id="sectionTitleComingOutFilm" /></Montserrat>

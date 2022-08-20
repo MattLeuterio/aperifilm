@@ -7,10 +7,11 @@ import Montserrat from '../../typography/montserrat';
 
 const Badge = ({
 	url, text, className, backgroundColor, colorText, handleOnClick,
-	top, left, bottom, right
+	top, left, bottom, right, isRelative
 }) => {
 		return (
 				<BadgeContainer
+					isRelative={isRelative}
 					onClick={handleOnClick}
 					className={className}
 					backgroundColor={backgroundColor}

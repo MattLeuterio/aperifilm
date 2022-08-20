@@ -2,7 +2,7 @@ import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import Logo from '../src/assets/images/logo-aperifilm.svg';
 import { Image } from "../src/atoms";
-import { HomeContainer } from "../src/styles/Pages/style";
+import { HomeContainer } from "../src/styles/Pages/home";
 
 
 //export async function getServerSideProps() {}

@@ -24,7 +24,9 @@ const ActionsProductButton = ({
 			setIsActive(active);
 		}, [active])
 
-		const handleOnClick = (type) => {
+		const handleOnClick = (e, type) => {
+			e.preventDefault();
+			e.stopPropagation();
 			console.log('CLICK - action type', type);
 			setIsActive(!isActive);
 		}
@@ -37,7 +39,7 @@ const ActionsProductButton = ({
 				<ActionsProductButtonContainer
 					size={size}
 					type={type}
-					onClick={() => handleOnClick(action)}
+					onClick={(e) => handleOnClick(e, action)}
 					className={className}
 					active={isActive}
 				>

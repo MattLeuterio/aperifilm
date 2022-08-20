@@ -11,6 +11,7 @@ import ActionButtons from "./ActionButtons";
 import StatisticsRowCard from "./StatisticsRowCard";
 import RatingBottle from "./RatingBottle";
 import RenderBottles from "./RenderBottles";
+import BackButton from "./BackButton";
 
 export {
   ActiveLink,
@@ -25,5 +26,6 @@ export {
   ActionButtons,
   StatisticsRowCard,
   RatingBottle,
-  RenderBottles
+  RenderBottles,
+  BackButton
 }

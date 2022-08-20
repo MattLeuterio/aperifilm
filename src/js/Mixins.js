@@ -6,3 +6,9 @@ export const LineClamp = ({ numLines }) => css`
   -webkit-box-orient: vertical;  
   overflow: hidden;
 `;
+
+export const DisplayFlex = ({ alignItems, justifyContent}) => css`
+  display: flex;
+  align-items: ${alignItems};
+  justify-content: ${justifyContent};
+`;

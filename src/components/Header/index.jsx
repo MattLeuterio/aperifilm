@@ -158,8 +158,6 @@ const Header = ({}) => {
 	useEffect(() => {
 		if (Object.keys(userListProducts).length > 0) {
 			dispatch(setUserProducts(userListProducts));
-		} else {
-			console.log('qui')
 		}
   }, [userListProducts]);
 

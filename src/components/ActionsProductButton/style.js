@@ -8,7 +8,7 @@ export const ActionsProductButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 8px;
-  background-color: ${theme.colors.component.light};
+  background-color: ${theme.colors.component.dark};
   
   ${props => {
     switch (props.size) {

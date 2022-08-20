@@ -4,6 +4,7 @@
   "goToPage": "Go to page",
   "goToDiscoverNewFilm": "Discover new Films",
   "goToDiscoverNewTvSeries": "Discover new Tv-series",
+  "goToAllCast": "Go to all cast",
 
   "pageTitleSearchResults": "Search results",
 
@@ -32,5 +33,21 @@
 
   "sectionTitleComingOutFilm": "Coming soon",
   "sectionTitlePopularPeople": "Popular people",
-  "sectionTitlePopularTvSeries": "Popular Tv-series"
+  "sectionTitlePopularTvSeries": "Popular Tv-series",
+  "sectionTitleCast": "Cast",
+
+  "elementMinutes": "minutes",
+
+  "roleDirector": "Director",
+  "roleScreenplayStory": "Screenplay & Story",
+  "roleDirPhotography": "Director of Photography",
+  "roleEditor": "Editor",
+
+  "averageVote": "Average Vote",
+  "yourVote": "Your Vote",
+
+  "infoSectionElementOriginalTitle": "Original title",
+  "infoSectionElementStatus": "Status",
+  "infoSectionElementBudget": "Budget",
+  "infoSectionElementRevenue": "Revenue"
 }

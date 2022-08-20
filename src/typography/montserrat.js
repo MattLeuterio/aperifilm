@@ -73,6 +73,17 @@ const types = {
     color: theme.colors.base.darkGray,
     letterSpacing: '1.5px',
     textTransform: 'uppercase'
+  },
+  productDetailsInfoCrewTitle: {
+    fontSize: 12,
+    fontWeight: 600,
+    color: theme.colors.element.dark,
+    lineHeight: '14.63px'
+  },
+  productDetailsSectionTitle: {
+    fontSize: 24,
+    fontWeight: 600,
+    lineHeight: '29.26px'
   }
 };
 

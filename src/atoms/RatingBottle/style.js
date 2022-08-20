@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: space-between;
   border-radius: 300px;
   align-items: center;
+  border: ${props => props.personalVote ? `2px solid ${theme.colors.mainBrandColors.dark}` : 0};
   
   ${props => {
     switch (props.size) {

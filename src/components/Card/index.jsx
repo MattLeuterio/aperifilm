@@ -9,7 +9,9 @@ import { searchGenre } from '../../js/genreList';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { roundVote } from '../../js/utility';
+import { genderPlaceholder, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
+import { getProductDetails } from '../../store/actions/productAction';
+import Router from 'next/router';
 
 const Card = ({
 	product, title, className, colorText, handleOnClick, 
@@ -19,25 +21,38 @@ const Card = ({
 }) => {
 		const [productDetails, setProductDetails] = useState({});
 		const userLanguageState = useSelector((state) => state.userData.language);
+		const productDetailsState = useSelector((state) => state.product.productDetails);
 
-		async function getDetailsProduct() {
-			const res = await fetch(`https://api.themoviedb.org/3/movie/${product?.id}?api_key=e2330ecaa641a077ab62520c44ab636f&language=${userLanguageState === 'it' ? 'it-IT' : 'en-En'}`).then(res => res.json());
-			console.log('ddetails', res);
+		const getDetailsProduct = async () => {
+			const res = await fetch(
+				`https://api.themoviedb.org/3/${pTypeConverter(productType)}
+				/${product?.id}?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}`
+				).then(res => res.json());
 			setProductDetails(res);
 		}
 
 		useEffect(() => {
+			setProductDetails(productDetailsState);
+		}, [productDetailsState]);
+		
+		useEffect(() => {
 			getDetailsProduct();
 		}, [userLanguageState])
 
-		console.log('productDetails', productDetails);
+		const handleOnClickCard = (e) => {
+			Router.push(`/${pTypeConverter(productType)}/${textToPath(product?.title)}?id=${product?.id}`);
+		}
+
+		const handleOnClickCardPerson = (e) => {
+			Router.push(`/people/${textToPath(product?.name)}?id=${product?.id}`);
+		}
 
 		switch(type) {
 			case Card.TYPE.DEFAULT:
 				return (
 					<CardContainer
 						type={type}
-						onClick={handleOnClick}
+						onClick={() => handleOnClickCard()}
 						className={className}
 						color={colorText}
 						backgroundColor={backgroundColor}
@@ -49,13 +64,12 @@ const Card = ({
 						totalVotes={totalVotes}
 						widthCard={widthCard}
 						heightCard={heightCard}
-						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
 					>
 						<Top type={type}>
 							<Image 
 								className="main-image" 
-								src={mainImg}
-								alt="aperifilm.com logo" 
+								src={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+								alt={`${product?.title} image`} 
 								width="100%"
 								height="150px"
 								layout="fixed" 
@@ -63,154 +77,165 @@ const Card = ({
 							{/* Position Absolute */}
 							<Badge text={productType} top="15px" left="15px"/>
 							<ActionButtons size="small" className="action-buttons" />
-							<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
+							{productDetails?.vote_average > 0 && (
+								<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
+							)}
 						</Top>
 
 						<Bottom>
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>product?.title</Montserrat>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title}</Montserrat>
 							<StatisticsContainer type={type}>
-								<StatisticsRowCard views="20" votes="216"/>
+								<StatisticsRowCard views={product?.popularity} votes={product?.vote_count}/>
 							</StatisticsContainer>
 						</Bottom>
 					</CardContainer>
 				)
 
-				case Card.TYPE.DISCOVER:
-					return (
-						<CardContainer
-							type={type}
-							onClick={handleOnClick}
-							className={className}
-							color={colorText}
-							backgroundColor={backgroundColor}
-							active={active}
-							titleProduct={product?.title}
-							summary={summary}
-							productType={productType}
-							genre={genre}
-							vote={vote}
-							totalViews={totalViews}
-							totalVotes={totalVotes}
-							widthCard={widthCard}
-							heightCard={heightCard}
-							mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
-						>
+			case Card.TYPE.DISCOVER:
+				return (
+					<CardContainer
+						onClick={() => handleOnClickCard()}
+						type={type}
+						//onClick={handleOnClick}
+						className={className}
+						color={colorText}
+						backgroundColor={backgroundColor}
+						active={active}
+						title={product?.title}
+						titleProduct={product?.title}
+						summary={productDetails?.overview}
+						productType={productType}
+						genre={genre}
+						vote={vote}
+						totalViews={totalViews}
+						totalVotes={totalVotes}
+						widthCard={widthCard}
+						heightCard={heightCard}
+						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+					>
+						<Top type={type}>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title}</Montserrat>
+							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
+							<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
+
+							<ActionButtons />
+
+							<StatisticsContainer type={type}>
+								<StatisticsRowCard views={productDetails?.popularity?.toFixed(0)} votes={productDetails?.vote_count}/>
+							</StatisticsContainer>
+							
+							{/* Position Absolute */}
+							<Badge text={productType} top="0" right="0"/>
+						</Top>
+						<Bottom type={type}>
+							<Icon
+								className=""
+								fill={theme.colors.element.light}
+								width="20px"
+								height="20px"
+								strokeWidth={0}
+							>
+								<ShareIcon />
+							</Icon>
+							{productDetails?.vote_average > 0 && (
+								<RatingBottle vote={roundVote(productDetails?.vote_average, 1)} />
+							)}
+						</Bottom>
+					</CardContainer>
+				)
+
+			case Card.TYPE.PERSON:
+				return (
+					<CardContainer
+						type={type}
+						onClick={() => handleOnClickCardPerson()}
+						className={className}
+						color={colorText}
+						backgroundColor={backgroundColor}
+						active={active}
+						titleProduct={product?.title}
+						summary={summary}
+						productType={productType}
+						genre={genre}
+						vote={vote}
+						totalViews={totalViews}
+						totalVotes={totalVotes}
+						widthCard={widthCard}
+						heightCard={heightCard}
+					>
+						<Top type={type}>
+							<Image 
+								className="main-image" 
+								src={product?.profile_path ? `https://image.tmdb.org/t/p/original${product?.profile_path}` : genderPlaceholder(product?.gender)}
+								alt={`${product?.name} photo`} 
+								width="150px"
+								height="150px"
+								layout="fixed" 
+							/>
+							<ActionsProductButton className="favorite-btn" size="person" action="favorite"/>
+						</Top>
+						<Bottom type={type}>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 14, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}>
+								{product?.name}
+							</Montserrat>
+							<Montserrat className="card-description" configuration={{fontSize: 14, lineHeight: "17.07px", color: theme.colors.element.dark}}>
+								{product?.character}
+							</Montserrat>
+						</Bottom>
+					</CardContainer>
+				)
+
+			case Card.TYPE.TRENDING:
+				return (
+					<CardContainer
+						type={type}
+						onClick={handleOnClick}
+						className={className}
+						color={colorText}
+						backgroundColor={backgroundColor}
+						active={active}
+						titleProduct={product?.title}
+						summary={summary}
+						productType={productType}
+						genre={genre}
+						vote={vote}
+						totalViews={totalViews}
+						totalVotes={totalVotes}
+						widthCard={widthCard}
+						heightCard={heightCard}
+						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+					>
+						<Left type={type}>
+							<Image 
+								className="main-image" 
+								src={mainImg}
+								alt="aperifilm.com logo" 
+								width="220px"
+								height="143px"
+								layout="fixed" 
+							/>
+						</Left>
+						<Right type={type}>
 							<Top type={type}>
-								<Montserrat className="card-title" type="bold" configuration={{fontSize: 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title}</Montserrat>
 								<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-								<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
-
-								<ActionButtons />
-
+								<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>product?.title</Montserrat>
 								<StatisticsContainer type={type}>
 									<StatisticsRowCard views="20" votes="216"/>
 								</StatisticsContainer>
-								
-								{/* Position Absolute */}
-								<Badge text={productType} top="0" right="0"/>
+
+								{/* POSITION ABSOLUTE */}
+								<ActionButtons className="action-buttons" />
 							</Top>
 							<Bottom type={type}>
-								<Icon
-									className=""
-									fill={theme.colors.element.light}
-									width="20px"
-									height="20px"
-									strokeWidth={0}
-								>
-									<ShareIcon />
-								</Icon>
-								<RatingBottle vote={roundVote(productDetails?.vote_average, 1)} />
+							{productDetails?.vote_average > 0 && (
+								<RatingBottle size="small" vote={2.5} />
+							)}
+								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>01</Montserrat>
 							</Bottom>
-						</CardContainer>
-					)
-
-				case Card.TYPE.PERSON:
-					return (
-						<CardContainer
-							type={type}
-							onClick={handleOnClick}
-							className={className}
-							color={colorText}
-							backgroundColor={backgroundColor}
-							active={active}
-							titleProduct={product?.title}
-							summary={summary}
-							productType={productType}
-							genre={genre}
-							vote={vote}
-							totalViews={totalViews}
-							totalVotes={totalVotes}
-							widthCard={widthCard}
-							heightCard={heightCard}
-							mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
-						>
-							<Top type={type}>
-								<Image 
-									className="main-image" 
-									src={mainImg}
-									alt="aperifilm.com logo" 
-									width="150px"
-									height="150px"
-									layout="fixed" 
-								/>
-								<ActionsProductButton className="favorite-btn" size="person" action="favorite"/>
-							</Top>
-							<Bottom type={type}>
-								<Montserrat className="card-title" type="bold" configuration={{fontSize: 14, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}>Colleen O'Shaughnessey</Montserrat>
-								<Montserrat className="card-description" configuration={{fontSize: 14, lineHeight: "17.07px", color: theme.colors.element.dark}}>Miles 'Tails' Prower (voice)</Montserrat>
-							</Bottom>
-						</CardContainer>
-					)
-
-				case Card.TYPE.TRENDING:
-					return (
-						<CardContainer
-							type={type}
-							onClick={handleOnClick}
-							className={className}
-							color={colorText}
-							backgroundColor={backgroundColor}
-							active={active}
-							titleProduct={product?.title}
-							summary={summary}
-							productType={productType}
-							genre={genre}
-							vote={vote}
-							totalViews={totalViews}
-							totalVotes={totalVotes}
-							widthCard={widthCard}
-							heightCard={heightCard}
-							mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
-						>
-							<Left type={type}>
-								<Image 
-									className="main-image" 
-									src={mainImg}
-									alt="aperifilm.com logo" 
-									width="220px"
-									height="143px"
-									layout="fixed" 
-								/>
-							</Left>
-							<Right type={type}>
-								<Top type={type}>
-									<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-									<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>product?.title</Montserrat>
-									<StatisticsContainer type={type}>
-										<StatisticsRowCard views="20" votes="216"/>
-									</StatisticsContainer>
-
-									{/* POSITION ABSOLUTE */}
-									<ActionButtons className="action-buttons" />
-								</Top>
-								<Bottom type={type}>
-									<RatingBottle size="small" vote={2.5} />
-									<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>01</Montserrat>
-								</Bottom>
-							</Right>
-						</CardContainer>
-					)
+						</Right>
+					</CardContainer>
+				)
 		}
 };
 

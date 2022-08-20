@@ -6,7 +6,8 @@ const colors = {
   },
   base: {
     darkGray: '#ACACA7',
-    green: '#219653'
+    green: '#219653',
+    blue: '#2F80ED'
   },
   element: {
     light: '#FFFFFF',
