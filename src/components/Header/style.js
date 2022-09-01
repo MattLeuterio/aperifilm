@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { HeaderHeightDSK, HeaderHeightMOB, HeaderWidthDSK } from '../../../const';
 import theme from '../../theme';
+import zIndex from '../../theme/partials/zIndex';
 
 export const HeaderContainer = styled.header`
   position: sticky;
@@ -246,7 +247,8 @@ export const MenuWrapper = styled.div`
   height: ${props => props.isVisible ? '100vh' : '0'};
   filter: ${props => props.isVisible ? 'unset' : 'blur(6px)'};
   transition: all .5s ease-in-out;
-  `;
+  z-index: ${theme.zIndex.menu};
+`;
 
 export const MenuSection = styled.div`
   padding: 15px;

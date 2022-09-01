@@ -11,7 +11,7 @@ export const Header = styled.div`
   margin-top: 20px;
   margin-bottom: 40px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     flex-direction: column-reverse;
     align-items: center;
   }
@@ -25,7 +25,7 @@ export const HeaderInfoDatas = styled.div`
   width: 100%;
   ${DisplayFlex({alignItems: 'center', justifyContent: 'space-between'})};
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     flex-direction: column;
     align-items: center;
     margin-bottom: 40px;
@@ -58,7 +58,7 @@ export const HeaderInfoDatasGenres = styled.div`
 export const ReleaseDate = styled.div`
   ${DisplayFlex({alignItems: 'center'})};
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-left: 0;
     margin-top: 10px;
   }
@@ -72,7 +72,7 @@ export const Runtime = styled.div`
   ${DisplayFlex({alignItems: 'center'})};
   margin-left: 10px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-top: 10px;
   }
 
@@ -90,7 +90,7 @@ export const HeaderInfoCrew = styled.div`
   flex-wrap: wrap;
   margin-top: 20px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-top: 0;
   }
 `;
@@ -99,7 +99,7 @@ export const InfoCrew = styled.div`
   width: calc(25% - 10px);
   min-width: 120px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-top: 20px;
   }
   
@@ -117,7 +117,7 @@ export const HeaderInfoVoteActions = styled.div`
   ${DisplayFlex({alignItems: 'flex-end', justifyContent: 'space-between'})};
   margin-top: 20px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     flex-direction: column;
     align-items: center;
   }
@@ -143,7 +143,7 @@ export const HeaderInfoVoteActions = styled.div`
 export const HeaderInfoVoteActionsLeft = styled.div`
   ${DisplayFlex({alignItems: 'flex-start'})};
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-bottom: 20px;
   }
 
@@ -174,7 +174,7 @@ export const HeaderCover = styled.div`
     border-radius: 5px;
   }
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     margin-bottom: 40px;
     width: 240px;
   }
@@ -186,7 +186,7 @@ export const VideoAndInfoSection = styled.div`
   ${DisplayFlex({alignItems: 'start'})};
   margin-top: 40px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     flex-direction: column;
   }
 `;
@@ -195,8 +195,8 @@ export const VideoSection = styled.div`
   border-radius: 20px;
   overflow: hidden;
 
-  @media ${theme.device.tablet} {
-    width: 100%;;
+  @media ${theme.device.mobileL} {
+    width: 100%;
   }
 `;
 
@@ -209,7 +209,7 @@ export const BackdropSection = styled.div`
   background-size: cover;
   border-radius: 20px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     width: 100%;;
   }
 `;
@@ -221,7 +221,7 @@ export const InfoSection = styled.div`
   padding: 20px;
   margin-left: 20px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     width: 100%;;
     margin-left: 0;
     margin-top: 20px;
@@ -230,7 +230,7 @@ export const InfoSection = styled.div`
 `;
 
 export const InfoSectionWrapperElement = styled.div`
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
     display: flex;
     flex-wrap: wrap;
   }
@@ -239,10 +239,74 @@ export const InfoSectionWrapperElement = styled.div`
 export const InfoSectionElement = styled.div`
   margin-top: 20px;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileL} {
 
     &:not(:last-child) {
       margin-right: 20px;
     }
   }
 `;
+
+export const MediaSection = styled.div`
+  margin-top: 40px;
+  ${DisplayFlex({alignItems: 'flex-start'})};
+`;
+export const MediaSectionGallery = styled.div`
+  width: 65%;
+`;
+export const MediaSectionGalleryHeader = styled.div`
+  ${DisplayFlex({alignItems: 'center', justifyContent: 'space-between'})};
+  margin-right: 20px;
+`;
+export const MediaSectionGalleryImages = styled.div`
+  ${DisplayFlex({alignItems: 'flex-start'})};
+  margin-top: 20px;
+  flex-wrap: wrap;
+  .gallery-images-image {
+    margin-bottom: 20px;
+    width: calc(100% / 3 - 20px);
+    img {
+      border-radius: 20px;
+    }
+
+    &:nth-child(1), &:nth-child(2) {
+      width: calc(50% - 20px);
+    }
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+`;
+
+export const MediaSectionImage = styled.div`
+  cursor: pointer;
+  background-image: ${props => `url(${props.srcImages})`};
+  height: 125px;
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  border-radius: 20px;
+  margin-bottom: 20px;
+    width: calc(100% / 3 - 20px);
+    img {
+      border-radius: 20px;
+    }
+
+    &:nth-child(1), &:nth-child(2) {
+      width: calc(50% - 20px);
+      height: 194px;
+    }
+
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+`;
+
+export const MediaSectionInfo = styled.div`
+  width: 35%;
+`;
+export const MediaSectionInfoKeywords = styled.div``;
+export const MediaSectionInfoExternal = styled.div``;
+export const MediaSectionInfoExternalLeft = styled.div``;
+export const MediaSectionInfoExternalRight = styled.div``;

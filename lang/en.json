@@ -5,6 +5,7 @@
   "goToDiscoverNewFilm": "Discover new Films",
   "goToDiscoverNewTvSeries": "Discover new Tv-series",
   "goToAllCast": "Go to all cast",
+  "goToAllMediaProduct": "Go to all media",
 
   "pageTitleSearchResults": "Search results",
 
@@ -49,5 +50,6 @@
   "infoSectionElementOriginalTitle": "Original title",
   "infoSectionElementStatus": "Status",
   "infoSectionElementBudget": "Budget",
-  "infoSectionElementRevenue": "Revenue"
+  "infoSectionElementRevenue": "Revenue",
+  "mediaSectionGalleryHeader": "Media"
 }

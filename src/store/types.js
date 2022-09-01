@@ -1,6 +1,9 @@
 export const GET_USERS_LIST = 'GET_USERS_LIST';
 export const USERS_ERROR = 'USERS_ERROR';
 
+// App
+export const SET_FULLSCREEN_PANEL = 'SET_FULLSCREEN_PANEL';
+
 // User
 export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const SET_TRANSLATE = 'SET_TRANSLATE';

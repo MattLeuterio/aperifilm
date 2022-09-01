@@ -5,6 +5,8 @@ import Card from "./Card";
 import RowCard from "./RowCard";
 import ActionsProductButton from "./ActionsProductButton";
 import WelcomeBanner from "./WelcomeBanner";
+import FullScreenPanel from "./FullScreenPanel";
+import SliderFullScreen from "./Sliders/SliderFullScreen";
 
 export {
   GlobalLayout,
@@ -13,5 +15,7 @@ export {
   Card,
   RowCard,
   ActionsProductButton,
-  WelcomeBanner
+  WelcomeBanner,
+  FullScreenPanel,
+  SliderFullScreen
 }

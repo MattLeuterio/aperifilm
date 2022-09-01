@@ -1,19 +1,21 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
-import { useSelector } from "react-redux";
-import { BackdropSection, CastSection, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoPeople, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, ProductDetailsContainer, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
+import { useDispatch, useSelector } from "react-redux";
+import { BackdropSection, CastSection, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalRight, MediaSectionInfoKeywords, ProductDetailsContainer, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
 import { useEffect, useState } from "react";
-import { RowCard, WelcomeBanner } from "../../src/components";
+import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
-import { ActionButtons, Badge, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
+import { ActionButtons, Badge, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import { useRouter } from "next/router";
 import { formatDate, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, ShareIcon } from "@heroicons/react/solid";
+import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
 import theme from "../../src/theme";
 import { DateTime } from "luxon";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
+import { setFullscreenPanel } from "../../src/store/actions/appAction";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -41,11 +43,15 @@ export async function getServerSideProps(context) {
 
 export default function ProductDetails({movieDetails, productTypeContext, query}) {
   const router = useRouter();
+  const dispatch = useDispatch();
+  
   const { slug, id: pid } = router.query
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [movieDetailsState, setMovieDetailsState] = useState({});
   const [movieCredits, setMovieCredits] = useState([]);
   const [movieVideo, setMovieVideo] = useState([]);
+  const [movieImages, setMovieImages] = useState([]);
+  const [fullScreenIsOpen, setFullScreenIsOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
@@ -72,17 +78,31 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         ).then(res => res.json());
       
       if (userLanguageState === 'it' && video?.results?.length === 0) {
-      console.log('here')
       video = await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/videos?api_key=${tmdbApiKey}&language=en-EN`
         ).then(res => res.json());
       }
-  
+
+      const images = await fetch(
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/images?api_key=${tmdbApiKey}`
+        ).then(res => res.json());
+        
       setMovieDetailsState(details);
       setMovieCredits(credits);
-      setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer'));
+      setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer').slice(0, 1));
+      setMovieImages(setProductImages(images));
     }
   };
+
+  const setProductImages = (images) => {
+    let res = [];
+    console.log('images', images)
+    const backdrops = images?.backdrops;
+    const posters = images?.posters;
+
+    res = [...images?.backdrops, ...images?.posters]
+    return {...images, all: res};
+  }
 
   useEffect(() => {
     getDetailsProduct();
@@ -91,6 +111,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   console.log('DETAILS: ', movieDetailsState);
   console.log('VIDEO: ', movieVideo);
   console.log('CREDITS: ', movieCredits);
+  console.log('IMAGES: ', movieImages);
 
   const searchPeopleRoleCrew = (list, role) => {
 
@@ -104,6 +125,11 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     
     return list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
   }
+
+  const handleOnClickImage = (index, isOpen) => {
+    dispatch(setFullscreenPanel({isOpen, selected: index}));
+  }
+
   return (
     <ProductDetailsContainer>
       <Head>
@@ -313,6 +339,56 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           </InfoSectionWrapperElement>
         </InfoSection>
       </VideoAndInfoSection>
+
+      <MediaSection>
+        <MediaSectionGallery>
+          <MediaSectionGalleryHeader>
+            <Montserrat type="productDetailsSectionTitle">
+              <FormattedMessage defaultMessage={"mediaSectionGalleryHeader"} id={"mediaSectionGalleryHeader"} />{" "}
+              <Montserrat 
+                htmlAttribute="span" type="productDetailsSectionTitle" configuration={{fontWeight: 400}}
+              >
+                ({movieImages?.backdrops?.length + movieImages?.posters?.length})
+              </Montserrat>
+            </Montserrat>
+            <GoTo text="goToAllMediaProduct" handleOnClick={() => onClose()} url="/media">
+							<Icon 
+								stroke={theme.colors.mainBrandColors.dark}
+
+								width="18px"
+								height="17px"
+							>
+								<ArrowNarrowRightIcon />
+							</Icon>
+						</GoTo>
+          </MediaSectionGalleryHeader>
+          <MediaSectionGalleryImages>
+            {movieImages?.all?.slice(0, 5).map((image, index) => (
+              <MediaSectionImage
+                onClick={() => handleOnClickImage(index, true)}
+                name={`${movieDetails?.title} image ${index}`}
+                srcImages={`https://image.tmdb.org/t/p/original/${image?.file_path}`}
+              ></MediaSectionImage>
+            ))}
+          </MediaSectionGalleryImages>
+        </MediaSectionGallery>
+        <MediaSectionInfo>
+          <MediaSectionInfoKeywords>
+
+          </MediaSectionInfoKeywords>
+          <MediaSectionInfoExternal>
+            <MediaSectionInfoExternalLeft>
+              
+            </MediaSectionInfoExternalLeft>
+            <MediaSectionInfoExternalRight>
+
+            </MediaSectionInfoExternalRight>
+          </MediaSectionInfoExternal>
+
+        </MediaSectionInfo>
+      </MediaSection>
+        
+      <FullScreenPanel list={movieImages?.all} />
     </ProductDetailsContainer>
   );
 }
