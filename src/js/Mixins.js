@@ -12,3 +12,10 @@ export const DisplayFlex = ({ alignItems, justifyContent}) => css`
   align-items: ${alignItems};
   justify-content: ${justifyContent};
 `;
+
+export const BackgroundImage = ({ url, position, size}) => css`
+  background-image: url(${url});
+  background-position: ${position};
+  background-size: ${size};
+  background-repeat: no-repeat;
+`;

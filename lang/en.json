@@ -6,6 +6,7 @@
   "goToDiscoverNewTvSeries": "Discover new Tv-series",
   "goToAllCast": "Go to all cast",
   "goToAllMediaProduct": "Go to all media",
+  "goToRecommendations": "Go to all recommendations",
 
   "pageTitleSearchResults": "Search results",
 
@@ -36,6 +37,7 @@
   "sectionTitlePopularPeople": "Popular people",
   "sectionTitlePopularTvSeries": "Popular Tv-series",
   "sectionTitleCast": "Cast",
+  "sectionTitleRecommendations": "Recommendations",
 
   "elementMinutes": "minutes",
 
@@ -51,5 +53,14 @@
   "infoSectionElementStatus": "Status",
   "infoSectionElementBudget": "Budget",
   "infoSectionElementRevenue": "Revenue",
-  "mediaSectionGalleryHeader": "Media"
+  "mediaSectionGalleryHeader": "Media",
+  "mediaSectionInfoKeywords": "Keywords",
+  "mediaSectionInfoHowToWatch": "Watch",
+  "mediaSectionInfoLink": "Link",
+  "mediaSectionInfoExternalWatchStreaming": "Streaming",
+  "mediaSectionInfoExternalWatchRent": "Rent",
+  "mediaSectionInfoExternalWatchBuy": "Buy",
+  "collectionInfoTitle": "Collection",
+  "collectionInfoAction": "Complete collection",
+  "recommendationTitle": "Recommendations"
 }

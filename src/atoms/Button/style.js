@@ -15,6 +15,14 @@ export const ButtonContainer = styled.div`
     ? theme.colors.element.light
     : theme.colors.element.dark
   };
+  transition: all .3s ease-in-out;
+
+  &:hover {
+    background-color: ${props => props.active 
+    ? theme.colors.mainBrandColors.dark
+    : theme.colors.component.light
+  };
+  }
   
   ${props => {
     switch (props.size) {

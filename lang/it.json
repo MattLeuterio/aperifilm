@@ -6,6 +6,7 @@
   "goToDiscoverNewTvSeries": "Scopri nuove Serie Tv",
   "goToAllCast": "Vai al cast completo",
   "goToAllMediaProduct": "Guarda tutti i media",
+  "goToRecommendations": "Scopri tutti i correlati",
 
   "pageTitleSearchResults": "Risultati ricerca",
 
@@ -36,6 +37,7 @@
   "sectionTitlePopularPeople": "Persone popolari",
   "sectionTitlePopularTvSeries": "Serie Tv popolari",
   "sectionTitleCast": "Cast",
+  "sectionTitleRecommendations": "Correlati",
 
   "elementMinutes": "minuti",
 
@@ -51,5 +53,13 @@
   "infoSectionElementStatus": "Stato",
   "infoSectionElementBudget": "Budget",
   "infoSectionElementRevenue": "Incasso",
-  "mediaSectionGalleryHeader": "Media"
+  "mediaSectionGalleryHeader": "Media",
+  "mediaSectionInfoKeywords": "Parole Chiave",
+  "mediaSectionInfoHowToWatch": "Dove vederlo",
+  "mediaSectionInfoLink": "Link",
+  "mediaSectionInfoExternalWatchStreaming": "Streaming",
+  "mediaSectionInfoExternalWatchRent": "In affitto",
+  "mediaSectionInfoExternalWatchBuy": "In vendita",
+  "collectionInfoTitle": "Collezione",
+  "collectionInfoAction": "Collezione completa"
 }

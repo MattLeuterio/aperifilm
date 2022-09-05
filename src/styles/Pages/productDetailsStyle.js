@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { sidebarWidthDSK } from '../../../const';
-import { DisplayFlex } from '../../js/Mixins';
+import { DisplayFlex, LineClamp } from '../../js/Mixins';
 import theme from '../../theme';
 
 export const ProductDetailsContainer = styled.div`
@@ -86,7 +86,7 @@ export const HeaderInfoSummary = styled.div`
 `;
 
 export const HeaderInfoCrew = styled.div`
-  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})};
+  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'flex-start'})};
   flex-wrap: wrap;
   margin-top: 20px;
 
@@ -250,9 +250,17 @@ export const InfoSectionElement = styled.div`
 export const MediaSection = styled.div`
   margin-top: 40px;
   ${DisplayFlex({alignItems: 'flex-start'})};
+
+  @media ${theme.device.mobileL} {
+    flex-direction: column;
+  }
 `;
 export const MediaSectionGallery = styled.div`
   width: 65%;
+
+  @media ${theme.device.mobileL} {
+    width: 100%;
+  }
 `;
 export const MediaSectionGalleryHeader = styled.div`
   ${DisplayFlex({alignItems: 'center', justifyContent: 'space-between'})};
@@ -301,12 +309,170 @@ export const MediaSectionImage = styled.div`
     &:not(:last-child) {
       margin-right: 20px;
     }
+    
+
+    @media ${theme.device.mobileM} {
+      &:first-child {
+        width: 100%;
+      }
+
+      &:nth-child(2) {
+        height: 125px;
+      }
+
+      width: calc(50% - 20px);
+    }
 `;
 
 export const MediaSectionInfo = styled.div`
   width: 35%;
+  margin-top: 50px;
+
+  @media ${theme.device.mobileL} {
+    width: 100%;
+  }
 `;
+
+export const MediaSectionInfoTitle = styled.div`
+  ${DisplayFlex({alignItems: 'center'})};
+  margin-bottom: 10px;
+
+  .icon-media-info-title {
+    margin-right: 5px;
+  }
+`;
+
 export const MediaSectionInfoKeywords = styled.div``;
-export const MediaSectionInfoExternal = styled.div``;
-export const MediaSectionInfoExternalLeft = styled.div``;
-export const MediaSectionInfoExternalRight = styled.div``;
+export const MediaSectionInfoKeywordsList = styled.div`
+  ${DisplayFlex({alignItems: 'flex-start'})};
+  flex-wrap: wrap;
+`;
+export const Keyword = styled.div`
+  cursor: pointer;
+  border: 1px solid ${theme.colors.element.light};
+  padding: 2px 4px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: ${theme.colors.mainBrandColors.dark};
+    border: 1px solid ${theme.colors.mainBrandColors.dark};
+  } 
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+`;
+export const MediaSectionInfoExternal = styled.div`
+  ${DisplayFlex({alignItems: 'flex-start'})};
+  margin-top: 20px;
+  @media ${theme.device.mobileL} {
+    flex-direction: column;
+  }
+`;
+export const MediaSectionInfoExternalLeft = styled.div`
+  width: calc(65% - 10px);
+  @media ${theme.device.mobileL} {
+    width: 100%;
+  }
+`;
+export const MediaSectionInfoExternalRight = styled.div`
+  width: calc(35% - 10px);
+  @media ${theme.device.mobileL} {
+    width: 100%;
+    margin-top: 30px;
+  }
+`;
+
+export const MediaSectionInfoExternalToWatch = styled.div`
+  .title-media-section-info-external {
+    text-transform: uppercase;
+    margin-top: 10px;
+  }
+`;
+
+export const MediaSectionInfoExternalList = styled.div`
+  ${DisplayFlex({alignItems: 'flex-start'})};
+  flex-wrap: wrap;
+`;
+
+export const ExternalElm = styled.div`
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  background-image: ${props => `url(https://image.tmdb.org/t/p/original${props.imageUrl})`};
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-top: 5px;
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+`;
+
+export const LinkSocialWrapper = styled.div`
+  ${DisplayFlex({alignItems: 'center'})};
+`;
+export const LinkSocial = styled.a`
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
+`;
+
+export const CollectionSection = styled.div`
+  margin-top: 40px;
+  margin-bottom: 90px;
+  width: 100%;
+  height: 170px;
+  padding: 25px 40px;
+  background: ${props => `linear-gradient(113.38deg, rgba(57, 55, 77, 0.8) -0.12%, rgba(21, 21, 21, 0.8) 107.47%), url(https://image.tmdb.org/t/p/original${props.imageBg})`};
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 16px;
+  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})};
+`;
+export const CollectionInfo = styled.div`
+  width: fit-content;
+  height: 100%;
+  max-width: 45%;
+  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})}
+  flex-direction: column;
+`;
+export const CollectionInfoTop = styled.div`
+  .collection-title {
+    margin-top: 5px;
+    ${LineClamp({numLines: 2})};
+  }
+`;
+export const CollectionInfoBottom = styled.div`
+  .collection-action-btn {
+    width: fit-content;
+    padding: 12px 16px;
+  }
+`;
+export const CollectionList = styled.div`
+  ${DisplayFlex({alignItems: 'center'})};
+`;
+
+export const CollectionPart = styled.div`
+  cursor: pointer;
+  width: 129px;
+  height: 194px;
+  border-radius: 5px;
+  background-image: ${props => `url(https://image.tmdb.org/t/p/original${props.imgPoster})`};
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  &:hover {
+    outline: 2px solid ${theme.colors.mainBrandColors.light};
+  }
+
+  &:not(:last-child) {
+    margin-right: 25px;
+  }
+`;
+
+export const RecommendationsSection = styled.div`
+`;

@@ -12,13 +12,21 @@ import Montserrat from '../../typography/montserrat';
 import theme from '../../theme';
 import { FormattedMessage } from 'react-intl';
 
-const RowCard = ({ listProducts, type, title, productType, goToText }) => {
+const RowCard = ({ listProducts, type, title, productType, goToText, totalList }) => {
 	const isTablet = useMediaQuery(769);
 	return (
 		<Row>
 			{type !== 'discover' && (
 				<RowHeader>
-					<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage={title} id={title} /></Montserrat>
+					<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}>
+						<FormattedMessage defaultMessage={title} id={title} />
+						{" "}
+						{totalList > 0 && (
+							<Montserrat htmlAttribute="span" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 400, lineHeight: "17.07px", color: theme.colors.element.light}}>
+								({totalList})
+							</Montserrat>
+						)}
+					</Montserrat>
 
 					{!isTablet && (
 						<GoTo text={goToText} handleOnClick={() => onClose()} url="/search-results">
@@ -61,7 +69,8 @@ RowCards.TYPE = {
 }
 
 RowCard.defaultProps = {
-	listProducts: []
+	listProducts: [],
+	totalList: 0
 }
 
 export default RowCard;

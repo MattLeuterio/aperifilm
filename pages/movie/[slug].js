@@ -1,21 +1,24 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { BackdropSection, CastSection, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalRight, MediaSectionInfoKeywords, ProductDetailsContainer, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
+import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
 import { useEffect, useState } from "react";
 import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
-import { ActionButtons, Badge, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
-import { useRouter } from "next/router";
+import { ActionButtons, Badge, Button, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
+import Router, { useRouter } from "next/router";
 import { formatDate, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
-import { CalendarIcon, ClockIcon, ShareIcon } from "@heroicons/react/solid";
+import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
 import theme from "../../src/theme";
 import { DateTime } from "luxon";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
 import { setFullscreenPanel } from "../../src/store/actions/appAction";
+import FacebookIcon from "../../src/assets/icons/logo-facebook.png";
+import InstagramIcon from "../../src/assets/icons/logo-instagram.png";
+import TwitterIcon from "../../src/assets/icons/logo-twitter.png";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -51,6 +54,12 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const [movieCredits, setMovieCredits] = useState([]);
   const [movieVideo, setMovieVideo] = useState([]);
   const [movieImages, setMovieImages] = useState([]);
+  const [movieKeywords, setMovieKeywords] = useState([]);
+  const [movieWatchProviders, setMovieWatchProviders] = useState([]);
+  const [movieExternalIds, setMovieExternalIds] = useState([]);
+  const [socialLinks, setSocialLinks] = useState([]);
+  const [movieCollection, setMovieCollection] = useState([]);
+  const [movieRecommendation, setMovieRecommendation] = useState([]);
   const [fullScreenIsOpen, setFullScreenIsOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const user = useSelector((state) => state.userData);
@@ -63,6 +72,10 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   }, [movieDetails]);
 
   const getDetailsProduct = async () => {
+
+    // TODO: delete
+   //query.id = '616037' 
+
     // setIsLoaded(false);
     if (userLanguageState && movieDetails) {
       const details = await fetch(
@@ -86,13 +99,48 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       const images = await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/images?api_key=${tmdbApiKey}`
         ).then(res => res.json());
+
+      const keywords = await fetch(
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/keywords?api_key=${tmdbApiKey}`
+        ).then(res => res.json());
+
+      const externalIds = await fetch(
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/external_ids?api_key=${tmdbApiKey}`
+        ).then(res => res.json());
+
+      let watchProviders = {};
+      await fetch(
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/watch/providers?api_key=${tmdbApiKey}`
+        ).then(res => res.json()).then(res => {
+          Object?.entries(res?.results).map(el => {
+            if (el[0].toLowerCase() === (userLanguageState === 'en' ? 'us' : userLanguageState.toLowerCase())) {
+              watchProviders = el[1]
+            }
+          })
+        });
+
+      const recommendations = await fetch(
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/recommendations?api_key=${tmdbApiKey}`
+        ).then(res => res.json());
         
       setMovieDetailsState(details);
       setMovieCredits(credits);
       setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer').slice(0, 1));
       setMovieImages(setProductImages(images));
+      setMovieKeywords(keywords.keywords);
+      setMovieWatchProviders(watchProviders);
+      setMovieExternalIds(externalIds);
+      setMovieRecommendation(recommendations);
     }
   };
+
+  const getCollection = async (id) => {
+    const collection = await fetch(
+      `https://api.themoviedb.org/3/collection/${id}?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}`
+      ).then(res => res.json());
+
+    setMovieCollection(collection);
+  }
 
   const setProductImages = (images) => {
     let res = [];
@@ -108,10 +156,35 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     getDetailsProduct();
   }, [userLanguageState, movieDetails]);
 
-  console.log('DETAILS: ', movieDetailsState);
-  console.log('VIDEO: ', movieVideo);
-  console.log('CREDITS: ', movieCredits);
-  console.log('IMAGES: ', movieImages);
+  useEffect(() => {
+    if (movieDetailsState?.belongs_to_collection) {
+      getCollection(movieDetailsState?.belongs_to_collection?.id);
+    }
+  }, [userLanguageState, movieDetailsState]);
+
+  useEffect(() => {
+    const result = Object.entries(movieExternalIds).reduce(
+      (acc, [key, val]) => {
+      return [
+        ...acc,
+        {
+          social_id: val,
+          title: key,
+          icon: key === "facebook_id" ? FacebookIcon.src : key === "twitter_id" ? TwitterIcon.src : key === "instagram_id" ? InstagramIcon.src : '',
+          url: key === "facebook_id" 
+          ? `https://www.facebook.com/${val}` 
+            : key === "twitter_id" 
+          ? `https://www.twitter.com/${val}`  
+            : key === "instagram_id" 
+          ? `https://www.instagram.com/${val}`
+            : ''
+        }
+      ]
+    }, []);
+
+
+    setSocialLinks(result.filter(el => el?.url?.length > 0).filter( el => Boolean(el?.social_id)));
+  }, [movieExternalIds])
 
   const searchPeopleRoleCrew = (list, role) => {
 
@@ -129,6 +202,16 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const handleOnClickImage = (index, isOpen) => {
     dispatch(setFullscreenPanel({isOpen, selected: index}));
   }
+
+  console.log('DETAILS: ', movieDetailsState);
+  console.log('VIDEO: ', movieVideo);
+  console.log('CREDITS: ', movieCredits);
+  console.log('IMAGES: ', movieImages);
+  console.log('KEYWORDS: ', movieKeywords);
+  console.log('WATCH PROVIDERS: ', movieWatchProviders);
+  console.log('SOCIAL LINKS: ', socialLinks);
+  console.log('COLLECTION: ', movieCollection);
+  console.log('RECOMMENDATIONS: ', movieRecommendation);
 
   return (
     <ProductDetailsContainer>
@@ -310,7 +393,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           <BackdropSection url={movieDetailsState?.backdrop_path}></BackdropSection>
         )}
         <InfoSection>
-          <Montserrat type="productDetailsSectionTitle">Info</Montserrat>
+          <Montserrat type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>Info</Montserrat>
           <InfoSectionWrapperElement>
             <InfoSectionElement>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
@@ -343,10 +426,10 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       <MediaSection>
         <MediaSectionGallery>
           <MediaSectionGalleryHeader>
-            <Montserrat type="productDetailsSectionTitle">
+            <Montserrat type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>
               <FormattedMessage defaultMessage={"mediaSectionGalleryHeader"} id={"mediaSectionGalleryHeader"} />{" "}
               <Montserrat 
-                htmlAttribute="span" type="productDetailsSectionTitle" configuration={{fontWeight: 400}}
+                htmlAttribute="span" type="productDetailsSectionTitle" configuration={{fontWeight: 400, fontSize: isTablet ? 20 : 24}}
               >
                 ({movieImages?.backdrops?.length + movieImages?.posters?.length})
               </Montserrat>
@@ -354,7 +437,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             <GoTo text="goToAllMediaProduct" handleOnClick={() => onClose()} url="/media">
 							<Icon 
 								stroke={theme.colors.mainBrandColors.dark}
-
 								width="18px"
 								height="17px"
 							>
@@ -374,19 +456,188 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         </MediaSectionGallery>
         <MediaSectionInfo>
           <MediaSectionInfoKeywords>
-
+              <MediaSectionInfoTitle>
+                <Icon
+                  className="icon-media-info-title"
+                  fill={theme.colors.element.dark}
+                  strokeWidth={0}
+                  width="20px"
+                  height="20px"
+                >
+                  <HashtagIcon />
+                </Icon>
+                <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoKeywords"} id={"mediaSectionInfoKeywords"} /></Montserrat>
+              </MediaSectionInfoTitle>
+              <MediaSectionInfoKeywordsList>
+                {movieKeywords.slice(0, 10).map(kw => (
+                  <Keyword
+                    onClick={() => Router.push(`/keyword/${textToPath(kw?.name)}?id=${kw?.id}`)}
+                  >
+                    {kw?.name}
+                  </Keyword>
+                ))}
+              </MediaSectionInfoKeywordsList>
           </MediaSectionInfoKeywords>
           <MediaSectionInfoExternal>
-            <MediaSectionInfoExternalLeft>
-              
-            </MediaSectionInfoExternalLeft>
-            <MediaSectionInfoExternalRight>
+            {Object.entries(movieWatchProviders).length > 0 && (
+              <MediaSectionInfoExternalLeft>
+                <MediaSectionInfoTitle>
+                  <Icon
+                    className="icon-media-info-title"
+                    fill={theme.colors.element.dark}
+                    strokeWidth={0}
+                    width="20px"
+                    height="20px"
+                  >
+                    <DesktopComputerIcon />
+                  </Icon>
+                  <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoHowToWatch"} id={"mediaSectionInfoHowToWatch"} /></Montserrat>
+                </MediaSectionInfoTitle>
+                <MediaSectionInfoExternalToWatch>
+                  {/* Streaming */}
+                  {movieWatchProviders?.flatrate?.length > 0 && (
+                    <>
+                      <Montserrat className="title-media-section-info-external" type="small" configuration={{fontWeight: 600, lineHeight: '13px', letterSpacing: '3px'}}>
+                        <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchStreaming"} id={"mediaSectionInfoExternalWatchStreaming"} />
+                      </Montserrat>
+                      <MediaSectionInfoExternalList>
+                        {movieWatchProviders?.flatrate?.map(el => (
+                          <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                        ))}
+                      </MediaSectionInfoExternalList>
+                    </>
+                  )}
 
-            </MediaSectionInfoExternalRight>
+                  {/* Rent */}
+                  {movieWatchProviders?.rent?.length > 0 && (
+                    <>
+                      <Montserrat className="title-media-section-info-external" type="small" configuration={{fontWeight: 600, lineHeight: '13px', letterSpacing: '3px'}}>
+                        <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchRent"} id={"mediaSectionInfoExternalWatchRent"} />
+                      </Montserrat>
+                      <MediaSectionInfoExternalList>
+                        {movieWatchProviders?.rent?.map(el => (
+                          <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                        ))}
+                      </MediaSectionInfoExternalList>
+                    </>
+                  )}
+
+                  {/* Buy */}
+                  {movieWatchProviders?.buy?.length > 0 && (
+                    <>
+                      <Montserrat className="title-media-section-info-external" type="small" configuration={{fontWeight: 600, lineHeight: '13px', letterSpacing: '3px'}}>
+                        <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchBuy"} id={"mediaSectionInfoExternalWatchBuy"} />
+                      </Montserrat>
+                      <MediaSectionInfoExternalList>
+                        {movieWatchProviders?.buy?.map(el => (
+                          <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                        ))}
+                      </MediaSectionInfoExternalList>
+                    </>
+                  )}
+                </MediaSectionInfoExternalToWatch>
+              </MediaSectionInfoExternalLeft>
+            )}
+            {socialLinks?.length > 0 && (
+              <MediaSectionInfoExternalRight>
+                <MediaSectionInfoTitle>
+                  <Icon
+                    className="icon-media-info-title"
+                    fill={theme.colors.element.dark}
+                    strokeWidth={0}
+                    width="20px"
+                    height="20px"
+                  >
+                    <LinkIcon />
+                  </Icon>
+                  <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoLink"} id={"mediaSectionInfoLink"} /></Montserrat>
+                </MediaSectionInfoTitle>
+                <LinkSocialWrapper>
+                  {socialLinks.map((link) => {
+                    if (link?.url?.length > 0 && link?.social_id) {
+                      return (
+                        <LinkSocial href={link?.url} alt={link?.title} target="_blank">
+                          <Icon
+                            className="icon"
+                            stroke="transparent"
+                            fill={theme.colors.element.dark}
+                            width="24px"
+                            height="24px"
+                          >
+                            <Image 
+                              className="icon"
+                              src={link?.icon} 
+                              width="24px !important"
+                              height="24px !important"
+                              layout="fixed" 
+                            />
+                          </Icon>
+                        </LinkSocial>
+                      )
+                    }
+                  })}
+                </LinkSocialWrapper>
+              </MediaSectionInfoExternalRight>
+            )}
           </MediaSectionInfoExternal>
 
         </MediaSectionInfo>
       </MediaSection>
+
+      {Object.entries(movieCollection)?.length > 0 && (
+        <CollectionSection imageBg={movieCollection?.backdrop_path}>
+          <CollectionInfo>
+            <CollectionInfoTop>
+              <Montserrat type="h3" configuration={{fontWeight: 600}}>
+                <FormattedMessage defaultMessage={"collectionInfoTitle"} id={"collectionInfoTitle"} />{" "}
+              </Montserrat>
+              <Montserrat className="collection-title" configuration={{fontSize: isTablet ? 20 : 24}}>
+                {`${movieCollection?.name} (${movieCollection?.parts?.length})`}
+              </Montserrat>
+            </CollectionInfoTop>     
+            <CollectionInfoBottom>
+              <Button
+                className="collection-action-btn"
+                handleOnClick={() => router.push(`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`)}
+                active
+                url={`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`}
+                text="collectionInfoAction"
+              >
+                <Icon
+                  width="17px"
+                  height="17px"
+                  fill={theme.colors.element.light}
+                  stroke="transparent"
+                >
+                  <EyeIcon />
+                </Icon>
+              </Button>
+            </CollectionInfoBottom>   
+          </CollectionInfo>
+          <CollectionList>
+            {movieCollection?.parts?.slice(0, 3).map(movie => (
+              <CollectionPart 
+                imgPoster={movie?.poster_path}
+                onClick={() => router.push(`/movie/${textToPath(movie?.title)}/?id=${movie?.id}`)}
+              >
+              </CollectionPart>
+            ))}
+          </CollectionList>
+        </CollectionSection>
+      )}
+
+      {movieRecommendation?.total_results > 0 && (
+        <RecommendationsSection>
+          <RowCard 
+            listProducts={movieRecommendation?.results.slice(0, 4)}
+            type="default"
+            title="sectionTitleRecommendations"
+            productType="productTypeFilm"
+            goToText="goToRecommendations"
+            totalList={movieRecommendation?.total_results}
+          />
+        </RecommendationsSection>
+      )}
         
       <FullScreenPanel list={movieImages?.all} />
     </ProductDetailsContainer>
