@@ -45,6 +45,7 @@
   "roleScreenplayStory": "Sceneggiatura",
   "roleDirPhotography": "Direttore della Fotografia",
   "roleEditor": "Montaggio video",
+  "roleCreatedBy": "Created by",
 
   "averageVote": "Voto medio",
   "yourVote": "Il tuo voto",
@@ -53,6 +54,7 @@
   "infoSectionElementStatus": "Stato",
   "infoSectionElementBudget": "Budget",
   "infoSectionElementRevenue": "Incasso",
+  "infoSectionElementType": "Tipo",
   "mediaSectionGalleryHeader": "Media",
   "mediaSectionInfoKeywords": "Parole Chiave",
   "mediaSectionInfoHowToWatch": "Dove vederlo",
@@ -61,5 +63,24 @@
   "mediaSectionInfoExternalWatchRent": "In affitto",
   "mediaSectionInfoExternalWatchBuy": "In vendita",
   "collectionInfoTitle": "Collezione",
-  "collectionInfoAction": "Collezione completa"
+  "collectionInfoAction": "Collezione completa",
+  "recommendationTitle": "Correlati",
+  "infoTvSeasonsTitle": "Stagioni:",
+  "infoTvEpisodesTitle": "Episodi:",
+  "infoTvLastSeasonTitle": "Last season",
+  "infoTvAllSeasonsActions": "All seasons",
+  "infoTvSeasonTitle": "Stagione",
+
+  "tvSeriesTypeDocumentary": "Documentario",
+  "tvSeriesTypeNews": "News",
+  "tvSeriesTypeMiniseries": "Mini serie",
+  "tvSeriesTypeReality": "Realtà",
+  "tvSeriesTypeScripted": "Sceneggiato",
+  "tvSeriesTypeTalkShow": "Talk Show",
+  "tvSeriesTypeVideo": "Video",
+  "tvSeriesStatusPilot": "Pilota",
+  "tvSeriesStatusInProduction": "In produzione",
+  "tvSeriesStatusReturningSeries": "In corso",
+  "tvSeriesStatusCancelled": "Cancellata",
+  "tvSeriesStatusEnded": "Completa"
 }

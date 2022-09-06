@@ -40,12 +40,14 @@ const Card = ({
 		}, [userLanguageState])
 
 		const handleOnClickCard = (e) => {
-			Router.push(`/${pTypeConverter(productType)}/${textToPath(product?.title)}?id=${product?.id}`);
+			Router.push(`/${pTypeConverter(productType)}/${textToPath(product?.title || product?.name)}?id=${product?.id}`);
 		}
 
 		const handleOnClickCardPerson = (e) => {
 			Router.push(`/people/${textToPath(product?.name)}?id=${product?.id}`);
 		}
+
+		//console.log('PRODUCT: ', product);
 
 		switch(type) {
 			case Card.TYPE.DEFAULT:
@@ -69,7 +71,7 @@ const Card = ({
 							<Image 
 								className="main-image" 
 								src={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
-								alt={`${product?.title} image`} 
+								alt={`${product?.title || product?.name} image`} 
 								width="100%"
 								height="150px"
 								layout="fixed" 
@@ -84,7 +86,7 @@ const Card = ({
 
 						<Bottom>
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title}</Montserrat>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 							<StatisticsContainer type={type}>
 								<StatisticsRowCard views={product?.popularity} votes={product?.vote_count}/>
 							</StatisticsContainer>
@@ -102,8 +104,8 @@ const Card = ({
 						color={colorText}
 						backgroundColor={backgroundColor}
 						active={active}
-						title={product?.title}
-						titleProduct={product?.title}
+						title={product?.title || product?.name}
+						titleProduct={product?.title || product?.name}
 						summary={productDetails?.overview}
 						productType={productType}
 						genre={genre}
@@ -115,7 +117,7 @@ const Card = ({
 						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
 					>
 						<Top type={type}>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title}</Montserrat>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
 							<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
 
@@ -154,7 +156,7 @@ const Card = ({
 						color={colorText}
 						backgroundColor={backgroundColor}
 						active={active}
-						titleProduct={product?.title}
+						titleProduct={product?.title || product?.name}
 						summary={summary}
 						productType={productType}
 						genre={genre}
@@ -195,7 +197,7 @@ const Card = ({
 						color={colorText}
 						backgroundColor={backgroundColor}
 						active={active}
-						titleProduct={product?.title}
+						titleProduct={product?.title || product?.name}
 						summary={summary}
 						productType={productType}
 						genre={genre}
@@ -219,7 +221,7 @@ const Card = ({
 						<Right type={type}>
 							<Top type={type}>
 								<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-								<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>product?.title</Montserrat>
+								<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 								<StatisticsContainer type={type}>
 									<StatisticsRowCard views="20" votes="216"/>
 								</StatisticsContainer>

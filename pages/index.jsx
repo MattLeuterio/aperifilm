@@ -14,12 +14,16 @@ export async function getServerSideProps() {
     const discoverMovieList = await resDiscoverMovie.json();
 
     const resComingSoon = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT&region=IT');
-    const comingSoonMovieList = await resComingSoon.json()
+    const comingSoonMovieList = await resComingSoon.json();
+
+    const resDiscoverTv = await fetch('https://api.themoviedb.org/3/discover/tv?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
+    const discoverTvList = await resDiscoverTv.json();
     
     return {
       props: {
         discoverMovieList,
-        comingSoonMovieList
+        comingSoonMovieList,
+        discoverTvList
       },
     };
   } catch (err) {
@@ -32,10 +36,11 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({discoverMovieList, comingSoonMovieList}) {
+export default function Home({discoverMovieList, comingSoonMovieList, discoverTvList}) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [discoverMovieListState, setDiscoverMovieListState] = useState([]);
   const [comingSoonMovieListState, setComingSoonListState] = useState([]);
+  const [discoverTvListState, setDiscoverTvListState] = useState([]);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
 
@@ -44,11 +49,9 @@ export default function Home({discoverMovieList, comingSoonMovieList}) {
   const getComingSoonByRegion = async () => {
     // setIsLoaded(false);
     if (userLanguageState) {
-      console.log('query', `https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}&region=${userLanguageState.toUpperCase()}`)
       const coming = await fetch(
         `https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}&language=it-IT&region=${userLanguageState === 'it' ? 'IT' : 'US'}`
         ).then(res => res.json());
-        console.log('coming', coming)
       setComingSoonListState(coming?.results.slice(0, 4));
     }
   };
@@ -60,8 +63,10 @@ export default function Home({discoverMovieList, comingSoonMovieList}) {
   useEffect(() => {
     setDiscoverMovieListState(discoverMovieList?.results.slice(0, 2));
     setComingSoonListState(comingSoonMovieList?.results.slice(0, 4));
+    setDiscoverTvListState(discoverTvList?.results.slice(0, 2));
   }, [discoverMovieList, comingSoonMovieList])
 
+  console.log('DISCOVER TV: ', discoverTvList);
   return (
     <HomeContainer>
       <Head>
@@ -208,6 +213,12 @@ export default function Home({discoverMovieList, comingSoonMovieList}) {
       </Row> */}
 
       {/* DISCOVER SERIE TV */}
+      <RowCard 
+        listProducts={discoverTvListState}
+        type="discover"
+        productType="productTypeTvSeries"
+        goToText="goToDiscoverNewTvSeries"
+      />
       {/* <Row>
         <RowCards type="discover">
           <Card className="card" type="discover" />

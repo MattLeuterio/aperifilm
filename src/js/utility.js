@@ -21,9 +21,60 @@ export const parseContext = (context) => JSON.parse(JSON.stringify(context));
 
 export const formatDate = (date, locale) => DateTime.fromISO(date).setLocale(locale).toLocaleString();
 
-export const textToPath = (text) => text?.replaceAll('-', '').replaceAll(' ', '-').replaceAll('.', '').replaceAll(':', '').toLowerCase();
+export const textToPath = (text) => text?.replaceAll('-', '').replaceAll(' ', '-').replaceAll('.', '').replaceAll(':', '').replaceAll('--', '-').toLowerCase();
 
 export const genderPlaceholder = (gender) => {
   if (gender === 1) return PlaceholderPeopleFemale.src;
   return PlaceholderPeopleMale.src;
+}
+
+export const getTvSeriesType = (type) => {
+  switch (type) {
+    case "Documentary":
+      return 'tvSeriesTypeDocumentary'
+      break;
+    case "News":
+      return 'tvSeriesTypeNews'
+      break;
+    case "Reality":
+      return 'tvSeriesTypeDocumentary'
+      break;
+    case "Miniseries":
+      return 'tvSeriesTypeMiniseries'
+      break;
+    case "Scripted":
+      return 'tvSeriesTypeScripted'
+      break;
+    case "TalkShow":
+      return 'tvSeriesTypeTalkShow'
+      break;
+    case "Video":
+      return 'tvSeriesTypeVideo'
+      break;
+    
+    default:
+      return 'tvSeriesTypeVideo';
+  }
+}
+export const getTvSeriesStatus = (status) => {
+  switch (status) {
+    case "Pilot":
+      return 'tvSeriesStatusPilot'
+      break;
+    case "In Production":
+      return 'tvSeriesStatusInProduction'
+      break;
+    case "Returning Series":
+      return 'tvSeriesStatusReturningSeries'
+      break;
+    case "Cancelled":
+      return 'tvSeriesStatusCancelled'
+      break;
+    case "Ended":
+      return 'tvSeriesStatusEnded'
+      break;
+    
+    default:
+      return 'tvSeriesTypeVideo';
+  }
 }

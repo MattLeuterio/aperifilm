@@ -86,11 +86,12 @@ export const HeaderInfoSummary = styled.div`
 `;
 
 export const HeaderInfoCrew = styled.div`
-  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'flex-start'})};
+  ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})};
   flex-wrap: wrap;
   margin-top: 20px;
 
   @media ${theme.device.mobileL} {
+    flex-direction: column-reverse;
     margin-top: 0;
   }
 `;
@@ -434,20 +435,18 @@ export const CollectionSection = styled.div`
   ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})};
 
   @media ${theme.device.mobileL} {
-    height: 240px;
     flex-direction: column;
-    margin-bottom: 110px;
+    height: 340px;
   }
 
   @media ${theme.device.mobileM} {
-    height: 300px;
-    padding: 25px 20px;
+    height: 380px;
   }
 `;
 export const CollectionInfo = styled.div`
   width: fit-content;
   height: 100%;
-  max-width: 45%;
+  max-width: calc(30% - 20px);
   ${DisplayFlex({alignItems: 'flex-start', justifyContent: 'space-between'})}
   flex-direction: column;
 
@@ -455,7 +454,6 @@ export const CollectionInfo = styled.div`
     width: 100%;
     max-width: 100%;
     flex-direction: row;
-    align-items: flex-end;
   }
 
   @media ${theme.device.mobileM} {
@@ -475,17 +473,18 @@ export const CollectionInfoBottom = styled.div`
     padding: 12px 16px;
   }
 
-  @media ${theme.device.mobileL} {
+  @media ${theme.device.mobileM} {
     margin-top: 20px;
   }
 `;
 export const CollectionList = styled.div`
   ${DisplayFlex({alignItems: 'center'})};
+  width: calc(15%);
 
   @media ${theme.device.mobileL} {
-    justify-content: center;
+    margin-top: 20px;
     width: 100%;
-    margin-top: 30px;
+    justify-content: center;
   }
 `;
 
@@ -509,4 +508,34 @@ export const CollectionPart = styled.div`
 `;
 
 export const RecommendationsSection = styled.div`
+`;
+
+export const InfoSeasons = styled.div`
+  ${DisplayFlex({alignItems: 'flex-start'})};
+
+  .info-seasons-number {
+    margin-left: 5px;
+  }
+`;
+export const Seasons = styled.div`
+  ${DisplayFlex({alignItems: 'center'})};
+  margin-right: 10px;
+`;
+export const Episodes = styled.div`
+  ${DisplayFlex({alignItems: 'center', justifyContent: 'flex-start'})};
+`;
+
+export const CollectionOverview = styled.div`
+  width: 55%;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  text-align: justify;
+  margin-top: 30px;
+  ${LineClamp({numLines: 5})};
+
+  @media ${theme.device.mobileL} {
+    width: 100%;
+    min-height: 87px;
+  }
 `;

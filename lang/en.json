@@ -45,6 +45,7 @@
   "roleScreenplayStory": "Screenplay & Story",
   "roleDirPhotography": "Director of Photography",
   "roleEditor": "Editor",
+  "roleCreatedBy": "Created by",
 
   "averageVote": "Average Vote",
   "yourVote": "Your Vote",
@@ -53,6 +54,7 @@
   "infoSectionElementStatus": "Status",
   "infoSectionElementBudget": "Budget",
   "infoSectionElementRevenue": "Revenue",
+  "infoSectionElementType": "Type",
   "mediaSectionGalleryHeader": "Media",
   "mediaSectionInfoKeywords": "Keywords",
   "mediaSectionInfoHowToWatch": "Watch",
@@ -62,5 +64,23 @@
   "mediaSectionInfoExternalWatchBuy": "Buy",
   "collectionInfoTitle": "Collection",
   "collectionInfoAction": "Complete collection",
-  "recommendationTitle": "Recommendations"
+  "recommendationTitle": "Recommendations",
+  "infoTvSeasonsTitle": "Seasons:",
+  "infoTvEpisodesTitle": "Episodes:",
+  "infoTvLastSeasonTitle": "Last season",
+  "infoTvAllSeasonsActions": "All seasons",
+  "infoTvSeasonTitle": "Season",
+
+  "tvSeriesTypeDocumentary": "Documentary",
+  "tvSeriesTypeNews": "News",
+  "tvSeriesTypeMiniseries": "Miniseries",
+  "tvSeriesTypeReality": "Reality",
+  "tvSeriesTypeScripted": "Scripted",
+  "tvSeriesTypeTalkShow": "Talk Show",
+  "tvSeriesTypeVideo": "Video",
+  "tvSeriesStatusPilot": "Pilot",
+  "tvSeriesStatusInProduction": "In Production",
+  "tvSeriesStatusReturningSeries": "Returning Series",
+  "tvSeriesStatusCancelled": "Cancelled",
+  "tvSeriesStatusEnded": "Ended"
 }

@@ -1,13 +1,13 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
+import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionOverview, CollectionPart, CollectionSection, Episodes, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSeasons, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, Seasons, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsTvStyle";
 import { useEffect, useState } from "react";
 import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { formatDate, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { formatDate, getTvSeriesStatus, getTvSeriesType, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
@@ -66,7 +66,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const userLanguageState = useSelector((state) => state.userData.language);
 
   const isTablet = useMediaQuery(769);
-  const isMobile = !useMediaQuery(426);
 
   useEffect(() => {
     setMovieDetailsState(movieDetails);
@@ -121,14 +120,14 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         });
 
       const recommendations = await fetch(
-        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/recommendations?api_key=${tmdbApiKey}`
+        `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/similar?api_key=${tmdbApiKey}`
         ).then(res => res.json());
         
       setMovieDetailsState(details);
       setMovieCredits(credits);
       setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer').slice(0, 1));
       setMovieImages(setProductImages(images));
-      setMovieKeywords(keywords.keywords);
+      setMovieKeywords(keywords.results);
       setMovieWatchProviders(watchProviders);
       setMovieExternalIds(externalIds);
       setMovieRecommendation(recommendations);
@@ -229,7 +228,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
-      <TitlePage title={movieDetailsState?.title} hasBackButton />
+      <TitlePage title={movieDetailsState?.name} hasBackButton />
       
       <Header>
         <HeaderInfo>
@@ -253,7 +252,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 >
                   <CalendarIcon />
                 </Icon>
-                <Montserrat type="small">{formatDate(movieDetailsState?.release_date, userLanguageState)}</Montserrat>
+                <Montserrat type="small">{formatDate(movieDetailsState?.first_air_date, userLanguageState)}</Montserrat>
               </ReleaseDate>
               <Runtime>
                 <Icon
@@ -265,7 +264,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 >
                   <ClockIcon />
                 </Icon>
-                <Montserrat type="small">{movieDetailsState?.runtime}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
+                <Montserrat type="small">{movieDetailsState?.episode_run_time}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
               </Runtime>
             </HeaderInfoDatasRight>
           </HeaderInfoDatas>
@@ -273,12 +272,12 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             <Montserrat configuration={{lineHeight: '18px'}}>{movieDetailsState?.overview}</Montserrat>
           </HeaderInfoSummary>
           <HeaderInfoCrew>
-            {searchPeopleRoleCrew(movieCredits?.crew, 'director')?.length > 0 && (
+            {movieDetails?.created_by?.length > 0 && (
               <InfoCrew>
                 <Montserrat type="productDetailsInfoCrewTitle">
-                  <FormattedMessage defaultMessage={"roleDirector"} id={"roleDirector"} />
+                  <FormattedMessage defaultMessage={"roleCreatedBy"} id={"roleCreatedBy"} />
                 </Montserrat>
-                {searchPeopleRoleCrew(movieCredits?.crew, 'director')?.map((p, index) => (
+                {movieDetails?.created_by?.map((p, index) => (
                   <Link key={index} href={`/people/${p.name}?id=${p.id}`}>
                     <a>
                       <Montserrat className="info-crew-name">{p.name}</Montserrat>
@@ -288,52 +287,24 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 <Montserrat className="info-crew-name">{searchPeopleRoleCrew(movieCredits?.crew, 'director')?.name}</Montserrat>
               </InfoCrew>
             )}
-            {searchPeopleRoleCrew(movieCredits?.crew, 'writer')?.length > 0 && (
-              <InfoCrew>
+            <InfoSeasons>
+              <Seasons>
                 <Montserrat type="productDetailsInfoCrewTitle">
-                  <FormattedMessage defaultMessage={"roleScreenplayStory"} id={"roleScreenplayStory"} />
+                  <FormattedMessage defaultMessage={"infoTvSeasonsTitle"} id={"infoTvSeasonsTitle"} />
                 </Montserrat>
-                {searchPeopleRoleCrew(movieCredits?.crew, 'writer')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
-                    <a>
-                      <Montserrat className="info-crew-name">{p.name}</Montserrat>
-                    </a>
-                  </Link>
-                ))}
-              </InfoCrew>
-            )}
-            {searchPeopleRoleCrew(movieCredits?.crew, 'director of photography')?.length > 0 && (
-              <InfoCrew>
+                <Montserrat type="small" configuration={{lineHeight: '14.63px'}} className="info-seasons-number">{movieDetails?.number_of_seasons}</Montserrat>
+              </Seasons>
+              <Episodes>
                 <Montserrat type="productDetailsInfoCrewTitle">
-                  <FormattedMessage defaultMessage={"roleDirPhotography"} id={"roleDirPhotography"} />
+                  <FormattedMessage defaultMessage={"infoTvEpisodesTitle"} id={"infoTvEpisodesTitle"} />
                 </Montserrat>
-                {searchPeopleRoleCrew(movieCredits?.crew, 'director of photography')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
-                    <a>
-                      <Montserrat className="info-crew-name">{p.name}</Montserrat>
-                    </a>
-                  </Link>
-                ))}
-              </InfoCrew>
-            )}
-            {searchPeopleRoleCrew(movieCredits?.crew, 'editor')?.length > 0 && (
-              <InfoCrew>
-                <Montserrat type="productDetailsInfoCrewTitle">
-                  <FormattedMessage defaultMessage={"roleEditor"} id={"roleEditor"} />
-                </Montserrat>
-                {searchPeopleRoleCrew(movieCredits?.crew, 'editor')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
-                    <a>
-                      <Montserrat className="info-crew-name">{p.name}</Montserrat>
-                    </a>
-                  </Link>
-                ))}
-              </InfoCrew>
-            )}
+                <Montserrat type="small" configuration={{lineHeight: '14.63px'}} className="info-seasons-number">{movieDetails?.number_of_episodes}</Montserrat>
+              </Episodes>
+            </InfoSeasons>
           </HeaderInfoCrew>
           <HeaderInfoVoteActions>
             <HeaderInfoVoteActionsLeft>
-              {movieDetailsState.vote_count > 0 && (
+              {movieDetailsState?.vote_count > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"averageVote"} id={"averageVote"} />
@@ -341,7 +312,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <RatingBottle vote={roundVote(movieDetailsState?.vote_average, 1)} />   
                 </HeaderInfoVote>
               )}
-              {movieDetailsState.vote_count > 0 && (
+              {movieDetailsState?.vote_count > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"yourVote"} id={"yourVote"} />
@@ -365,7 +336,11 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           </HeaderInfoVoteActions>
         </HeaderInfo>
         <HeaderCover>
-          <Image alt={`${movieDetailsState?.title} poster`} width="100%" height="100%" src={`https://image.tmdb.org/t/p/original/${movieDetailsState?.poster_path}`} />
+          <Image
+            alt={`${movieDetailsState?.title} poster`} 
+            width="100%" height="100%" 
+            src={`https://image.tmdb.org/t/p/original/${movieDetailsState?.poster_path}`} 
+          />
         </HeaderCover>
       </Header>
       
@@ -400,25 +375,24 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementOriginalTitle"} id={"infoSectionElementOriginalTitle"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.original_title}</Montserrat>
+              <Montserrat type="h4">{movieDetailsState?.original_name}</Montserrat>
             </InfoSectionElement>
             <InfoSectionElement>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementStatus"} id={"infoSectionElementStatus"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.status}</Montserrat>
+              {movieDetailsState?.status && (
+                <Montserrat type="h4"><FormattedMessage defaultMessage={getTvSeriesStatus(movieDetailsState?.status)} id={getTvSeriesStatus(movieDetailsState?.status)} /></Montserrat>
+              )}
             </InfoSectionElement>
             <InfoSectionElement>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementBudget"} id={"infoSectionElementBudget"} />
+                <FormattedMessage defaultMessage={"infoSectionElementType"} id={"infoSectionElementType"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.budget}</Montserrat>
-            </InfoSectionElement>
-            <InfoSectionElement>
-              <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementRevenue"} id={"infoSectionElementRevenue"} />
-              </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.revenue}</Montserrat>
+              {movieDetailsState?.type && (
+                <Montserrat type="h4"><FormattedMessage defaultMessage={getTvSeriesType(movieDetailsState?.type)} id={getTvSeriesType(movieDetailsState?.type)} /></Montserrat>
+
+              )}
             </InfoSectionElement>
           </InfoSectionWrapperElement>
         </InfoSection>
@@ -470,7 +444,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoKeywords"} id={"mediaSectionInfoKeywords"} /></Montserrat>
               </MediaSectionInfoTitle>
               <MediaSectionInfoKeywordsList>
-                {movieKeywords.slice(0, 10).map(kw => (
+                {movieKeywords?.slice(0, 10)?.map(kw => (
                   <Keyword
                     onClick={() => Router.push(`/keyword/${textToPath(kw?.name)}?id=${kw?.id}`)}
                   >
@@ -585,24 +559,24 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         </MediaSectionInfo>
       </MediaSection>
 
-      {Object.entries(movieCollection)?.length > 0 && (
-        <CollectionSection imageBg={movieCollection?.backdrop_path}>
+      {movieDetailsState?.seasons?.length > 0 && (
+        <CollectionSection imageBg={movieDetailsState?.backdrop_path}>
           <CollectionInfo>
             <CollectionInfoTop>
               <Montserrat type="h3" configuration={{fontWeight: 600}}>
-                <FormattedMessage defaultMessage={"collectionInfoTitle"} id={"collectionInfoTitle"} />{" "}
+                <FormattedMessage defaultMessage={"infoTvLastSeasonTitle"} id={"infoTvLastSeasonTitle"} />{" "}
               </Montserrat>
-              <Montserrat className="collection-title" configuration={{fontSize: isTablet ? 20 : 24}}>
-                {`${movieCollection?.name} (${movieCollection?.parts?.length})`}
+              <Montserrat className="collection-title" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: 1.1}}>
+              <FormattedMessage defaultMessage={"infoTvSeasonTitle"} id={"infoTvSeasonTitle"} />{` ${movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.season_number}`}
               </Montserrat>
             </CollectionInfoTop>     
             <CollectionInfoBottom>
               <Button
                 className="collection-action-btn"
-                handleOnClick={() => router.push(`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`)}
+                handleOnClick={() => router.push(`seasons/${textToPath(movieDetailsState?.name)}?id=${movieDetailsState?.id}`)}
                 active
-                url={`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`}
-                text="collectionInfoAction"
+                url={`seasons/${textToPath(movieDetailsState?.name)}?id=${movieDetailsState?.id}`}
+                text="infoTvAllSeasonsActions"
               >
                 <Icon
                   width="17px"
@@ -615,14 +589,17 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               </Button>
             </CollectionInfoBottom>   
           </CollectionInfo>
+          {(movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.overview.length > 0) && (
+            <CollectionOverview>
+              {movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.overview}
+            </CollectionOverview>
+          )}
           <CollectionList>
-            {movieCollection?.parts?.slice(isMobile ? (0, 1) : (0, 3)).map(movie => (
               <CollectionPart 
-                imgPoster={movie?.poster_path}
-                onClick={() => router.push(`/movie/${textToPath(movie?.title)}/?id=${movie?.id}`)}
+                imgPoster={movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.poster_path}
+                onClick={() => router.push(`/season/${movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.season_number}/${textToPath(movieDetailsState?.name)}/?id=${movieDetailsState?.id}`)}
               >
               </CollectionPart>
-            ))}
           </CollectionList>
         </CollectionSection>
       )}
@@ -633,9 +610,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             listProducts={movieRecommendation?.results.slice(0, 4)}
             type="default"
             title="sectionTitleRecommendations"
-            productType="productTypeFilm"
+            productType="productTypeTvSeries"
             goToText="goToRecommendations"
-            totalList={movieRecommendation?.total_results}
           />
         </RecommendationsSection>
       )}
