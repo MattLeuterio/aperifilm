@@ -44,7 +44,7 @@ const Card = ({
 		}
 
 		const handleOnClickCardPerson = (e) => {
-			Router.push(`/people/${textToPath(product?.name)}?id=${product?.id}`);
+			Router.push(`/person/${textToPath(product?.name)}?id=${product?.id}`);
 		}
 
 		//console.log('PRODUCT: ', product);

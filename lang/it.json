@@ -8,6 +8,8 @@
   "goToAllMediaProduct": "Guarda tutti i media",
   "goToRecommendations": "Scopri tutti i correlati",
 
+  "actionsOpenGalleryPeople": "Gallery",
+  
   "pageTitleSearchResults": "Risultati ricerca",
 
   "buttonLogin": "Entra",
@@ -38,6 +40,7 @@
   "sectionTitlePopularTvSeries": "Serie Tv popolari",
   "sectionTitleCast": "Cast",
   "sectionTitleRecommendations": "Correlati",
+  "sectionTitlePeoplePopularProject": "Progetti popolari",
 
   "elementMinutes": "minuti",
 
@@ -82,5 +85,21 @@
   "tvSeriesStatusInProduction": "In produzione",
   "tvSeriesStatusReturningSeries": "In corso",
   "tvSeriesStatusCancelled": "Cancellata",
-  "tvSeriesStatusEnded": "Completa"
+  "tvSeriesStatusEnded": "Completa",
+
+  "peopleInfoSector": "Settore",
+  "peopleInfoBirthday": "Compleanno",
+  "peopleInfoDeathday": "Decesso",
+  "peopleInfoBirthplace": "Luogo di nascita",
+
+  "peopleDepartmentWriting": "Scrittura",
+  "peopleDepartmentActing": "Recitazione",
+  "peopleDepartmentCamera": "Camera",
+  "peopleDepartmentEditing": "Montaggio",
+
+  "peopleTableHeaderYear": "Anno",
+  "peopleTableHeaderTitle": "Titolo",
+  "peopleTableHeaderJob": "Lavoro",
+
+  "noResults": "Nessun risultato"
 }

@@ -53,7 +53,7 @@ export const getTvSeriesType = (type) => {
       break;
     
     default:
-      return 'tvSeriesTypeVideo';
+      return `${type}`;
   }
 }
 export const getTvSeriesStatus = (status) => {
@@ -75,6 +75,26 @@ export const getTvSeriesStatus = (status) => {
       break;
     
     default:
-      return 'tvSeriesTypeVideo';
+      return `${status}`;
   }
 }
+
+export const getDepartmentPeople = (department) => {
+  switch (department) {
+    case "Writing":
+      return 'peopleDepartmentWriting'
+      break;
+    case "Acting":
+      return 'peopleDepartmentActing'
+      break;
+    case "Editing":
+      return 'peopleDepartmentEditing'
+      break;
+    
+    default:
+      return `${department}`;
+  }
+}
+
+export const sortByDate = (propertyName) => (a, b) =>
+a[propertyName] > b[propertyName] ? -1 : a[propertyName] < b[propertyName] ? 1 : 0;

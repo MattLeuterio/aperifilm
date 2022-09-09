@@ -5,7 +5,7 @@ import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, Col
 import { useEffect, useState } from "react";
 import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
-import { ActionButtons, Badge, Button, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
+import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
 import { formatDate, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
@@ -48,7 +48,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const router = useRouter();
   const dispatch = useDispatch();
   
-  const { slug, id: pid } = router.query
+  const { slug, id: pid } = router.query;
+  const [loading, setLoading] = useState(false);
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [movieDetailsState, setMovieDetailsState] = useState({});
   const [movieCredits, setMovieCredits] = useState([]);
@@ -60,8 +61,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const [socialLinks, setSocialLinks] = useState([]);
   const [movieCollection, setMovieCollection] = useState([]);
   const [movieRecommendation, setMovieRecommendation] = useState([]);
-  const [fullScreenIsOpen, setFullScreenIsOpen] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(true);
+  const [noOverview, setNoOverview] = useState(false);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
 
@@ -82,7 +82,11 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       const details = await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}`
         ).then(res => res.json());
-  
+
+      const detailsWithOverview = {...details, overview: `${details?.overview?.length > 0 ? details?.overview : movieDetails?.overview}`}
+    
+      if (userLanguageState === 'it' && details?.overview?.length <= 0) {setNoOverview(true)};
+
       const credits = await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/credits?api_key=${tmdbApiKey}`
         ).then(res => res.json());
@@ -124,7 +128,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/recommendations?api_key=${tmdbApiKey}`
         ).then(res => res.json());
         
-      setMovieDetailsState(details);
+      setMovieDetailsState(detailsWithOverview);
       setMovieCredits(credits);
       setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer').slice(0, 1));
       setMovieImages(setProductImages(images));
@@ -238,7 +242,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               <Badge isRelative text={pTypeConverter(productTypeContext)} />
               <HeaderInfoDatasGenres>
                 {movieDetailsState?.genres?.map((gen, index) => (
-                  <Montserrat type="h4" className="header-info-genre" key={index} htmlAttribute={"span"}>{gen.name}</Montserrat>
+                  <Montserrat onClick={() => router.push(`/genre/${gen.name.toLowerCase()}`)} type="h4" className="header-info-genre" key={index} htmlAttribute={"span"}>{gen.name}</Montserrat>
                 ))}
               </HeaderInfoDatasGenres>
             </HeaderInfoDatasLeft>
@@ -270,6 +274,9 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             </HeaderInfoDatasRight>
           </HeaderInfoDatas>
           <HeaderInfoSummary>
+            {(noOverview && movieDetailsState?.overview?.length > 0) && (
+              <CustomMessage style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
+            )}
             <Montserrat configuration={{lineHeight: '18px'}}>{movieDetailsState?.overview}</Montserrat>
           </HeaderInfoSummary>
           <HeaderInfoCrew>
@@ -279,7 +286,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <FormattedMessage defaultMessage={"roleDirector"} id={"roleDirector"} />
                 </Montserrat>
                 {searchPeopleRoleCrew(movieCredits?.crew, 'director')?.map((p, index) => (
-                  <Link key={index} href={`/people/${p.name}?id=${p.id}`}>
+                  <Link key={index} href={`/person/${p.name}?id=${p.id}`}>
                     <a>
                       <Montserrat className="info-crew-name">{p.name}</Montserrat>
                     </a>
@@ -294,7 +301,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <FormattedMessage defaultMessage={"roleScreenplayStory"} id={"roleScreenplayStory"} />
                 </Montserrat>
                 {searchPeopleRoleCrew(movieCredits?.crew, 'writer')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
+                  <Link key={index} href={`/person/${textToPath(p.name)}?id=${p.id}`}>
                     <a>
                       <Montserrat className="info-crew-name">{p.name}</Montserrat>
                     </a>
@@ -308,7 +315,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <FormattedMessage defaultMessage={"roleDirPhotography"} id={"roleDirPhotography"} />
                 </Montserrat>
                 {searchPeopleRoleCrew(movieCredits?.crew, 'director of photography')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
+                  <Link key={index} href={`/person/${textToPath(p.name)}?id=${p.id}`}>
                     <a>
                       <Montserrat className="info-crew-name">{p.name}</Montserrat>
                     </a>
@@ -322,7 +329,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <FormattedMessage defaultMessage={"roleEditor"} id={"roleEditor"} />
                 </Montserrat>
                 {searchPeopleRoleCrew(movieCredits?.crew, 'editor')?.map((p, index) => (
-                  <Link key={index} href={`/people/${textToPath(p.name)}?id=${p.id}`}>
+                  <Link key={index} href={`/person/${textToPath(p.name)}?id=${p.id}`}>
                     <a>
                       <Montserrat className="info-crew-name">{p.name}</Montserrat>
                     </a>
@@ -456,29 +463,31 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           </MediaSectionGalleryImages>
         </MediaSectionGallery>
         <MediaSectionInfo>
-          <MediaSectionInfoKeywords>
-              <MediaSectionInfoTitle>
-                <Icon
-                  className="icon-media-info-title"
-                  fill={theme.colors.element.dark}
-                  strokeWidth={0}
-                  width="20px"
-                  height="20px"
-                >
-                  <HashtagIcon />
-                </Icon>
-                <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoKeywords"} id={"mediaSectionInfoKeywords"} /></Montserrat>
-              </MediaSectionInfoTitle>
-              <MediaSectionInfoKeywordsList>
-                {movieKeywords.slice(0, 10).map(kw => (
-                  <Keyword
-                    onClick={() => Router.push(`/keyword/${textToPath(kw?.name)}?id=${kw?.id}`)}
+          {movieKeywords?.length > 0 && (
+            <MediaSectionInfoKeywords>
+                <MediaSectionInfoTitle>
+                  <Icon
+                    className="icon-media-info-title"
+                    fill={theme.colors.element.dark}
+                    strokeWidth={0}
+                    width="20px"
+                    height="20px"
                   >
-                    {kw?.name}
-                  </Keyword>
-                ))}
-              </MediaSectionInfoKeywordsList>
-          </MediaSectionInfoKeywords>
+                    <HashtagIcon />
+                  </Icon>
+                  <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoKeywords"} id={"mediaSectionInfoKeywords"} /></Montserrat>
+                </MediaSectionInfoTitle>
+                <MediaSectionInfoKeywordsList>
+                  {movieKeywords.slice(0, 10).map(kw => (
+                    <Keyword
+                      onClick={() => Router.push(`/keyword/${textToPath(kw?.name)}?id=${kw?.id}`)}
+                    >
+                      {kw?.name}
+                    </Keyword>
+                  ))}
+                </MediaSectionInfoKeywordsList>
+            </MediaSectionInfoKeywords>
+          )}
           <MediaSectionInfoExternal>
             {Object.entries(movieWatchProviders).length > 0 && (
               <MediaSectionInfoExternalLeft>

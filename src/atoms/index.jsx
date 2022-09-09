@@ -12,6 +12,8 @@ import StatisticsRowCard from "./StatisticsRowCard";
 import RatingBottle from "./RatingBottle";
 import RenderBottles from "./RenderBottles";
 import BackButton from "./BackButton";
+import CustomMessage from "./CustomMessage";
+import Tabs from "./Tabs";
 
 export {
   ActiveLink,
@@ -27,5 +29,7 @@ export {
   StatisticsRowCard,
   RatingBottle,
   RenderBottles,
-  BackButton
+  BackButton,
+  CustomMessage,
+  Tabs
 }

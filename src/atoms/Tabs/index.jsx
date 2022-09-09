@@ -1,0 +1,68 @@
+import theme from '../../theme';
+import { ActionButtonsContainer, TabsContainer } from './style';
+import Link from 'next/link';
+import { FormattedMessage } from 'react-intl';
+import { useState } from 'react';
+import Icon from '../Icon';
+import { Router } from 'next/router';
+import { HeartIcon } from '@heroicons/react/outline';
+import Button from '../Button';
+import { useEffect } from 'react';
+
+export const defaultTabsList = [
+	{
+		id: 'movie',
+		label: 'productTypeFilm',
+		icon: null
+	},
+	{
+		id: 'tv',
+		label: 'productTypeTvSeries',
+		icon: null
+	}
+]
+
+const Tabs = ({
+	className, size, tabsList, selected, onChange
+}) => {
+	const [selectedTab, setSelectedTab] = useState(false);
+
+	useEffect(() => {
+		setSelectedTab(selected);
+	}, [selected])
+
+
+	const handleOnClickTab = (tab) => {
+		setSelectedTab(tab);
+		if (onChange) onChange(tab)
+	}
+
+		return (
+			<TabsContainer className={className}>
+				{tabsList?.map(tab => (
+					<Button
+						className="collection-action-btn"
+						handleOnClick={() => handleOnClickTab(tab)}
+						active={tab.id === selectedTab.id}
+						text={tab.label}
+					>
+						{tab.icon && (
+							<Icon
+								width="17px"
+								height="17px"
+								fill={theme.colors.element.light}
+								stroke="transparent"
+							>
+								<EyeIcon />
+							</Icon>
+						)}
+					</Button>
+				))}
+			</TabsContainer>
+		)
+};
+
+Tabs.defaultProps = {
+}
+
+export default Tabs;

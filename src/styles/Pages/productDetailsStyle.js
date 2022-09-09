@@ -47,10 +47,15 @@ export const HeaderInfoDatasGenres = styled.div`
   margin-left: 10px;
 
   .header-info-genre {
+    cursor: pointer;
     color: ${theme.colors.element.dark};
     &:not(:last-child)::after {
       content: ',';
       margin-right: 4px;
+    }
+
+    &:hover {
+      color: ${theme.colors.mainBrandColors.dark};
     }
   }
 `;

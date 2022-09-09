@@ -8,6 +8,8 @@
   "goToAllMediaProduct": "Go to all media",
   "goToRecommendations": "Go to all recommendations",
 
+  "actionsOpenGalleryPeople": "Gallery",
+
   "pageTitleSearchResults": "Search results",
 
   "buttonLogin": "Login",
@@ -38,6 +40,7 @@
   "sectionTitlePopularTvSeries": "Popular Tv-series",
   "sectionTitleCast": "Cast",
   "sectionTitleRecommendations": "Recommendations",
+  "sectionTitlePeoplePopularProject": "Popular projects",
 
   "elementMinutes": "minutes",
 
@@ -82,5 +85,21 @@
   "tvSeriesStatusInProduction": "In Production",
   "tvSeriesStatusReturningSeries": "Returning Series",
   "tvSeriesStatusCancelled": "Cancelled",
-  "tvSeriesStatusEnded": "Ended"
+  "tvSeriesStatusEnded": "Ended",
+
+  "peopleInfoSector": "Department",
+  "peopleInfoBirthday": "Birthday",
+  "peopleInfoDeathday": "Deathday",
+  "peopleInfoBirthplace": "Birth place",
+
+  "peopleDepartmentWriting": "Writing",
+  "peopleDepartmentActing": "Acting",
+  "peopleDepartmentCamera": "Camera",
+  "peopleDepartmentEditing": "Editing",
+
+  "peopleTableHeaderYear": "Year",
+  "peopleTableHeaderTitle": "Title",
+  "peopleTableHeaderJob": "Job",
+
+  "noResults": "No results"
 }
