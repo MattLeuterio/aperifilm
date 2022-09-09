@@ -102,6 +102,10 @@ export const Top = styled.div`
           .card-title {
             ${LineClamp({numLines: 2})}
             max-width: 85%;
+
+            @media ${theme.device.mobileL} {
+              max-width: 100%;
+            }
           }
 
           .card-genre {
@@ -113,6 +117,10 @@ export const Top = styled.div`
             margin-bottom: 10px;
             ${LineClamp({numLines: 3})}
             max-width: 85%;
+
+            @media ${theme.device.mobileL} {
+              max-width: 100%;
+            }
           }
         `;
 

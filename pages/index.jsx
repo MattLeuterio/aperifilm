@@ -10,20 +10,28 @@ import { langConverter, tmdbApiKey } from "../src/js/utility";
 
 export async function getServerSideProps() {
   try {
-    const resDiscoverMovie = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
+    const resDiscoverMovie = await fetch('https://api.themoviedb.org/3/discover/movie?api_key=e2330ecaa641a077ab62520c44ab636f');
     const discoverMovieList = await resDiscoverMovie.json();
 
     const resComingSoon = await fetch('https://api.themoviedb.org/3/movie/upcoming?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT&region=IT');
     const comingSoonMovieList = await resComingSoon.json();
 
-    const resDiscoverTv = await fetch('https://api.themoviedb.org/3/discover/tv?api_key=e2330ecaa641a077ab62520c44ab636f&language=it-IT');
+    const resDiscoverTv = await fetch('https://api.themoviedb.org/3/discover/tv?api_key=e2330ecaa641a077ab62520c44ab636f');
     const discoverTvList = await resDiscoverTv.json();
+    
+    const resPopularPeople = await fetch('https://api.themoviedb.org/3/person/popular?api_key=e2330ecaa641a077ab62520c44ab636f');
+    const popularPeopleList = await resPopularPeople.json();
+
+    const resPopularTv = await fetch('https://api.themoviedb.org/3/tv/popular?api_key=e2330ecaa641a077ab62520c44ab636f');
+    const popularTvList = await resPopularTv.json();
     
     return {
       props: {
         discoverMovieList,
         comingSoonMovieList,
-        discoverTvList
+        discoverTvList,
+        popularPeopleList,
+        popularTvList
       },
     };
   } catch (err) {
@@ -36,11 +44,13 @@ export async function getServerSideProps() {
   }
 }
 
-export default function Home({discoverMovieList, comingSoonMovieList, discoverTvList}) {
+export default function Home({discoverMovieList, comingSoonMovieList, discoverTvList, popularPeopleList, popularTvList}) {
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [discoverMovieListState, setDiscoverMovieListState] = useState([]);
   const [comingSoonMovieListState, setComingSoonListState] = useState([]);
   const [discoverTvListState, setDiscoverTvListState] = useState([]);
+  const [popularPeopleListState, setPopularPeopleListState] = useState([]);
+  const [popularTvListState, setPopularTvListState] = useState([]);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
 
@@ -64,9 +74,12 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
     setDiscoverMovieListState(discoverMovieList?.results.slice(0, 2));
     setComingSoonListState(comingSoonMovieList?.results.slice(0, 4));
     setDiscoverTvListState(discoverTvList?.results.slice(0, 2));
-  }, [discoverMovieList, comingSoonMovieList])
+    setPopularPeopleListState(popularPeopleList?.results.slice(0, 5));
+    setPopularTvListState(popularTvList?.results.slice(0, 4));
+  }, [discoverMovieList, comingSoonMovieList, popularPeopleList, popularTvList])
 
-  console.log('DISCOVER TV: ', discoverTvList);
+  console.log('POPULAR PEOPLE: ', popularPeopleListState);
+  console.log('POPULAR TV: ', popularTvListState);
   return (
     <HomeContainer>
       <Head>
@@ -140,77 +153,15 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         productType="productTypeFilm"
         goToText="goToPage"
       />
-      {/* <Row>
-        <RowHeader>
-          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitleComingOutFilm" id="sectionTitleComingOutFilm" /></Montserrat>
-
-          {!isTablet && (
-            <GoTo handleOnClick={() => onClose()} url="/search-results">
-              <Icon 
-                stroke={theme.colors.mainBrandColors.dark}
-                width="18px"
-                height="17px"
-              >
-                <ArrowNarrowRightIcon />
-              </Icon>
-            </GoTo>
-          )}				
-        </RowHeader>
-        <RowCards type="default">
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-        </RowCards>
-        {isTablet && (
-          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
-            <Icon 
-              stroke={theme.colors.mainBrandColors.dark}
-              width="18px"
-              height="17px"
-            >
-              <ArrowNarrowRightIcon />
-            </Icon>
-          </GoTo>
-          )}
-      </Row> */}
 
       {/* POPULAR PEOPLE */}
-      {/* <Row>
-        <RowHeader>
-          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitlePopularPeople" id="sectionTitlePopularPeople" /></Montserrat>
-
-          {!isTablet && (
-            <GoTo handleOnClick={() => onClose()} url="/search-results">
-              <Icon 
-                stroke={theme.colors.mainBrandColors.dark}
-                width="18px"
-                height="17px"
-              >
-                <ArrowNarrowRightIcon />
-              </Icon>
-            </GoTo>
-          )}				
-        </RowHeader>
-        <RowCards>
-          <Card className="card" type="person" />
-          <Card className="card" type="person" />
-          <Card className="card" type="person" />
-          <Card className="card" type="person" />
-          <Card className="card" type="person" />
-        </RowCards>
-        {isTablet && (
-          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
-            <Icon 
-              stroke={theme.colors.mainBrandColors.dark}
-              width="18px"
-              height="17px"
-            >
-              <ArrowNarrowRightIcon />
-            </Icon>
-          </GoTo>
-          )}
-      </Row> */}
+      <RowCard 
+        listProducts={popularPeopleListState}
+        type="person"
+        title="sectionTitlePopularPeople"
+        productType="productTypeFilm"
+        goToText="goToPage"
+      />
 
       {/* DISCOVER SERIE TV */}
       <RowCard 
@@ -219,24 +170,16 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         productType="productTypeTvSeries"
         goToText="goToDiscoverNewTvSeries"
       />
-      {/* <Row>
-        <RowCards type="discover">
-          <Card className="card" type="discover" />
-          <Card className="card" type="discover" />
-        </RowCards>
-        <GoTo fontSize="16px" text="goToDiscoverNewTvSeries" className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
-          <Icon
-            fill={theme.colors.mainBrandColors.dark}
-            strokeWidth={0}
-            width="20px"
-            height="20px"
-          >
-            <FireIcon />
-          </Icon>
-        </GoTo>
-      </Row> */}
 
       {/* POPULAR SERIE TV */}
+      {/* COMING SOON */}
+      <RowCard 
+        listProducts={popularTvListState}
+        type="default"
+        title="sectionTitlePopularPeople"
+        productType="productTypeTvSeries"
+        goToText="goToPage"
+      />
       {/* <Row>
         <RowHeader>
           <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitlePopularTvSeries" id="sectionTitlePopularTvSeries" /></Montserrat>

@@ -6,7 +6,8 @@ import RowCard from "./RowCard";
 import ActionsProductButton from "./ActionsProductButton";
 import WelcomeBanner from "./WelcomeBanner";
 import FullScreenPanel from "./FullScreenPanel";
-import SliderFullScreen from "./Sliders/SliderFullScreen";
+import SliderFullScreen from "./Sliders";
+import SliderRowCards from "./Sliders";
 
 export {
   GlobalLayout,
@@ -17,5 +18,6 @@ export {
   ActionsProductButton,
   WelcomeBanner,
   FullScreenPanel,
-  SliderFullScreen
+  SliderFullScreen,
+  SliderRowCards
 }

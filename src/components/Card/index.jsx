@@ -12,6 +12,7 @@ import { useEffect } from 'react';
 import { genderPlaceholder, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
 import { getProductDetails } from '../../store/actions/productAction';
 import Router from 'next/router';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 const Card = ({
 	product, title, className, colorText, handleOnClick, 
@@ -19,17 +20,18 @@ const Card = ({
 	widthCard, heightCard, productType, totalViews, totalVotes,
 	summary, genre, mainImg, vote
 }) => {
-		const [productDetails, setProductDetails] = useState({});
-		const userLanguageState = useSelector((state) => state.userData.language);
-		const productDetailsState = useSelector((state) => state.product.productDetails);
+	const isTablet = useMediaQuery(769);
+	const [productDetails, setProductDetails] = useState({});
+	const userLanguageState = useSelector((state) => state.userData.language);
+	const productDetailsState = useSelector((state) => state.product.productDetails);
 
-		const getDetailsProduct = async () => {
-			const res = await fetch(
-				`https://api.themoviedb.org/3/${pTypeConverter(productType)}
-				/${product?.id}?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}`
-				).then(res => res.json());
-			setProductDetails(res);
-		}
+	const getDetailsProduct = async () => {
+		const res = await fetch(
+			`https://api.themoviedb.org/3/${pTypeConverter(productType)}
+			/${product?.id}?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}`
+			).then(res => res.json());
+		setProductDetails(res);
+	}
 
 		useEffect(() => {
 			setProductDetails(productDetailsState);
@@ -117,7 +119,7 @@ const Card = ({
 						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
 					>
 						<Top type={type}>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
 							<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
 
@@ -128,7 +130,9 @@ const Card = ({
 							</StatisticsContainer>
 							
 							{/* Position Absolute */}
-							<Badge text={productType} top="0" right="0"/>
+							{!isTablet && (
+								<Badge text={productType} top="0" right="0"/>
+							)}
 						</Top>
 						<Bottom type={type}>
 							<Icon

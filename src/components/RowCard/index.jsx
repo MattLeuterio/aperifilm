@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { GoTo, Icon, Image } from '../../atoms';
-import { Header, Sidebar } from '../index';
+import { Header, Sidebar, SliderRowCards } from '../Sliders';
 import { WelcomeBanner } from '..';
 import { Container, Content, Main, Row, RowCards, RowHeader } from './style';
 import { Card } from '..';
@@ -11,9 +11,10 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import Montserrat from '../../typography/montserrat';
 import theme from '../../theme';
 import { FormattedMessage } from 'react-intl';
+import { SwiperSlide } from 'swiper/react';
 
 const RowCard = ({ listProducts, type, title, productType, goToText, totalList }) => {
-	const isTablet = useMediaQuery(769);
+	const isTablet = useMediaQuery(860);
 	return (
 		<Row>
 			{type !== 'discover' && (
@@ -41,13 +42,22 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList }
 					)}				
 				</RowHeader>
 			)}
-			<RowCards type="default">
-				{listProducts?.map((item, index) => {
-					return (
-						<Card key={index} product={item} productType={productType} className="card" type={type} />
-					)
-				})}
-			</RowCards>
+			{isTablet ? (
+				<SliderRowCards type={type} list={listProducts}>
+						{listProducts?.map((item, index) => (				
+							<SwiperSlide>
+								<Card key={index} product={item} productType={productType} className="card" type={type} />
+							</SwiperSlide>			
+						)
+					)}
+				</SliderRowCards>
+			) : (
+				<RowCards type="default">
+					{listProducts?.map((item, index) => (							
+							<Card key={index} product={item} productType={productType} className="card" type={type} />
+					))}
+				</RowCards>
+			)}
 			{isTablet && (
 				 <GoTo fontSize="16px" text={goToText} className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
 					<Icon 
@@ -65,7 +75,9 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList }
 
 RowCards.TYPE = {
 	DISCOVER: 'discover',
-	DEFAULT: 'default'
+	DEFAULT: 'default',
+	PERSON: 'person',
+	TRENDING: 'trending'
 }
 
 RowCard.defaultProps = {
