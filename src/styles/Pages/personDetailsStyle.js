@@ -22,7 +22,6 @@ export const ContainerRight = styled.div`
   margin-left: 25px;
 
   .product-details-section-title {
-    margin-top: 40px;
     margin-bottom: 20px;
   }
 
@@ -32,6 +31,7 @@ export const ContainerRight = styled.div`
 `;
 
 export const Biography = styled.div`
+  margin-bottom: 40px;
 `;
 
 export const ContainerLeft = styled.div`
@@ -148,6 +148,7 @@ export const PopularProjectsSection = styled.div`
 export const PopularProject = styled.div`
   width: 147px;
   margin-bottom: 20px;
+  cursor: pointer;
 
   &:not(:last-child) {
     margin-right: 20px;
@@ -155,11 +156,19 @@ export const PopularProject = styled.div`
 
   .popular-project-poster {
     width: 147px;
-    height: 226px;
+    height: 220px;
     margin-bottom: 10px;
+    cursor: pointer;
+    background-color: ${theme.colors.component.light};
+    border-radius: 16px;
     > img {
       border-radius: 16px;
+
+      &:hover {
+      outline: 2px solid ${theme.colors.mainBrandColors.light};
     }
+    }
+
   }
 
   @media ${theme.device.mobileL} {
@@ -212,6 +221,11 @@ export const TableResults = styled.div``;
 export const TableResultElement = styled.div`
   padding: 15px 30px;
   ${DisplayFlex({alignItems: 'center', justifyContent: 'flex-start'})};
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${theme.colors.component.dark};
+  }
 `;
 
 export const ElementYear = styled.div`

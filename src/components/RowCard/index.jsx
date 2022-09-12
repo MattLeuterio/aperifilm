@@ -12,6 +12,7 @@ import Montserrat from '../../typography/montserrat';
 import theme from '../../theme';
 import { FormattedMessage } from 'react-intl';
 import { SwiperSlide } from 'swiper/react';
+import { FireIcon } from '@heroicons/react/solid';
 
 const RowCard = ({ listProducts, type, title, productType, goToText, totalList }) => {
 	const isTablet = useMediaQuery(860);
@@ -58,14 +59,19 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList }
 					))}
 				</RowCards>
 			)}
-			{isTablet && (
+			{(isTablet || type === 'discover') && (
 				 <GoTo fontSize="16px" text={goToText} className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
 					<Icon 
-						stroke={theme.colors.mainBrandColors.dark}
+						fill={type !== 'discover' ? 'transparent' : theme.colors.mainBrandColors.dark}
+						stroke={type !== 'discover' ? theme.colors.mainBrandColors.dark : 'transparent'}
 						width="18px"
 						height="17px"
 					>
-						<ArrowNarrowRightIcon />
+						{type === 'discover' ? (
+							<FireIcon />
+						) : (
+							<ArrowNarrowRightIcon />
+						)}
 					</Icon>
 				</GoTo>
 				)}

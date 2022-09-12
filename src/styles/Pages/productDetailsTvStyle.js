@@ -223,8 +223,15 @@ export const InfoSection = styled.div`
   padding: 20px;
   margin-left: 20px;
 
+  ${props => props.row && css`
+    width: 100%;
+    margin-left: 0;
+    margin-top: 20px;
+    height: fit-content;
+  `}
+
   @media ${theme.device.mobileL} {
-    width: 100%;;
+    width: 100%;
     margin-left: 0;
     margin-top: 20px;
     height: fit-content;
@@ -232,6 +239,11 @@ export const InfoSection = styled.div`
 `;
 
 export const InfoSectionWrapperElement = styled.div`
+  ${props => props.row && css`
+    display: flex;
+    flex-wrap: wrap;
+  `}
+
   @media ${theme.device.mobileL} {
     display: flex;
     flex-wrap: wrap;
@@ -240,7 +252,12 @@ export const InfoSectionWrapperElement = styled.div`
 
 export const InfoSectionElement = styled.div`
   margin-top: 20px;
-
+  
+  ${props => props.row && css`
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  `}
   @media ${theme.device.mobileL} {
 
     &:not(:last-child) {

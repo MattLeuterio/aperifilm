@@ -11,7 +11,9 @@ const TitlePage = ({
 				{hasBackButton && (
 					<BackButton />
 				)}
-				<Montserrat type="titlePage"><FormattedMessage defaultMessage={title} id={title} /></Montserrat>
+				<Montserrat type="titlePage">
+					<FormattedMessage defaultMessage={title} id={title} />
+				</Montserrat>
 			</TitlePageContainer>
 		)
 };

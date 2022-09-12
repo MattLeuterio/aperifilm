@@ -31,6 +31,7 @@
 
   "productTypeFilm": "Film",
   "productTypeTvSeries": "Tv-series",
+  "productTypePerson": "Person",
 
   "cardStatsViews": "views",
   "cardStatsVotes": "votes",

@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import PlaceholderPeopleMale from '../assets/images/placeholder-people-male.png';
 import PlaceholderPeopleFemale from '../assets/images/placeholder-people-female.png';
+import PlaceholderNoImage from '../assets/images/placeholder-no-image.png';
 
 export const tmdbApiKey = 'e2330ecaa641a077ab62520c44ab636f';
 
@@ -98,3 +99,9 @@ export const getDepartmentPeople = (department) => {
 
 export const sortByDate = (propertyName) => (a, b) =>
 a[propertyName] > b[propertyName] ? -1 : a[propertyName] < b[propertyName] ? 1 : 0;
+
+export const checkImage = (image) => {
+  console.log('image ohoh', image)
+  if (image) return `https://image.tmdb.org/t/p/original/${image}`
+  return PlaceholderNoImage.src
+}

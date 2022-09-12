@@ -7,7 +7,7 @@ import { ActionsProductButton, FullScreenPanel } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { CustomMessage, CustomSelect, Icon, Image, Tabs, TitlePage, WarningLanguage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { formatDate, genderPlaceholder, getDepartmentPeople, langConverter, parseContext, sortByDate, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, formatDate, genderPlaceholder, getDepartmentPeople, langConverter, parseContext, sortByDate, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import theme from "../../src/theme";
 import dynamic from 'next/dynamic'
@@ -361,13 +361,14 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           </PeopleInfo>
         </ContainerLeft>
         <ContainerRight>
-
-          <Biography>
-            {(noBiography && personDetailsState?.biography.length > 0) && (
-              <CustomMessage text="Traduzione italiana mancante" />
-            )}
-            <Montserrat configuration={{lineHeight: '18px'}}>{personDetailsState?.biography}</Montserrat>
-          </Biography>
+          {noBiography && personDetailsState?.biography.length > 0 && (
+            <Biography>
+              {(noBiography && personDetailsState?.biography.length > 0) && (
+                <CustomMessage text="Traduzione italiana mancante" />
+              )}
+              <Montserrat configuration={{lineHeight: '18px'}}>{personDetailsState?.biography}</Montserrat>
+            </Biography>
+          )}
 
           <Montserrat className="product-details-section-title" type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>
             <FormattedMessage defaultMessage={"sectionTitlePeoplePopularProject"} id={"sectionTitlePeoplePopularProject"} />{" "}
@@ -377,7 +378,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
               <PopularProject
                 onClick={() => Router.push(`/${proj.media_type}/${textToPath(proj?.name) || textToPath(proj?.title)}?id=${proj?.id}`)}
               >
-                <Image className="popular-project-poster" alt={`${proj?.name || proj?.title} poster`} width="100%" height="100%" src={personDetailsState?.profile_path ? `https://image.tmdb.org/t/p/original/${proj.poster_path}` : genderPlaceholder(personDetailsState?.gender)} />
+                <Image className="popular-project-poster" alt={`${proj?.name || proj?.title} poster`} width="100%" height="100%" src={checkImage(proj.poster_path)} />
                 <Montserrat configuration={{fontSize: 16, fontWeight: 600}}>{proj?.name || proj?.title}</Montserrat>
               </PopularProject>
             ))}
@@ -415,7 +416,9 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 
                 <TableResults>
                   {tableResults?.map(el => (
-                    <TableResultElement>
+                    <TableResultElement
+                      onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
+                    >
                       <ElementYear>
                         {
                           activeTab?.id === 'movie' ? (

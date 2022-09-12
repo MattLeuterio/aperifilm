@@ -172,7 +172,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
       />
 
       {/* POPULAR SERIE TV */}
-      {/* COMING SOON */}
       <RowCard 
         listProducts={popularTvListState}
         type="default"
@@ -180,40 +179,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         productType="productTypeTvSeries"
         goToText="goToPage"
       />
-      {/* <Row>
-        <RowHeader>
-          <Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}><FormattedMessage defaultMessage="sectionTitlePopularTvSeries" id="sectionTitlePopularTvSeries" /></Montserrat>
-
-          {!isTablet && (
-            <GoTo handleOnClick={() => onClose()} url="/search-results">
-              <Icon 
-                stroke={theme.colors.mainBrandColors.dark}
-                width="18px"
-                height="17px"
-              >
-                <ArrowNarrowRightIcon />
-              </Icon>
-            </GoTo>
-          )}				
-        </RowHeader>
-        <RowCards type="default">
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-          <Card className="card" type="default"/>
-        </RowCards>
-        {isTablet && (
-          <GoTo className="goto-rowcard-mobile" handleOnClick={() => onClose()} url="/search-results">
-            <Icon 
-              stroke={theme.colors.mainBrandColors.dark}
-              width="18px"
-              height="17px"
-            >
-              <ArrowNarrowRightIcon />
-            </Icon>
-          </GoTo>
-          )}
-      </Row> */}
     </HomeContainer>
   );
 }

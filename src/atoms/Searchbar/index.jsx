@@ -5,20 +5,37 @@ import { Icon, GoTo } from "../../atoms";
 import { SearchIcon, XIcon } from '@heroicons/react/solid';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
 import { GoToWrapper, ImageBox, Product, ProductType, SearchContainer, SearchInput, SuggestionProduct, Title, VoteBox } from './style';
+import { useSelector } from 'react-redux';
+import { langConverter, textToPath, tmdbApiKey } from '../../js/utility';
+import { FormattedMessage } from 'react-intl';
+import { Router, useRouter } from 'next/router';
 
 const Searchbar = ({}) => {
 	const [valueSearch, setValueSearch] = useState("");
   const [suggestionBoxVisibility, setSuggestionBoxVisibility] = useState(false);
+	const [searchResults, setSearchResults] = useState([]);
+	const userLanguageState = useSelector((state) => state.userData.language);
+	const router = useRouter();
 
 	const handleOnChange = (value) => {
     setValueSearch(value);
     if (valueSearch.length >= 2) {
-			//dispatch(getSearchResults({ text: valueSearch, page: 1 }));
+			getSearchResults();
       setSuggestionBoxVisibility(true);
     } else {
 			setSuggestionBoxVisibility(false);
 		}
   };
+
+	const getSearchResults = async () => {
+		if (userLanguageState) {
+			const searchResultsList = await fetch(
+				`https://api.themoviedb.org/3/search/multi?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}&query=${valueSearch}`
+				).then(res => res.json());
+				console.log('searchResultsList', searchResultsList)
+				setSearchResults(searchResultsList);
+		}
+	}
 
 	const handleOnKeyPressEnter = (e) => {
     if (e.key === "Enter" && e.target.value.length > 0) {
@@ -36,6 +53,8 @@ const Searchbar = ({}) => {
     setValueSearch('');
     setSuggestionBoxVisibility(false);
   };
+
+	console.log('BackgroundMock', BackgroundMock);
 
 	const suggestionProduct = [
 		{
@@ -116,30 +135,40 @@ const Searchbar = ({}) => {
 					</Icon>
 
 					<SuggestionProduct isVisible={suggestionBoxVisibility}>
-						{suggestionProduct?.map((item) => (
-							// <Link
-							// 	key={item?.id}
-							// 	to={{
-							// 		pathname: `/game/${item?.slug}`,
-							// 	}}
-							// 	onClick={() => handleOnClickGame()}
-							// >
-								<Product
-									key={item.id}
-								>
-									<ImageBox
-										bgResult={
-											item?.background_image !== null
-												? item?.background_image
-												: Background
+						{searchResults?.results?.length > 0 && (
+							<>
+								{searchResults?.results?.slice(0,7)?.map((item) => (
+									<Product
+										key={item.id}
+										onClick={() => router.push(`/${item.media_type}/${textToPath(item?.name) || textToPath(item?.title)}?id=${item?.id}`)}
+									>
+										<ImageBox
+											{...item?.profile_path}
+											bgResult={
+												item?.media_type === 'person' ?
+													item?.profile_path !== null  ?
+													`https://image.tmdb.org/t/p/original/${item?.profile_path}`  
+													: BackgroundMock 
+													: item?.backdrop_path !== null ?
+													`https://image.tmdb.org/t/p/original/${item?.backdrop_path}` 
+													: BackgroundMock.src 
+												}
+										></ImageBox>
+										<ProductType>{item?.media_type  === 'person' ? (
+												<FormattedMessage defaultMessage={"productTypePerson"} id={"productTypePerson"} />
+											) : item?.media_type === 'movie' ? (
+												<FormattedMessage defaultMessage={"productTypeFilm"} id={"productTypeFilm"} /> 
+											) : (
+												<FormattedMessage defaultMessage={"productTypeTvSeries"} id={"productTypeTvSeries"} />
+											)
 										}
-									></ImageBox>
-									<ProductType>{item?.productType}</ProductType>
-									<Title>{item?.name}</Title>
-									<VoteBox>Voto</VoteBox>
-								</Product>
-							// </Link>
-						))}
+									</ProductType>
+										<Title>{item?.name || item?.title }</Title>
+										<VoteBox>Voto</VoteBox>
+									</Product>
+								))}
+							</>
+						)}
 						<GoToWrapper>
 							<GoTo handleOnClick={() => onClose()} url="/search-results">
 								<Icon 
