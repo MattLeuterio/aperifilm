@@ -238,7 +238,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               <Badge isRelative text={pTypeConverter(productTypeContext)} />
               <HeaderInfoDatasGenres>
                 {movieDetailsState?.genres?.map((gen, index) => (
-                  <Montserrat onClick={() => router.push(`/genre/${gen.name.toLowerCase()}`)} type="h4" className="header-info-genre" key={index} htmlAttribute={"span"}>{gen.name}</Montserrat>
+                  <Montserrat type="h4" className="header-info-genre" key={index} htmlAttribute={"span"}>{gen.name}</Montserrat>
                 ))}
               </HeaderInfoDatasGenres>
             </HeaderInfoDatasLeft>

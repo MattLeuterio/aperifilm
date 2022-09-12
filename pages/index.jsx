@@ -175,7 +175,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
       <RowCard 
         listProducts={popularTvListState}
         type="default"
-        title="sectionTitlePopularPeople"
+        title="sectionTitlePopularTvSeries"
         productType="productTypeTvSeries"
         goToText="goToPage"
       />
