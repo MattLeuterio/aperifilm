@@ -3,6 +3,7 @@ const colors = {
     dark: '#C20010',
     light: '#DF0012',
     transparent: 'rgba(194, 0, 16, 0.7)',
+    disabled: 'yellow'
   },
   base: {
     darkGray: '#ACACA7',

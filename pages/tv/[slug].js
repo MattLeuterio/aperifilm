@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionOverview, CollectionPart, CollectionSection, Episodes, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSeasons, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, Seasons, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsTvStyle";
+import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionOverview, CollectionPart, CollectionSection, Episodes, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSeasons, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, Seasons, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/tvDetailsStyle";
 import { useEffect, useState } from "react";
 import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
@@ -145,9 +145,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
 
   const setProductImages = (images) => {
     let res = [];
-    console.log('images', images)
-    const backdrops = images?.backdrops;
-    const posters = images?.posters;
 
     res = [...images?.backdrops, ...images?.posters]
     return {...images, all: res};
@@ -203,16 +200,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const handleOnClickImage = (index, isOpen) => {
     dispatch(setFullscreenPanel({isOpen, selected: index}));
   }
-
-  console.log('DETAILS: ', movieDetailsState);
-  console.log('VIDEO: ', movieVideo);
-  console.log('CREDITS: ', movieCredits);
-  console.log('IMAGES: ', movieImages);
-  console.log('KEYWORDS: ', movieKeywords);
-  console.log('WATCH PROVIDERS: ', movieWatchProviders);
-  console.log('SOCIAL LINKS: ', socialLinks);
-  console.log('COLLECTION: ', movieCollection);
-  console.log('RECOMMENDATIONS: ', movieRecommendation);
 
   return (
     <ProductDetailsContainer>

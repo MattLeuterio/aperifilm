@@ -11,11 +11,13 @@ const Button = ({
 	url, text, className, colorText, handleOnClick, 
 	children, backgroundColor, active, size,
 	iconWidth, iconHeight, iconStroke, iconFill,
-	number
+	number, disabled, hide
 }) => {
 
 		return (
 				<ButtonContainer
+					hide={hide}
+					disabled={disabled}
 					size={size}
 					onClick={handleOnClick}
 					className={className}

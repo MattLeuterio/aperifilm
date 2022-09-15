@@ -9,7 +9,7 @@ import { searchGenre } from '../../js/genreList';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { genderPlaceholder, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
+import { checkImage, genderPlaceholder, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
 import { getProductDetails } from '../../store/actions/productAction';
 import Router from 'next/router';
 import useMediaQuery from '../../hooks/useMediaQuery';
@@ -17,7 +17,7 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 const Card = ({
 	product, title, className, colorText, handleOnClick, 
 	backgroundColor, active, type,
-	widthCard, heightCard, productType, totalViews, totalVotes,
+	widthCard, heightCard, productType, totalViews, totalVotes, position,
 	summary, genre, mainImg, vote
 }) => {
 	const isTablet = useMediaQuery(769);
@@ -49,8 +49,6 @@ const Card = ({
 			Router.push(`/person/${textToPath(product?.name)}?id=${product?.id}`);
 		}
 
-		//console.log('PRODUCT: ', product);
-
 		switch(type) {
 			case Card.TYPE.DEFAULT:
 				return (
@@ -71,8 +69,8 @@ const Card = ({
 					>
 						<Top type={type}>
 							<Image 
-								className="main-image" 
-								src={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+								className={`main-image ${product?.backdrop_path ? '' : 'no-image'}`}
+								src={checkImage(product?.backdrop_path)}
 								alt={`${product?.title || product?.name} image`} 
 								width="100%"
 								height="150px"
@@ -92,6 +90,42 @@ const Card = ({
 							<StatisticsContainer type={type}>
 								<StatisticsRowCard views={product?.popularity} votes={product?.vote_count}/>
 							</StatisticsContainer>
+						</Bottom>
+					</CardContainer>
+				)
+
+			case Card.TYPE.COLLECTION:
+				return (
+					<CardContainer
+						type={type}
+						onClick={() => handleOnClickCard()}
+						className={className}
+						color={colorText}
+						backgroundColor={backgroundColor}
+						active={active}
+						productType={productType}
+						genre={genre}
+						vote={vote}
+						totalViews={totalViews}
+						totalVotes={totalVotes}
+						widthCard={widthCard}
+						heightCard={heightCard}
+					>
+						<Top type={type}>
+							<Image 
+								className={`main-image ${product?.backdrop_path ? '' : 'no-image'}`}
+								src={checkImage(product?.backdrop_path)}
+								alt={`${product?.title || product?.name} image`} 
+								width="100%"
+								height="150px"
+								layout="fixed" 
+							/>
+							{/* Position Absolute */}
+							<Badge text={productType} top="15px" left="15px"/>
+						</Top>
+
+						<Bottom>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 14, fontWeight: 400, lineHeight: "1.4", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 						</Bottom>
 					</CardContainer>
 				)
@@ -196,7 +230,7 @@ const Card = ({
 				return (
 					<CardContainer
 						type={type}
-						onClick={handleOnClick}
+						onClick={() => handleOnClickCard()}
 						className={className}
 						color={colorText}
 						backgroundColor={backgroundColor}
@@ -215,7 +249,7 @@ const Card = ({
 						<Left type={type}>
 							<Image 
 								className="main-image" 
-								src={mainImg}
+								src={checkImage(productDetails?.backdrop_path)}
 								alt="aperifilm.com logo" 
 								width="220px"
 								height="143px"
@@ -235,9 +269,9 @@ const Card = ({
 							</Top>
 							<Bottom type={type}>
 							{productDetails?.vote_average > 0 && (
-								<RatingBottle size="small" vote={2.5} />
+								<RatingBottle size="small" vote={productDetails?.vote_average} />
 							)}
-								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>01</Montserrat>
+								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>{position}</Montserrat>
 							</Bottom>
 						</Right>
 					</CardContainer>
@@ -249,7 +283,8 @@ Card.TYPE = {
 	DEFAULT: 'default',
 	DISCOVER: 'discover',
 	PERSON: 'person',
-	TRENDING: 'trending'
+	TRENDING: 'trending',
+	COLLECTION: 'collection'
 }
 
 Card.defaultProps = {

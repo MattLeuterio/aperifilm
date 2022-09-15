@@ -74,12 +74,18 @@ export const Product = styled.div`
 
 export const ImageBox = styled.div`
   width: 40px;
+  min-width: 40px;
   height: 30px;
   border-radius: 3px;
   background-image: ${props => `url(${props.bgResult})`};
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: ${theme.colors.component.dark};
+
+  &.has-placeholder {
+    background-size: 20px;
+  }
 `;
 
 export const ProductType = styled.div`
@@ -89,6 +95,7 @@ export const ProductType = styled.div`
   width: 20%;
   padding-left: 20px;
   font-weight: 600;
+  margin-right: 10px;
   letter-spacing: ${theme.utils.letterSpacing};
 `;
 

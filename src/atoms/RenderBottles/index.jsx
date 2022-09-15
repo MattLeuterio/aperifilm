@@ -85,18 +85,20 @@ const RenderBottles = ({
         </>
       )
     } else if (vote > 4 && vote <= 5) {
-      <>
-          <BottleRender size={size} srcBg={EmptyBottle.src}>
-          </BottleRender>
-          <BottleRender size={size} srcBg={EmptyBottle.src}>
-          </BottleRender>
-          <BottleRender size={size} srcBg={HalfBottle.src}>
-          </BottleRender>
-          <BottleRender size={size} srcBg={FullBottle.src}>
-          </BottleRender>
-          <BottleRender size={size} srcBg={FullBottle.src}>
-          </BottleRender>
-        </>
+      return (
+        <>
+            <BottleRender size={size} srcBg={EmptyBottle.src}>
+            </BottleRender>
+            <BottleRender size={size} srcBg={EmptyBottle.src}>
+            </BottleRender>
+            <BottleRender size={size} srcBg={HalfBottle.src}>
+            </BottleRender>
+            <BottleRender size={size} srcBg={FullBottle.src}>
+            </BottleRender>
+            <BottleRender size={size} srcBg={FullBottle.src}>
+            </BottleRender>
+          </>
+      )
     } else if (vote > 5 && vote <= 6) {
       return (
         <>
@@ -158,6 +160,7 @@ const RenderBottles = ({
         </>
       )
     } else if (vote > 9 && vote <= 10) {
+      return (
         <>
           <BottleRender size={size} srcBg={EmptyBottle.src}>
           </BottleRender>
@@ -170,6 +173,7 @@ const RenderBottles = ({
           <BottleRender size={size} srcBg={EmptyBottle.src}>
           </BottleRender>
         </>
+      )
     }
 };
 

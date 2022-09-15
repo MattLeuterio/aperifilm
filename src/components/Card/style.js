@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Card from '.';
+import { BackButton } from '../../atoms';
 import { LineClamp } from '../../js/Mixins';
 import theme from '../../theme';
 
@@ -30,6 +31,14 @@ export const CardContainer = styled.div`
             top: 15px;
             right: 15px;
           }
+        `;
+
+      case Card.TYPE.COLLECTION:
+        return css`
+          background: transparent;
+          width: 160px;
+          height: fit-content;
+          border-radius: 0;
         `;
 
       case Card.TYPE.DISCOVER:
@@ -88,6 +97,42 @@ export const Top = styled.div`
               height: 100%;
               object-fit: cover;
             }
+
+            &.no-image {
+              img {
+                height: 100%;
+                object-fit: contain;
+                object-position: 50% 10px;
+              }
+            }
+          }
+
+          .rating-container {
+            position: absolute;
+            bottom: -13px;
+            right: 15px;
+          }
+        `;
+
+      case Card.TYPE.COLLECTION:
+        return css`
+          height: 240px;
+          border-radius: 5px;
+          .main-image {
+            img {
+              border-radius: 5px;
+              height: 240px;
+              object-fit: cover;
+            }
+
+            &.no-image {
+              img {
+                height: 240px;
+                object-fit: contain;
+                object-position: 50%;
+                background: ${theme.colors.component.light};
+              }
+            }
           }
 
           .rating-container {
@@ -131,8 +176,7 @@ export const Top = styled.div`
             max-width: 150px;
             width: unset;
             height: unset;
-            aspect-ratio: 1/1
-            ;
+            aspect-ratio: 1/1;
             img {
               height: 100%;
               object-fit: cover;
@@ -159,6 +203,30 @@ export const Bottom = styled.div`
     switch (props.type) {
       case Card.TYPE.DEFAULT:
       default:
+        return css`
+          padding: 15px;
+
+          .card-genre {
+            margin-bottom: 10px;
+            ${LineClamp({numLines: 1})}
+          }
+
+          .card-title {
+            ${LineClamp({numLines: 3})}
+            max-height: 60px;
+            min-height: 60px;
+            margin-bottom: 10px;
+          }
+
+          .main-image {
+            img {
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+        `;
+
+      case Card.TYPE.COLLECTION:
         return css`
           padding: 15px;
 

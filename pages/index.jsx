@@ -78,8 +78,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
     setPopularTvListState(popularTvList?.results.slice(0, 4));
   }, [discoverMovieList, comingSoonMovieList, popularPeopleList, popularTvList])
 
-  console.log('POPULAR PEOPLE: ', popularPeopleListState);
-  console.log('POPULAR TV: ', popularTvListState);
   return (
     <HomeContainer>
       <Head>

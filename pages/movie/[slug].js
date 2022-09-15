@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/productDetailsStyle";
+import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/movieDetailsStyle";
 import { useEffect, useState } from "react";
 import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
@@ -145,9 +145,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
 
   const setProductImages = (images) => {
     let res = [];
-    console.log('images', images)
-    const backdrops = images?.backdrops;
-    const posters = images?.posters;
 
     res = [...images?.backdrops, ...images?.posters]
     return {...images, all: res};
@@ -203,16 +200,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const handleOnClickImage = (index, isOpen) => {
     dispatch(setFullscreenPanel({isOpen, selected: index}));
   }
-
-  console.log('DETAILS: ', movieDetailsState);
-  console.log('VIDEO: ', movieVideo);
-  console.log('CREDITS: ', movieCredits);
-  console.log('IMAGES: ', movieImages);
-  console.log('KEYWORDS: ', movieKeywords);
-  console.log('WATCH PROVIDERS: ', movieWatchProviders);
-  console.log('SOCIAL LINKS: ', socialLinks);
-  console.log('COLLECTION: ', movieCollection);
-  console.log('RECOMMENDATIONS: ', movieRecommendation);
 
   return (
     <ProductDetailsContainer>
@@ -336,7 +323,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           </HeaderInfoCrew>
           <HeaderInfoVoteActions>
             <HeaderInfoVoteActionsLeft>
-              {movieDetailsState.vote_count > 0 && (
+              {movieDetailsState?.vote_count > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"averageVote"} id={"averageVote"} />
@@ -344,7 +331,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <RatingBottle vote={roundVote(movieDetailsState?.vote_average, 1)} />   
                 </HeaderInfoVote>
               )}
-              {movieDetailsState.vote_count > 0 && (
+              {movieDetailsState?.vote_count > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"yourVote"} id={"yourVote"} />
@@ -403,25 +390,25 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementOriginalTitle"} id={"infoSectionElementOriginalTitle"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.original_title}</Montserrat>
+              <Montserrat type="h4">{movieDetailsState?.original_title}</Montserrat>
             </InfoSectionElement>
             <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementStatus"} id={"infoSectionElementStatus"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.status}</Montserrat>
+              <Montserrat type="h4">{movieDetailsState?.status}</Montserrat>
             </InfoSectionElement>
             <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementBudget"} id={"infoSectionElementBudget"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.budget}</Montserrat>
+              <Montserrat type="h4">{movieDetailsState?.budget}</Montserrat>
             </InfoSectionElement>
             <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
               <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
                 <FormattedMessage defaultMessage={"infoSectionElementRevenue"} id={"infoSectionElementRevenue"} />
               </Montserrat>
-              <Montserrat type="h4">{movieDetailsState.revenue}</Montserrat>
+              <Montserrat type="h4">{movieDetailsState?.revenue}</Montserrat>
             </InfoSectionElement>
           </InfoSectionWrapperElement>
         </InfoSection>
@@ -623,7 +610,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             </CollectionInfoBottom>   
           </CollectionInfo>
           <CollectionList>
-            {movieCollection?.parts?.slice(isMobile ? (0, 1) : (0, 3)).map(movie => (
+            {movieCollection?.parts?.slice(0, 3).map(movie => (
               <CollectionPart 
                 imgPoster={movie?.poster_path}
                 onClick={() => router.push(`/movie/${textToPath(movie?.title)}/?id=${movie?.id}`)}

@@ -23,6 +23,10 @@ export const ButtonContainer = styled.div`
     : theme.colors.component.light
   };
   }
+
+  ${props => props.hide && css`
+    display: none;
+  `}
   
   ${props => {
     switch (props.size) {
@@ -67,7 +71,9 @@ export const Label = styled.div`
 export const NumberWrapper = styled.div`
   border-radius: 50%;
   width: 18px;
+  min-width: 18px;
   height: 18px;
+  min-height: 18px;
   display: flex;
   justify-content: center;
   align-items: center;

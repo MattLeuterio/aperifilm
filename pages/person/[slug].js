@@ -139,9 +139,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
       setTableResults(orderedList);
     }
 
-    const arr = [{a: 'b'}]
-    console.log(arr.some(item => item.a === 'b'))
-
   }, [activeTab, valueSelectSector, personDetailsState]);
 
   useEffect(() => {
@@ -224,17 +221,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 		setValueSelectSector(el);
 		//dispatch(setUserTranslate(el?.value));
 	}
-
-  console.log('DETAILS: ', personDetailsState);
-  console.log('SOCIAL LINKS: ', socialLinks);
-  console.log('IMAGES: ', personImages);
-  console.log('POPULAR PROJECT: ', personPopularProject);
-  console.log('MOVIE PROJECTS: ', personMovieProject);
-  console.log('TV PROJECTS: ', personTvProject);
-  console.log('************************************');
-  console.log('VALUE TAB', activeTab);
-  console.log('VALUE SELECT', valueSelectSector);
-  console.log('TABLE LIST RES: ', tableResults);
 
   return (
     <PersonDetailsContainer>

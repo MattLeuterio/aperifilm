@@ -13,6 +13,7 @@ export const roundVote = (value, precision) => {
 export const pTypeConverter = (type) => {
   if (type === 'film' || type === 'productTypeFilm') return 'movie';
   if (type === 'tv-series' || type === 'productTypeTvSeries') return 'tv';
+  if (type === 'collection' || type === 'productTypeCollection') return 'collection';
 }
 export const langConverter = (lang) => {
   if (lang === 'it' ) return 'it-IT';
@@ -101,7 +102,6 @@ export const sortByDate = (propertyName) => (a, b) =>
 a[propertyName] > b[propertyName] ? -1 : a[propertyName] < b[propertyName] ? 1 : 0;
 
 export const checkImage = (image) => {
-  console.log('image ohoh', image)
   if (image) return `https://image.tmdb.org/t/p/original/${image}`
   return PlaceholderNoImage.src
 }

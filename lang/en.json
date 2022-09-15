@@ -32,6 +32,7 @@
   "productTypeFilm": "Film",
   "productTypeTvSeries": "Tv-series",
   "productTypePerson": "Person",
+  "productTypeCollection": "Collection",
 
   "cardStatsViews": "views",
   "cardStatsVotes": "votes",
@@ -102,5 +103,11 @@
   "peopleTableHeaderTitle": "Title",
   "peopleTableHeaderJob": "Job",
 
-  "noResults": "No results"
+  "noResults": "No results",
+
+  "searchFilms": "Films",
+  "searchTvSeries": "Tv-series",
+  "searchPeople": "People",
+  "searchCollections": "Collections",
+  "searchKeywords": "Keywords"
 }

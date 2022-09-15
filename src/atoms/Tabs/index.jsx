@@ -23,7 +23,7 @@ export const defaultTabsList = [
 ]
 
 const Tabs = ({
-	className, size, tabsList, selected, onChange
+	className, sizeButtons, tabsList, selected, onChange, number, disabled, isSearch
 }) => {
 	const [selectedTab, setSelectedTab] = useState(false);
 
@@ -41,6 +41,10 @@ const Tabs = ({
 			<TabsContainer className={className}>
 				{tabsList?.map(tab => (
 					<Button
+						disabled={isSearch && !tab?.number}
+						hide={isSearch && !tab?.number}
+						number={tab?.number || 0}
+						size={sizeButtons}
 						className="collection-action-btn"
 						handleOnClick={() => handleOnClickTab(tab)}
 						active={tab.id === selectedTab.id}

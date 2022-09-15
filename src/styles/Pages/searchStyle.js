@@ -40,5 +40,36 @@ export const WelcomeTitle = styled.div`
   }
 `;
 
-export const WelcomeDescription = styled.div`
+export const TabsContainer = styled.div`
+  margin-top: 40px;
+`;
+
+export const ResultsContainer = styled.div`
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+
+  .card {
+    margin-bottom: 20px;
+    &:not(:last-child) {
+      margin-right: 20px;
+    }
+  }
+`;
+
+export const Keyword = styled.div`
+  cursor: pointer;
+  border: 1px solid ${theme.colors.element.light};
+  padding: 2px 4px;
+  margin-bottom: 5px;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: ${theme.colors.mainBrandColors.dark};
+    border: 1px solid ${theme.colors.mainBrandColors.dark};
+  } 
+
+  &:not(:last-child) {
+    margin-right: 5px;
+  }
 `;
