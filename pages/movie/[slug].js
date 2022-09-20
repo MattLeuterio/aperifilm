@@ -7,7 +7,7 @@ import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { checkImage, formatDate, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
@@ -230,30 +230,34 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               </HeaderInfoDatasGenres>
             </HeaderInfoDatasLeft>
             <HeaderInfoDatasRight>
-              <ReleaseDate>
-                <Icon
-                  className="icon-date"
-                  width="15px"
-                  height="16px"
-                  fill={theme.colors.element.light}
-                  stroke='transparent'
-                >
-                  <CalendarIcon />
-                </Icon>
-                <Montserrat type="small">{formatDate(movieDetailsState?.release_date, userLanguageState)}</Montserrat>
-              </ReleaseDate>
-              <Runtime>
-                <Icon
-                  className="icon-date"
-                  width="15px"
-                  height="16px"
-                  fill={theme.colors.element.light}
-                  stroke='transparent'
-                >
-                  <ClockIcon />
-                </Icon>
-                <Montserrat type="small">{movieDetailsState?.runtime}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
-              </Runtime>
+              {movieDetailsState?.release_date?.length > 0 && (
+                <ReleaseDate>
+                  <Icon
+                    className="icon-date"
+                    width="15px"
+                    height="16px"
+                    fill={theme.colors.element.light}
+                    stroke='transparent'
+                  >
+                    <CalendarIcon />
+                  </Icon>
+                  <Montserrat type="small">{formatDate(movieDetailsState?.release_date, userLanguageState)}</Montserrat>
+                </ReleaseDate>
+              )}
+              {movieDetailsState?.runtime > 0 && (
+                <Runtime>
+                  <Icon
+                    className="icon-date"
+                    width="15px"
+                    height="16px"
+                    fill={theme.colors.element.light}
+                    stroke='transparent'
+                  >
+                    <ClockIcon />
+                  </Icon>
+                  <Montserrat type="small">{movieDetailsState?.runtime}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
+                </Runtime>
+              )}
             </HeaderInfoDatasRight>
           </HeaderInfoDatas>
           <HeaderInfoSummary>
@@ -365,6 +369,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           type="person"
           title="sectionTitleCast"
           goToText="goToAllCast"
+          url={`/movie/cast/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
         />
       </CastSection>
 
@@ -426,7 +431,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   ({movieImages?.backdrops?.length + movieImages?.posters?.length})
                 </Montserrat>
               </Montserrat>
-              <GoTo text="goToAllMediaProduct" handleOnClick={() => onClose()} url="/media">
+              <GoTo text="goToAllMediaProduct" url={`/movie/media/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}>
                 <Icon 
                   stroke={theme.colors.mainBrandColors.dark}
                   width="18px"
@@ -441,7 +446,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 <MediaSectionImage
                   onClick={() => handleOnClickImage(index, true)}
                   name={`${movieDetails?.title} image ${index}`}
-                  srcImages={`https://image.tmdb.org/t/p/original/${image?.file_path}`}
+                  srcImages={`${imgBasePath}/${image?.file_path}`}
                 ></MediaSectionImage>
               ))}
             </MediaSectionGalleryImages>
@@ -593,7 +598,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             <CollectionInfoBottom>
               <Button
                 className="collection-action-btn"
-                handleOnClick={() => router.push(`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`)}
+                handleOnClick={() => router.push(`/movie/collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`)}
                 active
                 url={`collection/${textToPath(movieCollection.name)}?id=${movieCollection.id}`}
                 text="collectionInfoAction"
@@ -630,6 +635,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             productType="productTypeFilm"
             goToText="goToRecommendations"
             totalList={movieRecommendation?.total_results}
+            url={`/movie/related/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
           />
         </RecommendationsSection>
       )}

@@ -188,8 +188,7 @@ export default function SearchResults({}) {
           {/* movie */}
           {activeTab?.id === 'movie' && (
             <>
-              {
-              productsDetails?.products?.movie?.map((prod, index) => (
+              {productsDetails?.products?.movie?.map((prod, index) => (
                 <Card key={index} product={prod} productType="productTypeFilm" className="card" />
               ))}
             </>
@@ -198,8 +197,7 @@ export default function SearchResults({}) {
           {/* tv */}
           {activeTab?.id === 'tv' && (
             <>
-              {
-              productsDetails?.products?.tv?.map((prod, index) => (
+              {productsDetails?.products?.tv?.map((prod, index) => (
                 <Card key={index} product={prod} productType="productTypeTvSeries" className="card" />
               ))}
             </>

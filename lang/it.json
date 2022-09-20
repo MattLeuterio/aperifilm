@@ -11,6 +11,9 @@
   "actionsOpenGalleryPeople": "Gallery",
   
   "pageTitleSearchResults": "Risultati ricerca",
+  "pageTitleCredits": "Crediti",
+  "pageTitleRelated": "Correlati",
+  "pageTitleMedia": "Media",
 
   "buttonLogin": "Entra",
   "buttonLogout": "Esci",
@@ -72,9 +75,10 @@
   "recommendationTitle": "Correlati",
   "infoTvSeasonsTitle": "Stagioni:",
   "infoTvEpisodesTitle": "Episodi:",
-  "infoTvLastSeasonTitle": "Last season",
+  "infoTvLastSeasonTitle": "Ultima stagione",
   "infoTvAllSeasonsActions": "All seasons",
   "infoTvSeasonTitle": "Stagione",
+  "collectionPageNumberFilm": "Film:",
 
   "tvSeriesTypeDocumentary": "Documentario",
   "tvSeriesTypeNews": "News",
@@ -109,5 +113,8 @@
   "searchTvSeries": "Serie Tv",
   "searchPeople": "Persone",
   "searchCollections": "Collezioni",
-  "searchKeywords": "Parole chiavi"
+  "searchKeywords": "Parole chiavi",
+
+  "tabMediaTitleBackgrounds": "Sfondi",
+  "tabMediaTitlePosters": "Locandine"
 }

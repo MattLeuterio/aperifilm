@@ -6,7 +6,7 @@ import { SearchIcon, XIcon } from '@heroicons/react/solid';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
 import { GoToWrapper, ImageBox, Product, ProductType, SearchContainer, SearchInput, SuggestionProduct, Title } from './style';
 import { useSelector } from 'react-redux';
-import { langConverter, textToPath, tmdbApiKey } from '../../js/utility';
+import { imgBasePath, langConverter, textToPath, tmdbApiKey } from '../../js/utility';
 import { FormattedMessage } from 'react-intl';
 import { useRouter } from 'next/router';
 import useMediaQuery from '../../hooks/useMediaQuery';
@@ -109,10 +109,10 @@ const Searchbar = ({}) => {
 										bgResult={
 											item?.media_type === 'person' ?
 												item?.profile_path !== null  ?
-												`https://image.tmdb.org/t/p/original/${item?.profile_path}`  
+												`${imgBasePath}/${item?.profile_path}`  
 												: BackgroundMock.src 
 												: item?.backdrop_path !== null ?
-												`https://image.tmdb.org/t/p/original/${item?.backdrop_path}` 
+												`${imgBasePath}/${item?.backdrop_path}` 
 												: BackgroundMock.src 
 											}
 									></ImageBox>

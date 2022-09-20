@@ -7,7 +7,7 @@ import { ActionsProductButton, FullScreenPanel } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { CustomMessage, CustomSelect, Icon, Image, Tabs, TitlePage, WarningLanguage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { checkImage, formatDate, genderPlaceholder, getDepartmentPeople, langConverter, parseContext, sortByDate, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, formatDate, genderPlaceholder, getDepartmentPeople, imgBasePath, langConverter, parseContext, sortByDate, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import theme from "../../src/theme";
 import dynamic from 'next/dynamic'
@@ -242,7 +242,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
       <Container>
         <ContainerLeft>
           <PeopleCover>
-            <Image alt={`${personDetailsState?.name} poster`} width="100%" height="100%" src={personDetailsState?.profile_path ? `https://image.tmdb.org/t/p/original/${personDetailsState?.profile_path}` : genderPlaceholder(personDetailsState?.gender)} />
+            <Image alt={`${personDetailsState?.name} poster`} width="100%" height="100%" src={personDetailsState?.profile_path ? `${imgBasePath}/${personDetailsState?.profile_path}` : genderPlaceholder(personDetailsState?.gender)} />
             {personImages?.profiles?.length > 1 && (
               <ButtonImages
                 onClick={() => handleOnClickImage(true)}

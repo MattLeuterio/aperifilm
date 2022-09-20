@@ -1,4 +1,7 @@
 const colors = {
+  primary: {
+    black: '#000'
+  },
   mainBrandColors: {
     dark: '#C20010',
     light: '#DF0012',

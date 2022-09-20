@@ -141,6 +141,8 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         type="discover"
         productType="productTypeFilm"
         goToText="goToDiscoverNewFilm"
+        sector="discover"
+        url="/discover/movie"
       />
 
       {/* COMING SOON */}
@@ -150,6 +152,8 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         title="sectionTitleComingOutFilm"
         productType="productTypeFilm"
         goToText="goToPage"
+        sector="coming-soon"
+        url="/coming-soon"
       />
 
       {/* POPULAR PEOPLE */}
@@ -157,8 +161,9 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         listProducts={popularPeopleListState}
         type="person"
         title="sectionTitlePopularPeople"
-        productType="productTypeFilm"
+        productType="productTypePeople"
         goToText="goToPage"
+        url="/popular-people"
       />
 
       {/* DISCOVER SERIE TV */}
@@ -167,16 +172,19 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         type="discover"
         productType="productTypeTvSeries"
         goToText="goToDiscoverNewTvSeries"
+        sector="discover"
+        url="/discover/tv"
       />
 
       {/* POPULAR SERIE TV */}
-      <RowCard 
+      {/* <RowCard 
         listProducts={popularTvListState}
         type="default"
         title="sectionTitlePopularTvSeries"
         productType="productTypeTvSeries"
         goToText="goToPage"
-      />
+        sector="popular"
+      /> */}
     </HomeContainer>
   );
 }

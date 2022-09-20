@@ -14,6 +14,7 @@ import RenderBottles from "./RenderBottles";
 import BackButton from "./BackButton";
 import CustomMessage from "./CustomMessage";
 import Tabs from "./Tabs";
+import Paginate from "./Paginate";
 
 export {
   ActiveLink,
@@ -31,5 +32,6 @@ export {
   RenderBottles,
   BackButton,
   CustomMessage,
-  Tabs
+  Tabs,
+  Paginate
 }

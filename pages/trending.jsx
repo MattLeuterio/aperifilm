@@ -6,7 +6,7 @@ import { Container, ResultsContainer, TrendingContainer, Left, Right, PeopleCont
 import { useEffect, useState } from "react";
 import { Card, RowCard } from "../src/components";
 import useMediaQuery from "../src/hooks/useMediaQuery";
-import { genderPlaceholder, langConverter, textToPath, tmdbApiKey } from "../src/js/utility";
+import { genderPlaceholder, imgBasePath, langConverter, textToPath, tmdbApiKey } from "../src/js/utility";
 import Tabs, { defaultTabsList } from "../src/atoms/Tabs";
 import Montserrat from "../src/typography/montserrat";
 import Router from 'next/router';
@@ -60,11 +60,6 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
     setActiveTab(tab);
   };
 
-  console.log('TRENDING PEOPLE', trendingPeopleListState);
-  console.log('TRENDING MOVIE', trendingMovieListState);
-  console.log('TRENDING TV', trendingTvListState);
-  
-  console.log('active tab: ', activeTab);
   return (
     <TrendingContainer>
       <Head>
@@ -137,14 +132,20 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
               activeTab.id === 'movie' && (
                 <>
                   {trendingMovieListState.map((item, index) => (
-                    <Card 
-                      key={index} 
-                      product={item} 
-                      type="trending" 
-                      productType="productTypeFilm"
-                      position={index + 1 < 10 ? `0${index+1}` : index+1}
-                      className="card" 
-                    />
+                    <>
+                      {isTablet ? (
+                        <Card position={index + 1 < 10 ? `0${index+1}` : index+1} isCardTrending key={index} product={item} productType="productTypeFilm" className="card" />
+                      ) : (
+                        <Card 
+                          key={index} 
+                          product={item} 
+                          type="trending" 
+                          productType="productTypeFilm"
+                          position={index + 1 < 10 ? `0${index+1}` : index+1}
+                          className="card" 
+                        />
+                      )}
+                    </>
                   ))}
                 </>
               )
@@ -155,15 +156,20 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
               activeTab.id === 'tv' && (
                 <>
                   {trendingTvListState.map((item, index) => (
-                    <Card
-
-                      key={index} 
-                      product={item} 
-                      type="trending" 
-                      productType="productTypeTvSeries"
-                      position={index + 1 < 10 ? `0${index+1}` : index+1}
-                      className="card" 
-                    />
+                    <>
+                      {isTablet ? (
+                        <Card position={index + 1 < 10 ? `0${index+1}` : index+1} isCardTrending key={index} product={item} productType="productTypeTvSeries" className="card" />
+                      ) : (
+                        <Card
+                          key={index} 
+                          product={item} 
+                          type="trending" 
+                          productType="productTypeTvSeries"
+                          position={index + 1 < 10 ? `0${index+1}` : index+1}
+                          className="card" 
+                        />
+                      )}
+                    </>
                   ))}
                 </>
               )
@@ -180,7 +186,7 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
                 >
                   <Image 
                     className="main-image" 
-                    src={item?.profile_path ? `https://image.tmdb.org/t/p/original${item?.profile_path}` : genderPlaceholder(item?.gender)}
+                    src={item?.profile_path ? `${imgBasePath}${item?.profile_path}` : genderPlaceholder(item?.gender)}
                     alt={`${item?.name} photo`} 
                     width="90px"
                     height="90px"

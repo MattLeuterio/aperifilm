@@ -14,6 +14,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useDispatch } from 'react-redux';
 import { setFullscreenPanel } from '../../../store/actions/appAction';
+import { imgBasePath } from '../../../js/utility';
 
 const SliderFullScreen = ({indexImage, imagesList}) => {
 	const isTablet = useMediaQuery(769);
@@ -33,7 +34,7 @@ const SliderFullScreen = ({indexImage, imagesList}) => {
 				>
 					{imagesList?.map(img => (
 						<SwiperSlide>
-							<Slide urlImage={`https://image.tmdb.org/t/p/original/${img?.file_path}`}></Slide>
+							<Slide urlImage={`${imgBasePath}/${img?.file_path}`}></Slide>
 						</SwiperSlide>
 					))}
 				</Swiper>

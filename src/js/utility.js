@@ -5,6 +5,8 @@ import PlaceholderNoImage from '../assets/images/placeholder-no-image.png';
 
 export const tmdbApiKey = 'e2330ecaa641a077ab62520c44ab636f';
 
+export const imgBasePath = 'https://image.tmdb.org/t/p/original';
+
 export const roundVote = (value, precision) => {
   var multiplier = Math.pow(10, precision || 0);
   return Math.round(value * multiplier) / multiplier;

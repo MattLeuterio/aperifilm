@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { GoTo, Icon, Image } from '../../atoms';
 import { Header, Sidebar, SliderRowCards } from '../Sliders';
 import { WelcomeBanner } from '..';
-import { Container, Content, Main, Row, RowCards, RowHeader } from './style';
+import { Row, RowCards, RowHeader } from './style';
 import { Card } from '..';
-import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
-import { useSelector } from 'react-redux';
 import { ArrowNarrowRightIcon } from '@heroicons/react/outline';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import Montserrat from '../../typography/montserrat';
@@ -13,9 +11,11 @@ import theme from '../../theme';
 import { FormattedMessage } from 'react-intl';
 import { SwiperSlide } from 'swiper/react';
 import { FireIcon } from '@heroicons/react/solid';
+import { pTypeConverter, textToPath } from '../../js/utility';
 
-const RowCard = ({ listProducts, type, title, productType, goToText, totalList }) => {
+const RowCard = ({ listProducts, type, title, productType, goToText, totalList, url }) => {
 	const isTablet = useMediaQuery(860);
+
 	return (
 		<Row>
 			{type !== 'discover' && (
@@ -31,7 +31,7 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList }
 					</Montserrat>
 
 					{!isTablet && (
-						<GoTo text={goToText} handleOnClick={() => onClose()} url="/search-results">
+						<GoTo text={goToText} url={url || '/'}>
 							<Icon 
 								stroke={theme.colors.mainBrandColors.dark}
 								width="18px"
@@ -60,7 +60,7 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList }
 				</RowCards>
 			)}
 			{(isTablet || type === 'discover') && (
-				 <GoTo fontSize="16px" text={goToText} className="goto-rowcard" handleOnClick={() => onClose()} url="/search-results">
+				 <GoTo fontSize="16px" text={goToText} className="goto-rowcard"  url={url || '/'}>
 					<Icon 
 						fill={type !== 'discover' ? 'transparent' : theme.colors.mainBrandColors.dark}
 						stroke={type !== 'discover' ? theme.colors.mainBrandColors.dark : 'transparent'}

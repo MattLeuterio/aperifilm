@@ -15,11 +15,26 @@ export const Container = styled.div`
 
 export const ResultsContainer = styled.div`
   display: flex;
+
+  @media ${theme.device.mobileM} {
+    flex-direction: column-reverse;
+  }
 `;
 
 export const Left = styled.div`
   width: 70%;
-  margin-right: 40px;
+  margin-right: 20px;
+
+  @media ${theme.device.mobileL} {
+    margin-right: 10px;
+  }
+
+  @media ${theme.device.mobileM} {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   .card {
     &:not(:last-child) {
@@ -35,6 +50,15 @@ export const Right = styled.div`
   width: 30%;
   height: fit-content;
   max-height: fit-content;
+
+  @media ${theme.device.mobileL} {
+    width: 40%;
+  }
+
+  @media ${theme.device.mobileM} {
+    width: 100%;
+    margin-bottom: 40px;
+  }
 `;
 
 export const PeopleContainer = styled.div`
@@ -42,6 +66,17 @@ export const PeopleContainer = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   margin-top: 30px;
+
+  @media ${theme.device.mobileL} {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media ${theme.device.mobileM} {
+    justify-content: center;
+    flex-direction: row;
+  }
 `;
 
 export const Person = styled.div`
@@ -52,6 +87,16 @@ export const Person = styled.div`
   width: calc(50%);
   margin-bottom: 30px;
   cursor: pointer;
+
+  @media ${theme.device.mobileL} {
+    width: unset;
+  }
+
+  @media ${theme.device.mobileM} {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
 
   .main-image {
     margin: 0 auto;

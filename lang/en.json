@@ -6,11 +6,14 @@
   "goToDiscoverNewTvSeries": "Discover new Tv-series",
   "goToAllCast": "Go to all cast",
   "goToAllMediaProduct": "Go to all media",
-  "goToRecommendations": "Go to all recommendations",
+  "goToRecommendations": "Go to all related",
 
   "actionsOpenGalleryPeople": "Gallery",
 
   "pageTitleSearchResults": "Search results",
+  "pageTitleCredits": "Credits",
+  "pageTitleRelated": "Related",
+  "pageTitleMedia": "Media",
 
   "buttonLogin": "Login",
   "buttonLogout": "Logout",
@@ -41,7 +44,7 @@
   "sectionTitlePopularPeople": "Popular people",
   "sectionTitlePopularTvSeries": "Popular Tv-series",
   "sectionTitleCast": "Cast",
-  "sectionTitleRecommendations": "Recommendations",
+  "sectionTitleRecommendations": "Related",
   "sectionTitlePeoplePopularProject": "Popular projects",
 
   "elementMinutes": "minutes",
@@ -69,12 +72,13 @@
   "mediaSectionInfoExternalWatchBuy": "Buy",
   "collectionInfoTitle": "Collection",
   "collectionInfoAction": "Complete collection",
-  "recommendationTitle": "Recommendations",
+  "recommendationTitle": "Related",
   "infoTvSeasonsTitle": "Seasons:",
   "infoTvEpisodesTitle": "Episodes:",
   "infoTvLastSeasonTitle": "Last season",
   "infoTvAllSeasonsActions": "All seasons",
   "infoTvSeasonTitle": "Season",
+  "collectionPageNumberFilm": "Films:",
 
   "tvSeriesTypeDocumentary": "Documentary",
   "tvSeriesTypeNews": "News",
@@ -109,5 +113,8 @@
   "searchTvSeries": "Tv-series",
   "searchPeople": "People",
   "searchCollections": "Collections",
-  "searchKeywords": "Keywords"
+  "searchKeywords": "Keywords",
+
+  "tabMediaTitleBackgrounds": "Backgrounds",
+  "tabMediaTitlePosters": "Posters"
 }

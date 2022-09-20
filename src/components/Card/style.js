@@ -112,6 +112,13 @@ export const Top = styled.div`
             bottom: -13px;
             right: 15px;
           }
+
+          .card-position {
+            position: absolute;
+            bottom: 5px;
+            left: 10px;
+            color: ${theme.colors.element.light};
+          }
         `;
 
       case Card.TYPE.COLLECTION:
@@ -187,7 +194,7 @@ export const Top = styled.div`
 
       case Card.TYPE.TRENDING:
         return css`
-          .action-buttons {
+          .card-position {
             position: absolute;
             top: 0;
             right: 0;
@@ -223,6 +230,12 @@ export const Bottom = styled.div`
               height: 100%;
               object-fit: cover;
             }
+          }
+
+          .card-position {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
           }
         `;
 
@@ -325,7 +338,7 @@ export const Right = styled.div`
             ${LineClamp({numLines: 2})}
             max-height: 68px;
             margin-bottom: 20px;
-            max-width: 80%;
+            max-width: 67%;
           }
 
           .card-position {

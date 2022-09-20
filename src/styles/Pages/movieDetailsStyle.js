@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import { sidebarWidthDSK } from '../../../const';
 import { DisplayFlex, LineClamp } from '../../js/Mixins';
+import { imgBasePath } from '../../js/utility';
 import theme from '../../theme';
 
 export const ProductDetailsContainer = styled.div`
@@ -208,7 +209,7 @@ export const VideoSection = styled.div`
 `;
 
 export const BackdropSection = styled.div`
-  background-image: ${props => `url(https://image.tmdb.org/t/p/original${props.url})`};
+  background-image: ${props => `url(${imgBasePath}${props.url})`};
   width: 65%;
   height: 360px;
   background-repeat: no-repeat;
@@ -424,7 +425,7 @@ export const ExternalElm = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 4px;
-  background-image: ${props => `url(https://image.tmdb.org/t/p/original${props.imageUrl})`};
+  background-image: ${props => `url(${imgBasePath}${props.imageUrl})`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -449,7 +450,7 @@ export const CollectionSection = styled.div`
   width: 100%;
   height: 170px;
   padding: 25px 40px;
-  background: ${props => `linear-gradient(113.38deg, rgba(57, 55, 77, 0.8) -0.12%, rgba(21, 21, 21, 0.8) 107.47%), url(https://image.tmdb.org/t/p/original${props.imageBg})`};
+  background: ${props => `linear-gradient(113.38deg, rgba(57, 55, 77, 0.8) -0.12%, rgba(21, 21, 21, 0.8) 107.47%), url(${imgBasePath}${props.imageBg})`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -517,7 +518,7 @@ export const CollectionPart = styled.div`
   width: 129px;
   height: 194px;
   border-radius: 5px;
-  background-image: ${props => `url(https://image.tmdb.org/t/p/original${props.imgPoster})`};
+  background-image: ${props => `url(${imgBasePath}${props.imgPoster})`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

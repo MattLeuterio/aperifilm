@@ -7,7 +7,7 @@ import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { checkImage, formatDate, getTvSeriesStatus, getTvSeriesType, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, formatDate, getTvSeriesStatus, getTvSeriesType, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
@@ -230,6 +230,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               </HeaderInfoDatasGenres>
             </HeaderInfoDatasLeft>
             <HeaderInfoDatasRight>
+             {movieDetailsState?.first_air_date?.length > 0 && (
               <ReleaseDate>
                 <Icon
                   className="icon-date"
@@ -242,18 +243,22 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 </Icon>
                 <Montserrat type="small">{formatDate(movieDetailsState?.first_air_date, userLanguageState)}</Montserrat>
               </ReleaseDate>
-              <Runtime>
-                <Icon
-                  className="icon-date"
-                  width="15px"
-                  height="16px"
-                  fill={theme.colors.element.light}
-                  stroke='transparent'
-                >
-                  <ClockIcon />
-                </Icon>
-                <Montserrat type="small">{movieDetailsState?.episode_run_time}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
-              </Runtime>
+             )}
+
+              {movieDetailsState?.runtime?.length > 0 && (
+                <Runtime>
+                  <Icon
+                    className="icon-date"
+                    width="15px"
+                    height="16px"
+                    fill={theme.colors.element.light}
+                    stroke='transparent'
+                  >
+                    <ClockIcon />
+                  </Icon>
+                  <Montserrat type="small">{movieDetailsState?.episode_run_time}{" "}<FormattedMessage defaultMessage={"elementMinutes"} id={"elementMinutes"} /></Montserrat>
+                </Runtime>
+              )}
             </HeaderInfoDatasRight>
           </HeaderInfoDatas>
           <HeaderInfoSummary>
@@ -340,6 +345,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           type="person"
           title="sectionTitleCast"
           goToText="goToAllCast"
+          url={`/tv/cast/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
         />
       </CastSection>
 
@@ -400,7 +406,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   ({movieImages?.backdrops?.length + movieImages?.posters?.length})
                 </Montserrat>
               </Montserrat>
-              <GoTo text="goToAllMediaProduct" handleOnClick={() => onClose()} url="/media">
+              <GoTo text="goToAllMediaProduct" url={`/tv/media/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}>
                 <Icon 
                   stroke={theme.colors.mainBrandColors.dark}
                   width="18px"
@@ -415,7 +421,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 <MediaSectionImage
                   onClick={() => handleOnClickImage(index, true)}
                   name={`${movieDetails?.title} image ${index}`}
-                  srcImages={`https://image.tmdb.org/t/p/original/${image?.file_path}`}
+                  srcImages={`${imgBasePath}/${image?.file_path}`}
                 ></MediaSectionImage>
               ))}
             </MediaSectionGalleryImages>
@@ -606,6 +612,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             title="sectionTitleRecommendations"
             productType="productTypeTvSeries"
             goToText="goToRecommendations"
+            url={`/tv/related/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
           />
         </RecommendationsSection>
       )}

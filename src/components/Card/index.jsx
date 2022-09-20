@@ -9,14 +9,14 @@ import { searchGenre } from '../../js/genreList';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { checkImage, genderPlaceholder, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
+import { checkImage, genderPlaceholder, imgBasePath, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
 import { getProductDetails } from '../../store/actions/productAction';
 import Router from 'next/router';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 const Card = ({
 	product, title, className, colorText, handleOnClick, 
-	backgroundColor, active, type,
+	backgroundColor, active, type, isCardTrending,
 	widthCard, heightCard, productType, totalViews, totalVotes, position,
 	summary, genre, mainImg, vote
 }) => {
@@ -82,6 +82,10 @@ const Card = ({
 							{productDetails?.vote_average > 0 && (
 								<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
 							)}
+							{/* POSITION ABSOLUTE */}
+							{isCardTrending && (
+								<Montserrat className="card-position" type="bold" configuration={{fontSize: 24, fontWeight: 600, lineHeight: 1, color: theme.colors.element.l2ight}}>{position}</Montserrat>
+							)}
 						</Top>
 
 						<Bottom>
@@ -90,6 +94,7 @@ const Card = ({
 							<StatisticsContainer type={type}>
 								<StatisticsRowCard views={product?.popularity} votes={product?.vote_count}/>
 							</StatisticsContainer>
+
 						</Bottom>
 					</CardContainer>
 				)
@@ -150,7 +155,7 @@ const Card = ({
 						totalVotes={totalVotes}
 						widthCard={widthCard}
 						heightCard={heightCard}
-						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+						mainImg={`${imgBasePath}/${product?.backdrop_path}`}
 					>
 						<Top type={type}>
 							<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
@@ -207,7 +212,7 @@ const Card = ({
 						<Top type={type}>
 							<Image 
 								className="main-image" 
-								src={product?.profile_path ? `https://image.tmdb.org/t/p/original${product?.profile_path}` : genderPlaceholder(product?.gender)}
+								src={product?.profile_path ? `${imgBasePath}${product?.profile_path}` : genderPlaceholder(product?.gender)}
 								alt={`${product?.name} photo`} 
 								width="150px"
 								height="150px"
@@ -220,7 +225,7 @@ const Card = ({
 								{product?.name}
 							</Montserrat>
 							<Montserrat className="card-description" configuration={{fontSize: 14, lineHeight: "17.07px", color: theme.colors.element.dark}}>
-								{product?.character}
+								{product?.character || product?.department}
 							</Montserrat>
 						</Bottom>
 					</CardContainer>
@@ -244,7 +249,7 @@ const Card = ({
 						totalVotes={totalVotes}
 						widthCard={widthCard}
 						heightCard={heightCard}
-						mainImg={`https://image.tmdb.org/t/p/original/${product?.backdrop_path}`}
+						mainImg={`${imgBasePath}/${product?.backdrop_path}`}
 					>
 						<Left type={type}>
 							<Image 
@@ -261,17 +266,17 @@ const Card = ({
 								<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
 								<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
 								<StatisticsContainer type={type}>
-									<StatisticsRowCard views="20" votes="216"/>
+									<StatisticsRowCard views={product?.popularity} votes={product?.vote_count} />
 								</StatisticsContainer>
 
 								{/* POSITION ABSOLUTE */}
-								<ActionButtons className="action-buttons" />
+								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>{position}</Montserrat>
 							</Top>
 							<Bottom type={type}>
 							{productDetails?.vote_average > 0 && (
 								<RatingBottle size="small" vote={productDetails?.vote_average} />
-							)}
-								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>{position}</Montserrat>
+								)}
+								<ActionButtons className="action-buttons" />
 							</Bottom>
 						</Right>
 					</CardContainer>
