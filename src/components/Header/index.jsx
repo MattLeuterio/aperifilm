@@ -263,7 +263,7 @@ const Header = ({}) => {
 					<Searchbar />
 				</SearchWrapper>
 				<ActionWrapper>
-					{user ? (
+					{/* {user ? (
 						<UserWrapper>
 							<UserImageWrapper
 								onClick={() => handleOnClickUser()}
@@ -346,7 +346,7 @@ const Header = ({}) => {
 						>
 							<LoginIcon />
 						</Button>
-					)}
+					)} */}
 					<LanguageWrapper>
 						<ImageWrap
 							onClick={() => setLanguageDropdownStatus(!languageDropdownStatus)}
