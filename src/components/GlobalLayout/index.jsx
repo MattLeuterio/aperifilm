@@ -14,9 +14,9 @@ const GlobalLayout = ({ children }) => {
 				<Content>
 					<Header />
 					<Main>
-					{!user?.email && (
+					{/* {!user?.email && (
 						<WelcomeBanner />
-					)}
+					)} */}
 						{ children }
 					</Main>
 				</Content>
