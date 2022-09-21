@@ -5,19 +5,25 @@ import { WelcomeBanner } from '..';
 import { Container, Content, Main } from './style';
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { useSelector } from 'react-redux';
+import Head from 'next/head';
 
 const GlobalLayout = ({ children }) => {
 	const user = useSelector((state) => state.userData);
 	return (
-			<Container>
-        <Sidebar />
-				<Content>
-					<Header />
-					<Main>
-						{ children }
-					</Main>
-				</Content>
-			</Container>
+			<>
+				<Head>
+					<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+				</Head>
+				<Container>
+					<Sidebar />
+					<Content>
+						<Header />
+						<Main>
+							{ children }
+						</Main>
+					</Content>
+				</Container>
+			</>
 	)
 };
 
