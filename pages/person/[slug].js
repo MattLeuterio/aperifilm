@@ -264,8 +264,8 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           </PeopleCover>
           <Actions>
             <LeftActions>
-              <ActionsProductButton action="favorite"/>
-              <Icon
+              {/* <ActionsProductButton action="favorite"/> */}
+              {/* <Icon
                 className="icon-share"
                 fill={theme.colors.element.light}
                 width="20px"
@@ -273,7 +273,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                 strokeWidth={0}
               >
                 <ShareIcon />
-              </Icon>
+              </Icon> */}
             </LeftActions>
             {socialLinks?.length > 0 && (
               <LinkSocialWrapper>
