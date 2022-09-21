@@ -56,7 +56,6 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
 
   const isTablet = useMediaQuery(769);
   const isMobile = !useMediaQuery(426);
-  console.log('query', query)
 
   useEffect(() => {
     setEpisodeDetailsState(episodeDetails);
@@ -97,11 +96,6 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
   const handleOnClickImage = (index, isOpen) => {
     dispatch(setFullscreenPanel({isOpen, selected: index}));
   }
-
-  console.log('PRODUCT DETAILS: ', productDetailsState)
-  console.log('EPISODE DETAILS: ', episodeDetailsState)
-  console.log('EPISODE IMAGES: ', episodeImagesState)
-  console.log('EPISODE VIDEOS: ', episodeVideosState)
   
   return (
     <ProductDetailsContainer>

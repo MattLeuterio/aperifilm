@@ -68,8 +68,6 @@ export default function SeasonsDetails({seasonsDetails, productTypeContext, quer
   useEffect(() => {
     getDetailsProduct();
   }, [userLanguageState, seasonsDetails]);
-
-  console.log('SEASONS DETAILS: ', seasonsDetailsState)
   
   return (
     <ProductDetailsContainer>

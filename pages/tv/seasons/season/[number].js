@@ -49,7 +49,6 @@ export default function SeasonDetails({seasonDetails, productDetails, productTyp
 
   const isTablet = useMediaQuery(769);
   const isMobile = !useMediaQuery(426);
-  console.log('query', query)
 
   useEffect(() => {
     setSeasonDetailsState(seasonDetails);
@@ -76,9 +75,6 @@ export default function SeasonDetails({seasonDetails, productDetails, productTyp
   useEffect(() => {
     getDetailsProduct();
   }, [userLanguageState, seasonDetails, productDetails]);
-
-  console.log('SEASONS DETAILS: ', seasonDetailsState)
-  console.log('PRODUCT DETAILS: ', productDetailsState)
   
   return (
     <ProductDetailsContainer>

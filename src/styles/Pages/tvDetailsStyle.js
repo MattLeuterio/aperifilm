@@ -386,7 +386,6 @@ export const Keyword = styled.div`
 `;
 export const MediaSectionInfoExternal = styled.div`
   ${DisplayFlex({alignItems: 'flex-start'})};
-  margin-top: 20px;
   @media ${theme.device.mobileL} {
     flex-direction: column;
   }

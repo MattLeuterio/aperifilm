@@ -347,16 +347,17 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           </PeopleInfo>
         </ContainerLeft>
         <ContainerRight>
-          {noBiography && personDetailsState?.biography.length > 0 && (
+          {personDetailsState?.biography?.length > 0 && (
             <Biography>
-              {(noBiography && personDetailsState?.biography.length > 0) && (
+              {(userLanguageState === 'it' && noBiography && personDetailsState?.biography?.length > 0) && (
                 <CustomMessage text="Traduzione italiana mancante" />
               )}
               <Montserrat configuration={{lineHeight: '18px'}}>{personDetailsState?.biography}</Montserrat>
             </Biography>
           )}
 
-          <Montserrat className="product-details-section-title" type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>
+          {/* POPULAR PROJECTS */}
+          {/* <Montserrat className="product-details-section-title" type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>
             <FormattedMessage defaultMessage={"sectionTitlePeoplePopularProject"} id={"sectionTitlePeoplePopularProject"} />{" "}
           </Montserrat>
           <PopularProjectsSection>
@@ -368,7 +369,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                 <Montserrat configuration={{fontSize: 16, fontWeight: 600}}>{proj?.name || proj?.title}</Montserrat>
               </PopularProject>
             ))}
-          </PopularProjectsSection>
+          </PopularProjectsSection> */}
 
           <ListProductsSection>
             <FilteringWrapper>

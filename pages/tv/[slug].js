@@ -427,7 +427,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             </MediaSectionGalleryImages>
           </MediaSectionGallery>
           <MediaSectionInfo>
-            {movieKeywords?.length > 0 && (
+            {/* {movieKeywords?.length > 0 && (
               <MediaSectionInfoKeywords>
                   <MediaSectionInfoTitle>
                     <Icon
@@ -451,7 +451,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                     ))}
                   </MediaSectionInfoKeywordsList>
               </MediaSectionInfoKeywords>
-            )}
+            )} */}
             <MediaSectionInfoExternal>
               {Object.entries(movieWatchProviders).length > 0 && (
                 <MediaSectionInfoExternalLeft>

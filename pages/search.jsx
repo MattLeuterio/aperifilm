@@ -217,7 +217,7 @@ export default function SearchResults({}) {
           )}
   
           {/* keywords */}
-          {activeTab?.id === 'keywords' && (
+          {/* {activeTab?.id === 'keywords' && (
             <>
               {
               productsDetails?.keywords?.results?.map((kw, index) => (
@@ -229,7 +229,7 @@ export default function SearchResults({}) {
                 </Keyword>
               ))}
             </>
-          )}
+          )} */}
         </ResultsContainer>
       </SearchContainer>
     );
