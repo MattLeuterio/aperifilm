@@ -317,8 +317,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               )}
             </HeaderInfoVoteActionsLeft>
             <HeaderInfoVoteActionsRight>
-              <ActionButtons className="action-buttons" />
-              <Icon
+              {/* <ActionButtons className="action-buttons" /> */}
+              {/* <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}
                   width="20px"
@@ -326,7 +326,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   strokeWidth={0}
                 >
                   <ShareIcon />
-              </Icon>
+              </Icon> */}
             </HeaderInfoVoteActionsRight>
           </HeaderInfoVoteActions>
         </HeaderInfo>

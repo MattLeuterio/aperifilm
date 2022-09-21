@@ -101,8 +101,8 @@ export default function CollectionDetails({collectionDetails, productTypeContext
           </HeaderCover>
           <HeaderInfoVoteActions>
             <HeaderInfoVoteActionsRight>
-              <ActionsProductButton action="favorite"/>
-              <Icon
+              {/* <ActionsProductButton action="favorite"/> */}
+              {/* <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}
                   width="20px"
@@ -110,7 +110,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
                   strokeWidth={0}
                 >
                   <ShareIcon />
-              </Icon>
+              </Icon> */}
             </HeaderInfoVoteActionsRight>
           </HeaderInfoVoteActions>
         </HeaderLeft>
