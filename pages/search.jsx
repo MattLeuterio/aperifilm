@@ -35,13 +35,7 @@ export default function SearchResults({}) {
       label: 'searchCollections',
       icon: null,
       number: 0
-    },
-    {
-      id: 'keywords',
-      label: 'searchKeywords',
-      icon: null,
-      number: 0
-    },
+    }
   ]
   const userLanguageState = useSelector((state) => state.userData.language);
   const router = useRouter();
@@ -126,12 +120,6 @@ export default function SearchResults({}) {
             total_pages: collections?.total_pages,
             total_results: collections?.total_results,
             results: collections?.results,
-          },
-          keywords: {
-            page: keywords?.page,
-            total_pages: keywords?.total_pages,
-            total_results: keywords?.total_results,
-            results: keywords?.results,
           }
         }
       );
