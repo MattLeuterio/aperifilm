@@ -31,7 +31,7 @@ const Header = ({}) => {
 	const [userDropdownStatus, setUserDropdownStatus] = useState(false);
 	const [languageDropdownStatus, setLanguageDropdownStatus] = useState(false);
 	const [countryList, setCountryList] = useState([]);
-	const [defaultValueSelectTranslate, setDefaultValueSelectTranslate] = useState({});
+	// const [defaultValueSelectTranslate, setDefaultValueSelectTranslate] = useState({});
 	const [visibilitySearchBar, setVisibilitySearchBar] = useState(false);
 	const [visibilityMobileMenu, setVisibilityMobileMenu] = useState(false);
 	const [defaultValueSelectLanguage, setDefaultValueSelectLanguage] = useState({});
@@ -66,7 +66,7 @@ const Header = ({}) => {
 			: Boolean(userData?.language)
 		? userData.language === 'en' ? 'en-US' : 'it-IT'
 			: router.locale;
-		handleOnChangeTranslate(list?.filter(el => el.value === langTranslate)[0]);
+		// handleOnChangeTranslate(list?.filter(el => el.value === langTranslate)[0]);
 	}, [usersList]);
 
 	useEffect(() => {
@@ -187,13 +187,13 @@ const Header = ({}) => {
 		}
 	}
 
-	const handleOnChangeTranslate = (el) => {
-		setDefaultValueSelectTranslate(el);
-		dispatch(setUserTranslate(el?.value));
-		if (userData.record_id) {
-			updateUser(userData.record_id, {"translate": el?.value})
-		}
-	}
+	// const handleOnChangeTranslate = (el) => {
+	// 	setDefaultValueSelectTranslate(el);
+	// 	dispatch(setUserTranslate(el?.value));
+	// 	if (userData.record_id) {
+	// 		updateUser(userData.record_id, {"translate": el?.value})
+	// 	}
+	// }
 
 	const handleOnChangeLanguage = (el) => {
 		setDefaultValueSelectLanguage(el);
@@ -363,7 +363,7 @@ const Header = ({}) => {
 							<LanguageDropdown
 								ref={wrapperRefLanguageDropdown}
 							>
-								<LDropSection>
+								{/* <LDropSection>
 									<LDropTitle>
 										<Icon
 											stroke="transparent"
@@ -391,7 +391,7 @@ const Header = ({}) => {
 											options={countryList}
 										/>
 									</SelectCtn>
-								</LDropSection>
+								</LDropSection> */}
 								<LDropSection>
 									<LDropTitle>
 										<Icon
