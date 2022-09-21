@@ -97,11 +97,6 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
     setActiveTab(tab);
   };
 
-  console.log('productTypeContext', productTypeContext)
-  console.log('creditsDetailsState', creditsDetailsState)
-  console.log('productDetailsState', productDetailsState)
-
-
   return (
     <ProductDetailsContainer>
       <Head>

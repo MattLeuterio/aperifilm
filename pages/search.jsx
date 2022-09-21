@@ -95,7 +95,6 @@ export default function SearchResults({}) {
   const getSearchDetails = async () => {
     if (userLanguageState) {
       const query = router?.query?.query?.replaceAll('-', ' ');
-      console.log('query', query);
       const productDetails = await fetch(
         `https://api.themoviedb.org/3/search/multi?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}&query=${query}&include_adult=false?page=${page}`
         ).then(res => res.json());
@@ -107,8 +106,6 @@ export default function SearchResults({}) {
       const keywords = await fetch(
         `https://api.themoviedb.org/3/search/keyword?api_key=${tmdbApiKey}&language=${langConverter(userLanguageState)}&query=${query}&include_adult=false?page=${page}`
         ).then(res => res.json());
-
-        console.log('collections', collections)
 
       const movie = productDetails?.results?.filter(el => el.media_type === 'movie');
       const tv = productDetails?.results?.filter(el => el.media_type === 'tv');
@@ -144,10 +141,6 @@ export default function SearchResults({}) {
   const onChangeTab = tab => {
     setActiveTab(tab);
   };
-
-
-  console.log('PRODUCT DETAILS: ', productsDetails);
-  console.log('ACTIVE TAB: ', activeTab);
 
   if (query 
     || (productsDetails.products?.movie.length <= 0

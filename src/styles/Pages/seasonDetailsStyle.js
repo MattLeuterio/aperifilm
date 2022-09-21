@@ -31,7 +31,6 @@ export const HeaderLeft = styled.div`
 
   @media ${theme.device.mobileL} {
     margin-bottom: 40px;
-    margin-right: 0;
     width: 240px;
   }
 
@@ -39,6 +38,19 @@ export const HeaderLeft = styled.div`
 
 export const HeaderInfo = styled.div`
   width: 100%;
+  padding-top: 25px;
+
+  .header-title-season {
+    margin-bottom: 10px;
+    color: ${theme.colors.element.dark};
+    @media ${theme.device.mobileL} {
+      text-align: center;
+    }
+  }
+  .header-title-season-number {
+    color: ${theme.colors.element.light};
+  }
+  
 `;
 
 export const HeaderInfoDatas = styled.div`
@@ -46,7 +58,12 @@ export const HeaderInfoDatas = styled.div`
   ${DisplayFlex({alignItems: 'center', justifyContent: 'space-between'})};
 
   @media ${theme.device.mobileL} {
-    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 40px;
+    background-color: #181a2436;
+    padding: 20px;
+    border-radius: 9px;
   }
 `;
 
@@ -117,7 +134,7 @@ export const HeaderInfoTitle = styled.div`
 `;
 
 export const HeaderCover = styled.div`
-  max-width: 245px;
+  max-width: 151px;
 
   img {
     border-radius: 5px;
@@ -126,6 +143,7 @@ export const HeaderCover = styled.div`
 
   @media ${theme.device.mobileL} {
     width: 240px;
+    margin: 0 auto;
   }
 `;
 
@@ -139,7 +157,46 @@ export const ResultsContainer = styled.div`
       margin-right: 10px;
     }
   }
-  @media ${theme.device.mobileL} {
-    justify-content: center;
+`;
+
+export const CardSeasons = styled.div`
+  cursor: pointer;
+  width: 100%;
+  padding: 15px 30px;
+  background-color: ${theme.colors.component.dark};
+  border-radius: 20px;
+  ${DisplayFlex({alignItems: 'flex-start'})};
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
   }
+
+  @media ${theme.device.mobileL} {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
+export const CardLeft = styled.div`
+  margin-right: 20px;
+  .main-image {
+    img {
+      border-radius: 20px;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+`;
+export const CardRight = styled.div``;
+export const CardRightTitle = styled.div`
+  margin-top: 25px;
+  margin-bottom: 10px;
+  color: ${theme.colors.element.light};
+  
+  .card-season-title {
+    color: ${theme.colors.element.dark};
+  }
+`;
+export const CardRightOverview = styled.div`
+  ${LineClamp({numLines: 4})};
 `;

@@ -13,7 +13,6 @@ export async function getServerSideProps(context) {
   try {
     
     const query = parseContext(context.query);
-    console.log('query', query.mediaType);
     const res = await fetch(`https://api.themoviedb.org/3/movie/upcoming?api_key=${tmdbApiKey}`);
     const movieDetails = await res.json()
     return {
@@ -78,8 +77,6 @@ export default function ProductDetails({movieDetails, query}) {
     setPageSelected(page);
 	}
   
-  console.log('detailsState', detailsState)
-
   return (
     <DiscoverContainer>
       <Head>

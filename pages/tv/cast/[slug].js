@@ -97,11 +97,6 @@ export default function ProductDetailsTv({creditsDetails, productDetails, produc
     setActiveTab(tab);
   };
 
-  console.log('productTypeContext', productTypeContext)
-  console.log('creditsDetailsState', creditsDetailsState)
-  console.log('productDetailsState', productDetailsState)
-
-
   return (
     <ProductDetailsContainer>
       <Head>

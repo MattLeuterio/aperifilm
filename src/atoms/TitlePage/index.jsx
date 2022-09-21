@@ -1,4 +1,5 @@
 import { FormattedMessage } from 'react-intl';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import Montserrat from '../../typography/montserrat';
 import BackButton from '../BackButton';
 import { TitlePageContainer } from './style';
@@ -6,21 +7,22 @@ import { TitlePageContainer } from './style';
 const TitlePage = ({
 	title, hasBackButton, primaryTitle
 }) =>  {
-		return (
-			<TitlePageContainer>
-				{hasBackButton && (
-					<BackButton />
+	const isMobile = useMediaQuery(426);
+	return (
+		<TitlePageContainer>
+			{hasBackButton && (
+				<BackButton />
+			)}
+			<Montserrat configuration={{fontSize: isMobile ? 24 : 32, lineHeight: isMobile ? 1.2 : '39px'}} type="titlePage">
+				{primaryTitle && (
+					<>
+						<FormattedMessage defaultMessage={primaryTitle} id={primaryTitle} />{" - "}
+					</>
 				)}
-				<Montserrat type="titlePage">
-					{primaryTitle && (
-						<>
-							<FormattedMessage defaultMessage={primaryTitle} id={primaryTitle} />{" - "}
-						</>
-					)}
-					<FormattedMessage defaultMessage={title} id={title} />
-				</Montserrat>
-			</TitlePageContainer>
-		)
+				<FormattedMessage defaultMessage={title} id={title} />
+			</Montserrat>
+		</TitlePageContainer>
+	)
 };
 
 

@@ -9,7 +9,6 @@ const GoTo = ({
 	url, text, className, colorText, handleOnClick, 
 	children, fontSize, fontWeight
 }) => {
-	//console.log('goto url', url)
 		return (
 				<GoToContainer
 					onClick={handleOnClick}

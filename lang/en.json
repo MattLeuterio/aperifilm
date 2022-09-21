@@ -36,6 +36,7 @@
   "productTypeTvSeries": "Tv-series",
   "productTypePerson": "Person",
   "productTypeCollection": "Collection",
+  "productTypeSeasons": "Seasons",
 
   "cardStatsViews": "views",
   "cardStatsVotes": "votes",
@@ -79,6 +80,9 @@
   "infoTvAllSeasonsActions": "All seasons",
   "infoTvSeasonTitle": "Season",
   "collectionPageNumberFilm": "Films:",
+  "seasonsEpisodes": "Episodes",
+  "seasonsYear": "Anno:",
+  "seasonsEpisode": "Episode",
 
   "tvSeriesTypeDocumentary": "Documentary",
   "tvSeriesTypeNews": "News",

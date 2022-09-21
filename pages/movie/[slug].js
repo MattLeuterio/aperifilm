@@ -7,7 +7,7 @@ import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { checkImage, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, searchPeopleRoleCrew, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
@@ -183,19 +183,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
 
     setSocialLinks(result.filter(el => el?.url?.length > 0).filter( el => Boolean(el?.social_id)));
   }, [movieExternalIds])
-
-  const searchPeopleRoleCrew = (list, role) => {
-
-    if (role.toLowerCase() === 'writer') {
-      const writer = list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
-      const screenplay = list?.filter(el => el.job.toLowerCase() === 'screenplay');
-      if (screenplay, writer) {
-        return [...writer, ...screenplay];
-      }
-    }
-    
-    return list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
-  }
 
   const handleOnClickImage = (index, isOpen) => {
     dispatch(setFullscreenPanel({isOpen, selected: index}));

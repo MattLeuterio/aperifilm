@@ -107,3 +107,21 @@ export const checkImage = (image) => {
   if (image) return `https://image.tmdb.org/t/p/original/${image}`
   return PlaceholderNoImage.src
 }
+
+export const addZeroToNum = (num) => {
+  if (Number(num) < 10) return `0${num}`
+  return `${num}`
+}
+
+export const searchPeopleRoleCrew = (list, role) => {
+
+  if (role.toLowerCase() === 'writer') {
+    const writer = list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
+    const screenplay = list?.filter(el => el.job.toLowerCase() === 'screenplay');
+    if (screenplay, writer) {
+      return [...writer, ...screenplay];
+    }
+  }
+  
+  return list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
+}

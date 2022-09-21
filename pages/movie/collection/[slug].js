@@ -76,9 +76,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
   useEffect(() => {
     getDetailsProduct();
   }, [userLanguageState, collectionDetails]);
-
-  console.log('COLLECTION: ', collectionDetailsState);
-
+  
   return (
     <ProductDetailsContainer>
       <Head>
@@ -140,7 +138,19 @@ export default function CollectionDetails({collectionDetails, productTypeContext
 
       <ResultsContainer>
         {collectionDetailsState?.parts?.map((item, index) => (
-          <Card key={index} product={item} productType="productTypeFilm" className="card" type="trending" role={item?.job || item?.department} />
+          <>
+            {isTablet ? (
+              <Card isCardTrending key={index} product={item} productType="productTypeFilm" className="card" />
+            ) : (
+              <Card 
+                key={index} 
+                product={item} 
+                type="trending" 
+                productType="productTypeFilm"
+                className="card" 
+              />
+            )}
+          </>
         ))}
       </ResultsContainer>
     

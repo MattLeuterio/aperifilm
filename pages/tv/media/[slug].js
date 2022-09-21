@@ -102,11 +102,6 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
     dispatch(setFullscreenPanel({isOpen, selected: index}));
   }
 
-  console.log('productTypeContext', productTypeContext)
-  console.log('mediaDetailsState', mediaDetailsState)
-  console.log('productDetailsState', productDetailsState)
-
-
   return (
     <ProductDetailsContainer>
       <Head>

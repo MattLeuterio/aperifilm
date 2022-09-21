@@ -97,11 +97,6 @@ export default function RelatedDetailsMovie({relatedDetails, productDetails, pro
     setPageSelected(page);
 	}
 
-  console.log('productTypeContext', productTypeContext)
-  console.log('relatedDetailsState', relatedDetailsState)
-  console.log('productDetailsState', productDetailsState)
-
-
   return (
     <ProductDetailsContainer>
       <Head>
