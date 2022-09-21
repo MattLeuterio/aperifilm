@@ -597,7 +597,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           <CollectionList>
               <CollectionPart 
                 imgPoster={movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.poster_path}
-                onClick={() => router.push(`/season/${movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.season_number}/${textToPath(movieDetailsState?.name)}/?id=${movieDetailsState?.id}`)}
+                onClick={() => router.push(`/tv/seasons/season/${movieDetailsState?.seasons[movieDetailsState?.seasons?.length - 1]?.season_number}?id=${movieDetailsState?.id}`)}
               >
               </CollectionPart>
           </CollectionList>
