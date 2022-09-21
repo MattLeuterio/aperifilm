@@ -46,7 +46,7 @@ const RowCard = ({ listProducts, type, title, productType, goToText, totalList, 
 			{isTablet ? (
 				<SliderRowCards type={type} list={listProducts}>
 						{listProducts?.map((item, index) => (				
-							<SwiperSlide>
+							<SwiperSlide key={index}>
 								<Card key={index} product={item} productType={productType} className="card" type={type} />
 							</SwiperSlide>			
 						)

@@ -117,7 +117,7 @@ export default function SeasonDetails({seasonDetails, productDetails, productTyp
 
       <ResultsContainer>
         {seasonDetailsState?.episodes?.map((item, index) => (
-          <CardSeasons onClick={() => Router.push(
+          <CardSeasons key={index} onClick={() => Router.push(
             {
               pathname: `/tv/seasons/season/episode/${item.episode_number}`,
               query: {

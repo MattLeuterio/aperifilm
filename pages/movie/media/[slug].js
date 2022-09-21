@@ -133,6 +133,7 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
             <>
               {mediaDetailsState[activeTab.id]?.map((item, index) => (
                 <MediaSectionImage
+                  key={index}
                   version={activeTab.id}
                   onClick={() => handleOnClickImage(index, true)}
                   name={`${productDetailsState?.title} image ${index}`}

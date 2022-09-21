@@ -352,8 +352,9 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       <VideoAndInfoSection>
         {movieVideo?.length > 0 ? (
           <VideoSection>
-            {movieVideo?.map(vid => (
+            {movieVideo?.map((vid, index) => (
               <ReactPlayer
+                key={index}
                 controls
                 light
                 width="100%"
@@ -419,6 +420,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             <MediaSectionGalleryImages>
               {movieImages?.all?.slice(0, 5).map((image, index) => (
                 <MediaSectionImage
+                  key={index}
                   onClick={() => handleOnClickImage(index, true)}
                   name={`${movieDetails?.title} image ${index}`}
                   srcImages={`${imgBasePath}/${image?.file_path}`}
@@ -475,8 +477,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                           <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchStreaming"} id={"mediaSectionInfoExternalWatchStreaming"} />
                         </Montserrat>
                         <MediaSectionInfoExternalList>
-                          {movieWatchProviders?.flatrate?.map(el => (
-                            <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                          {movieWatchProviders?.flatrate?.map((el, index) => (
+                            <ExternalElm key={index} imageUrl={el.logo_path}></ExternalElm>
                           ))}
                         </MediaSectionInfoExternalList>
                       </>
@@ -489,8 +491,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                           <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchRent"} id={"mediaSectionInfoExternalWatchRent"} />
                         </Montserrat>
                         <MediaSectionInfoExternalList>
-                          {movieWatchProviders?.rent?.map(el => (
-                            <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                          {movieWatchProviders?.rent?.map((el, index) => (
+                            <ExternalElm key={index} imageUrl={el.logo_path}></ExternalElm>
                           ))}
                         </MediaSectionInfoExternalList>
                       </>
@@ -503,8 +505,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                           <FormattedMessage defaultMessage={"mediaSectionInfoExternalWatchBuy"} id={"mediaSectionInfoExternalWatchBuy"} />
                         </Montserrat>
                         <MediaSectionInfoExternalList>
-                          {movieWatchProviders?.buy?.map(el => (
-                            <ExternalElm imageUrl={el.logo_path}></ExternalElm>
+                          {movieWatchProviders?.buy?.map((el, index) => (
+                            <ExternalElm key={index} imageUrl={el.logo_path}></ExternalElm>
                           ))}
                         </MediaSectionInfoExternalList>
                       </>
@@ -527,10 +529,10 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                     <Montserrat configuration={{color: theme.colors.element.dark, fontWeight: 600}}><FormattedMessage defaultMessage={"mediaSectionInfoLink"} id={"mediaSectionInfoLink"} /></Montserrat>
                   </MediaSectionInfoTitle>
                   <LinkSocialWrapper>
-                    {socialLinks.map((link) => {
+                    {socialLinks.map((link, index) => {
                       if (link?.url?.length > 0 && link?.social_id) {
                         return (
-                          <LinkSocial href={link?.url} alt={link?.title} target="_blank">
+                          <LinkSocial key={index} href={link?.url} alt={link?.title} target="_blank">
                             <Icon
                               className="icon"
                               stroke="transparent"
