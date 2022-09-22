@@ -432,8 +432,8 @@ const Header = ({}) => {
 					<MenuSection>
 						<MenuSectionLinks>
 							{primaryRoutes?.map((route, index) => (
-								<LinkWrapper onClick={() => setVisibilityMobileMenu(false)}>
-									<ActiveLink key={index} activeClassName="active" href={route.to}>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
 										<div className="link">
 											<Icon
 												className="icn-page"
@@ -462,8 +462,8 @@ const Header = ({}) => {
 						</Montserrat>
 						<MenuSectionLinks>
 							{userRoutes?.map((route, index) => (
-								<LinkWrapper onClick={() => setVisibilityMobileMenu(false)}>
-									<ActiveLink key={index} activeClassName="active" href={route.to}>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
 										<div className="link">
 											<Icon
 												className="icn-page"
@@ -489,8 +489,8 @@ const Header = ({}) => {
 						</MenuSectionLinks>
 						<MenuSectionLinks>
 							{infoRoutes?.map((route, index) => (
-								<LinkWrapper onClick={() => setVisibilityMobileMenu(false)}>
-									<ActiveLink key={index} activeClassName="active" href={route.to}>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
 										<div className="link">
 											<Icon
 												className="icn-page"
