@@ -78,7 +78,7 @@ const Card = ({
 							/>
 							{/* Position Absolute */}
 							<Badge text={productType} top="15px" left="15px"/>
-							{/* <ActionButtons size="small" className="action-buttons" /> */}
+							<ActionButtons size="small" className="action-buttons" />
 							{productDetails?.vote_average > 0 && (
 								<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
 							)}
@@ -162,7 +162,7 @@ const Card = ({
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
 							<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
 
-							{/* <ActionButtons /> */}
+							<ActionButtons />
 
 							<StatisticsContainer type={type}>
 								<StatisticsRowCard views={productDetails?.popularity?.toFixed(0)} votes={productDetails?.vote_count}/>
@@ -218,7 +218,7 @@ const Card = ({
 								height="150px"
 								layout="fixed" 
 							/>
-							{/* <ActionsProductButton className="favorite-btn" size="person" action="favorite"/> */}
+							<ActionsProductButton className="favorite-btn" size="person" action="favorite"/>
 						</Top>
 						<Bottom type={type}>
 							<Montserrat className="card-title" type="bold" configuration={{fontSize: 14, fontWeight: 600, lineHeight: "17.07px", color: theme.colors.element.light}}>
@@ -276,7 +276,7 @@ const Card = ({
 							{productDetails?.vote_average > 0 && (
 								<RatingBottle size="small" vote={productDetails?.vote_average} />
 								)}
-								{/* <ActionButtons className="action-buttons" /> */}
+								<ActionButtons className="action-buttons" />
 							</Bottom>
 						</Right>
 					</CardContainer>
