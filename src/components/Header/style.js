@@ -275,10 +275,6 @@ export const MenuSectionLinks = styled.div`
     display: flex;
     align-items: center;
 
-    &:not(:last-child) {
-      margin-bottom: 20px;
-    }
-
     > div.icn-arrow {
       margin-left: auto;
     }
@@ -337,5 +333,10 @@ export const MenuSectionLinks = styled.div`
       }
     }
   }
+`;
 
+export const LinkWrapper = styled.div`
+      &:not(:last-child) {
+      margin-bottom: 20px;
+    }
 `;

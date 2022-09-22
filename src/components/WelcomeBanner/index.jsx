@@ -52,16 +52,22 @@ const WelcomeBanner = ({
 							<Montserrat type="h1">
 								{userLanguageState === 'it' ? (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<a href="/api/auth/login">
-											<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
-										</a> e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+										<Link href="/api/auth/login">
+											<a>
+												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
+											</a>
+										</Link>
+										e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
 										Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
 									</Montserrat>
 								) : (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<a href="/api/auth/login">
-											<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
-										</a> INGLESE <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+										<Link href="/api/auth/login">
+											<a>
+												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
+											</a>
+										</Link>
+										INGLESE <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
 										Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
 									</Montserrat>
 								)}

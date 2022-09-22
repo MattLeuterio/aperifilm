@@ -1,10 +1,10 @@
-import { HeaderContainer, ActionWrapper, UserWrapper, UserImageWrapper, UserName, UserDropdown, SettingButton, LanguageWrapper, LanguageDropdown, ImageWrap, LDropSection, LDropTitle, SelectCtn, SearchWrapper, MobileActionsWrapper, MenuWrapper, MenuSection, MenuSectionLinks } from "./style";
+import { HeaderContainer, ActionWrapper, UserWrapper, UserImageWrapper, UserName, UserDropdown, SettingButton, LanguageWrapper, LanguageDropdown, ImageWrap, LDropSection, LDropTitle, SelectCtn, SearchWrapper, MobileActionsWrapper, MenuWrapper, MenuSection, MenuSectionLinks, LinkWrapper } from "./style";
 import { Button, Searchbar, Image, Icon, CustomSelect, ActiveLink } from "../../atoms";
 import { LoginIcon, LogoutIcon } from '@heroicons/react/outline';
 import { UserIcon, ChevronDownIcon, ChevronUpIcon, AdjustmentsIcon, TranslateIcon, BookOpenIcon, MenuIcon, SearchIcon, XIcon, ChevronRightIcon } from '@heroicons/react/solid';
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { setUserDataFromLogin, setUserLanguage, setUserProducts, setUserTranslate } from "../../store/actions/userDataAction";
 import theme from "../../theme";
 import { FormattedMessage } from "react-intl";
@@ -432,27 +432,29 @@ const Header = ({}) => {
 					<MenuSection>
 						<MenuSectionLinks>
 							{primaryRoutes?.map((route, index) => (
-								<ActiveLink key={index} activeClassName="active" href={route.to}>
-									<div className="link">
-										<Icon
-											className="icn-page"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											{route.icon}
-										</Icon>
-										<a className="nav-link">
-											<FormattedMessage defaultMessage={route.title} id={route.title} />
-										</a>
-										<Icon
-											className="icn-arrow"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											<ChevronRightIcon />
-										</Icon>
-									</div>
-								</ActiveLink>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
+										<div className="link">
+											<Icon
+												className="icn-page"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												{route.icon}
+											</Icon>
+											<a className="nav-link">
+												<FormattedMessage defaultMessage={route.title} id={route.title} />
+											</a>
+											<Icon
+												className="icn-arrow"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												<ChevronRightIcon />
+											</Icon>
+										</div>
+									</ActiveLink>		
+								</LinkWrapper>
 							))}
 						</MenuSectionLinks>
 						<Montserrat type="sidebarMenuSectionTitle">
@@ -460,52 +462,56 @@ const Header = ({}) => {
 						</Montserrat>
 						<MenuSectionLinks>
 							{userRoutes?.map((route, index) => (
-								<ActiveLink key={index} activeClassName="active" href={route.to}>
-									<div className="link">
-										<Icon
-											className="icn-page"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											{route.icon}
-										</Icon>
-										<a className="nav-link">
-											<FormattedMessage defaultMessage={route.title} id={route.title} />
-										</a>
-										<Icon
-											className="icn-arrow"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											<ChevronRightIcon />
-										</Icon>
-									</div>
-								</ActiveLink>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
+										<div className="link">
+											<Icon
+												className="icn-page"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												{route.icon}
+											</Icon>
+											<a className="nav-link">
+												<FormattedMessage defaultMessage={route.title} id={route.title} />
+											</a>
+											<Icon
+												className="icn-arrow"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												<ChevronRightIcon />
+											</Icon>
+										</div>
+									</ActiveLink>
+								</LinkWrapper>
 							))}
 						</MenuSectionLinks>
 						<MenuSectionLinks>
 							{infoRoutes?.map((route, index) => (
-								<ActiveLink key={index} activeClassName="active" href={route.to}>
-									<div className="link">
-										<Icon
-											className="icn-page"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											{route.icon}
-										</Icon>
-										<a className="nav-link">
-											<FormattedMessage defaultMessage={route.title} id={route.title} />
-										</a>
-										<Icon
-											className="icn-arrow"
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-										>
-											<ChevronRightIcon />
-										</Icon>
-									</div>
-								</ActiveLink>
+								<LinkWrapper key={index} onClick={() => setVisibilityMobileMenu(false)}>
+									<ActiveLink activeClassName="active" href={route.to}>
+										<div className="link">
+											<Icon
+												className="icn-page"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												{route.icon}
+											</Icon>
+											<a className="nav-link">
+												<FormattedMessage defaultMessage={route.title} id={route.title} />
+											</a>
+											<Icon
+												className="icn-arrow"
+												stroke="transparent"
+												fill={theme.colors.element.dark}
+											>
+												<ChevronRightIcon />
+											</Icon>
+										</div>
+									</ActiveLink>
+								</LinkWrapper>
 							))}
 						</MenuSectionLinks>
 					</MenuSection>

@@ -277,10 +277,10 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
             </LeftActions>
             {socialLinks?.length > 0 && (
               <LinkSocialWrapper>
-                {socialLinks.map((link) => {
+                {socialLinks.map((link, index) => {
                   if (link?.url?.length > 0 && link?.social_id) {
                     return (
-                      <LinkSocial href={link?.url} alt={link?.title} target="_blank">
+                      <LinkSocial key={index} href={link?.url} alt={link?.title} target="_blank">
                         <Icon
                           className="icon"
                           stroke="transparent"
@@ -402,8 +402,9 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
               </TableHeader>
 
                 <TableResults>
-                  {tableResults?.map(el => (
+                  {tableResults?.map((el, index) => (
                     <TableResultElement
+                      key={index}
                       onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
                     >
                       <ElementYear>

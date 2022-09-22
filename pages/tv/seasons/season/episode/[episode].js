@@ -205,6 +205,7 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
           <GuestStarsResults>
             {episodeImagesState?.stills?.map((item, index) => (
               <MediaSectionImage
+                key={index}
                 version=""
                 onClick={() => handleOnClickImage(index, true)}
                 name={`${episodeDetailsState?.title} image ${index}`}

@@ -1,4 +1,4 @@
-import { SET_FULLSCREEN_PANEL, USERS_ERROR } from "../types";
+import { SET_FULLSCREEN_PANEL, SET_FULLSCREEN_PANEL_ERROR, USERS_ERROR } from "../types";
 
 export const setFullscreenPanel = (data) => async (dispatch) => {
   try {
@@ -11,7 +11,7 @@ export const setFullscreenPanel = (data) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: USERS_ERROR,
+      type: SET_FULLSCREEN_PANEL_ERROR,
       payload: error,
     });
   }

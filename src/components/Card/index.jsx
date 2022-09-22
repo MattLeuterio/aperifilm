@@ -174,7 +174,7 @@ const Card = ({
 							)}
 						</Top>
 						<Bottom type={type}>
-							<Icon
+							{/* <Icon
 								className=""
 								fill={theme.colors.element.light}
 								width="20px"
@@ -182,7 +182,7 @@ const Card = ({
 								strokeWidth={0}
 							>
 								<ShareIcon />
-							</Icon>
+							</Icon> */}
 							{productDetails?.vote_average > 0 && (
 								<RatingBottle vote={roundVote(productDetails?.vote_average, 1)} />
 							)}

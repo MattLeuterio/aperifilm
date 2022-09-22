@@ -108,7 +108,7 @@ export default function SeasonsDetails({seasonsDetails, productTypeContext, quer
 
       <ResultsContainer>
         {seasonsDetailsState?.seasons?.map((item, index) => (
-          <CardSeasons onClick={() => Router.push(`/tv/seasons/season/${item?.season_number}?id=${seasonsDetailsState?.id}`)}>
+          <CardSeasons key={index} onClick={() => Router.push(`/tv/seasons/season/${item?.season_number}?id=${seasonsDetailsState?.id}`)}>
             <CardLeft>
               <Image 
 								className="main-image" 

@@ -1,4 +1,4 @@
-import {GET_USERS_LIST, USERS_ERROR} from '../types'
+import {GET_USERS_LIST, GET_USERS_LIST_ERROR, USERS_ERROR} from '../types'
 import axios from 'axios'
 
 export const getUsersList = () => async dispatch => {
@@ -11,7 +11,7 @@ export const getUsersList = () => async dispatch => {
   }
   catch(error){
       dispatch( {
-          type: USERS_ERROR,
+          type: GET_USERS_LIST_ERROR,
           payload: error,
       })
   }

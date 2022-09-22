@@ -39,8 +39,9 @@ const Tabs = ({
 
 		return (
 			<TabsContainer className={className}>
-				{tabsList?.map(tab => (
+				{tabsList?.map((tab, index) => (
 					<Button
+						key={index}
 						disabled={isSearch && !tab?.number}
 						hide={isSearch && !tab?.number}
 						number={tab?.number || 0}

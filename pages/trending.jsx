@@ -180,8 +180,9 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
               <FormattedMessage defaultMessage={"searchPeople"} id={"searchPeople"} />
             </Montserrat>
             <PeopleContainer>
-              {trendingPeopleListState?.map(item => (
+              {trendingPeopleListState?.map((item, index) => (
                 <Person
+                  key={index}
                   onClick={() => Router.push(`/person/${textToPath(item?.name)}?id=${item?.id}`)}
                 >
                   <Image 

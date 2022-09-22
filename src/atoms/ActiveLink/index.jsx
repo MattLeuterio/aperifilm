@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import React, { Children } from 'react'
 
-const ActiveLink = ({ children, activeClassName, ...props }) => {
+const ActiveLink = ({ onClick, children, activeClassName, ...props }) => {
   const { asPath, isReady } = useRouter()
 
   const child = Children.only(children)
@@ -36,6 +36,7 @@ const ActiveLink = ({ children, activeClassName, ...props }) => {
     isReady,
     props.as,
     props.href,
+    props.onClick,
     childClassName,
     activeClassName,
     setClassName,

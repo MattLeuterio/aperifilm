@@ -32,8 +32,8 @@ const SliderFullScreen = ({indexImage, imagesList}) => {
 					}}
 					modules={[Navigation, Pagination]}
 				>
-					{imagesList?.map(img => (
-						<SwiperSlide>
+					{imagesList?.map((img, index) => (
+						<SwiperSlide key={index}>
 							<Slide urlImage={`${imgBasePath}/${img?.file_path}`}></Slide>
 						</SwiperSlide>
 					))}
