@@ -49,6 +49,10 @@ const Card = ({
 			Router.push(`/person/${textToPath(product?.name)}?id=${product?.id}`);
 		}
 
+		const handleOnClickCardCollection = (e) => {
+			Router.push(`/movie/collection/${textToPath(product?.name)}?id=${product?.id}`);
+		}
+
 		switch(type) {
 			case Card.TYPE.DEFAULT:
 				return (
@@ -103,7 +107,7 @@ const Card = ({
 				return (
 					<CardContainer
 						type={type}
-						onClick={() => handleOnClickCard()}
+						onClick={() => handleOnClickCardCollection()}
 						className={className}
 						color={colorText}
 						backgroundColor={backgroundColor}

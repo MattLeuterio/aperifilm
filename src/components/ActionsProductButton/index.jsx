@@ -27,12 +27,10 @@ const ActionsProductButton = ({
 		const userData = useSelector((state) => state.userData)
 
 		useEffect(() => {
-			console.log('here 1')
 			setUserDataListProducts(userDataListProductsRedux);
 		}, [userDataListProductsRedux])
 
 		useEffect(() => {
-			console.log('here 2')
 			setIsActive(isAlreadyOnTheList(action, product?.id))
 		}, [userDataListProducts, product, updateUser, action])
 
@@ -56,8 +54,6 @@ const ActionsProductButton = ({
 		}
 
 		const handleOnClickWatch = () => {
-			console.log('CLICK - WATCH');
-			console.log('isActive', isActive);
 			if (!isActive) {
 				const json = {
 					...userDataListProductsRedux[0].lists,
@@ -81,9 +77,7 @@ const ActionsProductButton = ({
 				updateUser(userData.record_id, body);
 				dispatch(setUserProducts(json));
 			} else {
-				console.log('---------REMOVE PRODUCT ---------')
 				const newFavoriteList = userData.list_products[0].lists.watch.filter(el => el.id !== product.id);
-				console.log('newFavoriteList', newFavoriteList);
 				const json = {
 					...userDataListProductsRedux[0].lists,
 					"watch": newFavoriteList
@@ -107,16 +101,21 @@ const ActionsProductButton = ({
 		}
 
 		const handleOnClickFavorite = () => {
-			console.log('CLICK - FAVORITE');
-			console.log('isActive', isActive);
-			const isPerson = Boolean(product.poster_path);
+			const isPerson = Boolean(product.gender);
+			const isCollection = Boolean(product.parts);
+			const isMovie = !isPerson && !isCollection && Boolean(product.title)
 
 			if (!isActive) {
 				const json = {
 					...userDataListProductsRedux[0]?.lists,
 					"favorite": [
 						...userDataListProductsRedux[0].lists.favorite,
-						{...product}]
+						{ 
+							id: product.id, 
+							title: product.title || product.name, 
+							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv'
+						}
+					]
 				};
 				const body = {
 						"sub": userData.sub,
@@ -134,9 +133,7 @@ const ActionsProductButton = ({
 				updateUser(userData.record_id, body);
 				dispatch(setUserProducts(json));
 			} else {
-				console.log('---------REMOVE PRODUCT ---------')
 				const newFavoriteList = userData.list_products[0].lists.favorite.filter(el => el.id !== product.id);
-				console.log('newFavoriteList', newFavoriteList);
 				const json = {
 					...userDataListProductsRedux[0].lists,
 					"favorite": newFavoriteList
@@ -161,7 +158,6 @@ const ActionsProductButton = ({
 
 		const isAlreadyOnTheList = (type, idProd) => {
 			if (userDataListProducts && userDataListProducts[0]?.lists) {
-				console.log('isAlreadyOnTheList')
 				return Boolean(userDataListProducts[0]?.lists[type].find(el => Number(el.id) === idProd))
 			}
 		}

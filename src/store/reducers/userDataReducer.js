@@ -27,7 +27,6 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case SET_USER_LIST_PRODUCTS:
-      console.log('action', action.payload.favorite)
       return {
         ...state,
         list_products: [

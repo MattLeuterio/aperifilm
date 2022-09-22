@@ -119,6 +119,14 @@ const Header = ({}) => {
 			const exist = usersList.filter(u => u.fields.sub === user?.sub).length > 0;
 
 			if (!exist) {
+				const listProducts = {
+					favorite: [
+					],
+					vote: [
+					],
+					watch: [
+					]
+				}
 				const body = {
 					"sub": user?.sub,
 					"given_name": user?.given_name,
@@ -128,6 +136,7 @@ const Header = ({}) => {
 					"locale": user?.locale,
 					"updated_at": user?.updated_at,
 					"email": user?.email,
+					"list_products": JSON.stringify(listProducts)
 				}
 				createUser(body);
 			}

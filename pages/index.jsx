@@ -83,8 +83,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
     setPopularPeopleListState(popularPeopleList?.results.slice(0, 5));
   }, [discoverMovieList, comingSoonMovieList, popularPeopleList, popularTvList])
 
-  console.log('userDataList', userDataList)
-
   return (
     <HomeContainer>
       <Head>
@@ -114,25 +112,25 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></p>
                 {userDataList?.lists?.favorite.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
+                  <p key={index}>{elm.title || elm.name}</p>
                 ))}
               </>
             )}
 
-            {userDataList?.lists?.voted && (
+            {userDataList?.lists?.vote && (
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></p>
-                {userDataList?.lists?.voted.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
+                {userDataList?.lists?.vote.map((elm, index) => (
+                  <p key={index}>{elm.title || elm.name}</p>
                 ))}
               </>
             )}
 
-            {userDataList?.lists?.towatch && (
+            {userDataList?.lists?.watch && (
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></p>
-                {userDataList?.lists?.favorite?.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
+                {userDataList?.lists?.watch?.map((elm, index) => (
+                  <p key={index}>{elm.title || elm.name}</p>
                 ))}
               </>
             )}

@@ -12,7 +12,6 @@ import { ActionsProductButton } from '../../components';
 const ActionButtons = ({
 	className, size, product, type
 }) => {
-		console.log('ActionButtons product', product)
 		return (
 			<ActionButtonsContainer className={className}>
 				<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
