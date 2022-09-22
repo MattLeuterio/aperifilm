@@ -162,18 +162,6 @@ const Header = ({}) => {
   }, [userListProducts]);
 
 
-
-	useEffect(() => {
-		// if (userData.list_products) {
-		// 	const json = JSON.parse(usersList[0].fields.list_products).voted;
-		// 	console.log(json);
-		// 	json.push({id: '12132132', title: 'new'})
-		// 	console.log(json);
-		// 	console.log(JSON.stringify(json));
-		// }
-  }, [userListProducts]);
-
-
 	const handleOnClickUser = () => {
 		setUserDropdownStatus(!userDropdownStatus);
 	}

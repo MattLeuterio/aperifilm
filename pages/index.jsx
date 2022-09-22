@@ -50,8 +50,8 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
   const [comingSoonMovieListState, setComingSoonListState] = useState([]);
   const [discoverTvListState, setDiscoverTvListState] = useState([]);
   const [popularPeopleListState, setPopularPeopleListState] = useState([]);
-  const [popularTvListState, setPopularTvListState] = useState([]);
-  const user = useSelector((state) => state.userData);
+  const [userDataList, setUserDataList] = useState([])
+  const userDataRedux = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
 
   const isTablet = useMediaQuery(769);
@@ -67,6 +67,12 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
   };
 
   useEffect(() => {
+    if (userDataRedux?.list_products) {
+      setUserDataList(userDataRedux?.list_products[0]);
+    }
+  }, [userDataRedux]);
+
+  useEffect(() => {
     getComingSoonByRegion();
   }, [userLanguageState]);
 
@@ -75,8 +81,9 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
     setComingSoonListState(comingSoonMovieList?.results.slice(0, 4));
     setDiscoverTvListState(discoverTvList?.results.slice(0, 2));
     setPopularPeopleListState(popularPeopleList?.results.slice(0, 5));
-    setPopularTvListState(popularTvList?.results.slice(0, 4));
   }, [discoverMovieList, comingSoonMovieList, popularPeopleList, popularTvList])
+
+  console.log('userDataList', userDataList)
 
   return (
     <HomeContainer>
@@ -93,9 +100,9 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
-      {user?.email && (
+      {userDataRedux?.email && (
         <Container>
-          {user && Object.entries(user).map(([key, value], i) => {
+          {userDataRedux && Object.entries(userDataRedux).map(([key, value], i) => {
             if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
               return (
                 <p key={i}>{i + 1} - {key}: {value}</p>
@@ -103,28 +110,28 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
             } 
             })}
 
-            {user?.favorite && (
+            {userDataList?.lists?.favorite && (
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></p>
-                {user.favorite.map((elm, index) => (
+                {userDataList?.lists?.favorite.map((elm, index) => (
                   <p key={index}>{elm.title}</p>
                 ))}
               </>
             )}
 
-            {user?.voted && (
+            {userDataList?.lists?.voted && (
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></p>
-                {user.voted.map((elm, index) => (
+                {userDataList?.lists?.voted.map((elm, index) => (
                   <p key={index}>{elm.title}</p>
                 ))}
               </>
             )}
 
-            {user?.towatch && (
+            {userDataList?.lists?.towatch && (
               <>
                 <p><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></p>
-                {user.towatch.map((elm, index) => (
+                {userDataList?.lists?.favorite?.map((elm, index) => (
                   <p key={index}>{elm.title}</p>
                 ))}
               </>
@@ -175,16 +182,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         sector="discover"
         url="/discover/tv"
       />
-
-      {/* POPULAR SERIE TV */}
-      {/* <RowCard 
-        listProducts={popularTvListState}
-        type="default"
-        title="sectionTitlePopularTvSeries"
-        productType="productTypeTvSeries"
-        goToText="goToPage"
-        sector="popular"
-      /> */}
     </HomeContainer>
   );
 }

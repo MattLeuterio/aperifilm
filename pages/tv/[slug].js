@@ -317,7 +317,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               )}
             </HeaderInfoVoteActionsLeft>
             <HeaderInfoVoteActionsRight>
-              <ActionButtons className="action-buttons" />
+              <ActionButtons product={movieDetailsState} className="action-buttons" />
               <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}

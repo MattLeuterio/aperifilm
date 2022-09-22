@@ -28,25 +28,18 @@ export default function (state = initialState, action) {
       };
     case SET_USER_LIST_PRODUCTS:
       console.log('action', action.payload.favorite)
-      let list = [];
-      Object.entries(action.payload).reduce((acc, [key, value]) => {
-        console.log('key', key);
-        console.log('value', value);
-
-        const 
-        
-        list = [
-          ...list,
-          `${key}: ${value}`
-        ]
-      }, [])
-      console.log('list', list)
       return {
         ...state,
-        list_products: action.payload,
-        favorite: action.payload.favorite,
-        voted: action.payload.voted,
-        towatch: action.payload.towatch,
+        list_products: [
+          {
+            total_products: action.payload.favorite.length + action.payload.vote.length + action.payload.watch.length,
+            lists: {
+              favorite: action.payload.favorite,
+              vote: action.payload.vote,
+              watch: action.payload.watch,
+            }
+          }
+        ],
         loading: false,
       };
     case USERS_ERROR:

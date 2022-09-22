@@ -101,7 +101,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
           </HeaderCover>
           <HeaderInfoVoteActions>
             <HeaderInfoVoteActionsRight>
-              <ActionsProductButton action="favorite"/>
+              <ActionButtons product={collectionDetailsState} type="person" className="action-buttons" />
               <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}

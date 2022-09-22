@@ -10,14 +10,18 @@ import { ActionsProductButton } from '../../components';
 
 
 const ActionButtons = ({
-	className, size
+	className, size, product, type
 }) => {
-
+		console.log('ActionButtons product', product)
 		return (
 			<ActionButtonsContainer className={className}>
-				<ActionsProductButton size={size} action="favorite"/>
-				<ActionsProductButton size={size} action="watch"/>
-				<ActionsProductButton size={size} action="vote"/>
+				<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
+				{(type !== 'person' && type !== 'person-card') && (
+					<>
+						<ActionsProductButton product={product} size={size} action="watch"/>
+						<ActionsProductButton product={product} size={size} action="vote"/>
+					</>
+				)}
 			</ActionButtonsContainer>
 		)
 };

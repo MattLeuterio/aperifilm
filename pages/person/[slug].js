@@ -5,7 +5,7 @@ import { Actions, Biography, ButtonImages, CastSection, Container, ContainerLeft
 import { useEffect, useState } from "react";
 import { ActionsProductButton, FullScreenPanel } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
-import { CustomMessage, CustomSelect, Icon, Image, Tabs, TitlePage, WarningLanguage } from "../../src/atoms";
+import { ActionButtons, CustomMessage, CustomSelect, Icon, Image, Tabs, TitlePage, WarningLanguage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
 import { checkImage, formatDate, genderPlaceholder, getDepartmentPeople, imgBasePath, langConverter, parseContext, sortByDate, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
@@ -264,7 +264,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           </PeopleCover>
           <Actions>
             <LeftActions>
-              <ActionsProductButton action="favorite"/>
+              <ActionButtons product={personDetailsState} type="person" className="action-buttons" />
               <Icon
                 className="icon-share"
                 fill={theme.colors.element.light}
