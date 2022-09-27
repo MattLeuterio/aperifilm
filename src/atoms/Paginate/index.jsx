@@ -13,7 +13,7 @@ const Paginate = ({
 				<PaginationContainer
 				>
 					<Stack spacing={2}>
-						<Pagination siblingCount={0} onChange={onChange} size='small' count={totalPages} />
+						<Pagination siblingCount={0} onChange={onChange} size='small' count={totalPages <= 500 ? totalPages : 500} />
 					</Stack>
 				</PaginationContainer>
 		)

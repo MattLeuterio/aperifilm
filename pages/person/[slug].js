@@ -209,8 +209,8 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
     setMovieCollection(collection);
   }
 
-  const handleOnClickImage = (isOpen) => {
-    dispatch(setFullscreenPanel({isOpen, selected: 0}));
+  const handleOnClickImage = (isOpen, list) => {
+    dispatch(setFullscreenPanel({isOpen, selected: 0, list}));
   }
 
   const onChangeTab = tab => {
@@ -245,7 +245,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
             <Image alt={`${personDetailsState?.name} poster`} width="100%" height="100%" src={personDetailsState?.profile_path ? `${imgBasePath}/${personDetailsState?.profile_path}` : genderPlaceholder(personDetailsState?.gender)} />
             {personImages?.profiles?.length > 1 && (
               <ButtonImages
-                onClick={() => handleOnClickImage(true)}
+                onClick={() => handleOnClickImage(true, personImages.profiles)}
               >
                 <Icon
                   className="icon-gallery"
@@ -265,7 +265,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           <Actions>
             <LeftActions>
               <ActionButtons product={personDetailsState} type="person" className="action-buttons" />
-              <Icon
+              {/* <Icon
                 className="icon-share"
                 fill={theme.colors.element.light}
                 width="20px"
@@ -273,7 +273,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                 strokeWidth={0}
               >
                 <ShareIcon />
-              </Icon>
+              </Icon> */}
             </LeftActions>
             {socialLinks?.length > 0 && (
               <LinkSocialWrapper>
@@ -443,9 +443,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
         </ContainerRight>
       </Container>
       
-      {personImages?.profiles?.length > 1 && (
-        <FullScreenPanel list={personImages?.profiles} />
-      )}
     </PersonDetailsContainer>
   );
 }

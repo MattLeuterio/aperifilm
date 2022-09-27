@@ -122,5 +122,10 @@
   "searchKeywords": "Parole chiavi",
 
   "tabMediaTitleBackgrounds": "Sfondi",
-  "tabMediaTitlePosters": "Locandine"
+  "tabMediaTitlePosters": "Locandine",
+
+  "votePanelTitle": "Vota",
+  "votePanelButtonCancel": "Annulla",
+  "votePanelButtonConfirm": "Conferma",
+  "votePanelButtonDelete": "Elimina il voto"
 }

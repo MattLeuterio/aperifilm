@@ -24,6 +24,7 @@ const Card = ({
 	const [productDetails, setProductDetails] = useState({});
 	const userLanguageState = useSelector((state) => state.userData.language);
 	const productDetailsState = useSelector((state) => state.product.productDetails);
+	const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
 
 	const getDetailsProduct = async () => {
 		const res = await fetch(
@@ -83,8 +84,14 @@ const Card = ({
 							{/* Position Absolute */}
 							<Badge text={productType} top="15px" left="15px"/>
 							<ActionButtons product={productDetails} size="small" className="action-buttons" />
-							{productDetails?.vote_average > 0 && (
-								<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
+							{(Boolean(userDataListProductsRedux) &&userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
+								<RatingBottle size="small" className="rating-container personal-vote" personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
+							) : (
+								<>
+									{productDetails?.vote_average > 0 && (
+										<RatingBottle size="small" className="rating-container" vote={roundVote(productDetails?.vote_average, 1)} />
+									)}
+								</>
 							)}
 							{/* POSITION ABSOLUTE */}
 							{isCardTrending && (
@@ -178,17 +185,14 @@ const Card = ({
 							)}
 						</Top>
 						<Bottom type={type}>
-							{/* <Icon
-								className=""
-								fill={theme.colors.element.light}
-								width="20px"
-								height="20px"
-								strokeWidth={0}
-							>
-								<ShareIcon />
-							</Icon> */}
-							{productDetails?.vote_average > 0 && (
-								<RatingBottle vote={roundVote(productDetails?.vote_average, 1)} />
+							{(Boolean(userDataListProductsRedux) &&userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
+								<RatingBottle personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
+							) : (
+								<>
+									{productDetails?.vote_average > 0 && (
+										<RatingBottle vote={roundVote(productDetails?.vote_average, 1)} />
+									)}
+								</>
 							)}
 						</Bottom>
 					</CardContainer>
@@ -277,8 +281,14 @@ const Card = ({
 								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>{position}</Montserrat>
 							</Top>
 							<Bottom type={type}>
-							{productDetails?.vote_average > 0 && (
-								<RatingBottle size="small" vote={productDetails?.vote_average} />
+								{userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0 ? (
+									<RatingBottle size="small" className="personal-vote" personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
+								) : (
+									<>
+										{productDetails?.vote_average > 0 && (
+											<RatingBottle size="small" vote={roundVote(productDetails?.vote_average, 1)} />
+										)}
+									</>
 								)}
 								<ActionButtons product={productDetails} className="action-buttons" />
 							</Bottom>

@@ -102,7 +102,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
           <HeaderInfoVoteActions>
             <HeaderInfoVoteActionsRight>
               <ActionButtons product={collectionDetailsState} type="person" className="action-buttons" />
-              <Icon
+              {/* <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}
                   width="20px"
@@ -110,7 +110,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
                   strokeWidth={0}
                 >
                   <ShareIcon />
-              </Icon>
+              </Icon> */}
             </HeaderInfoVoteActionsRight>
           </HeaderInfoVoteActions>
         </HeaderLeft>

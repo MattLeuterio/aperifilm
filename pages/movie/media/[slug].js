@@ -98,8 +98,8 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
     setActiveTab(tab);
   };
 
-  const handleOnClickImage = (index, isOpen) => {
-    dispatch(setFullscreenPanel({isOpen, selected: index}));
+  const handleOnClickImage = (index, isOpen, list) => {
+    dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
 
   return (
@@ -135,7 +135,7 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
                 <MediaSectionImage
                   key={index}
                   version={activeTab.id}
-                  onClick={() => handleOnClickImage(index, true)}
+                  onClick={() => handleOnClickImage(index, true, mediaDetailsState[activeTab.id])}
                   name={`${productDetailsState?.title} image ${index}`}
                   srcImages={`${imgBasePath}/${item?.file_path}`}
                 ></MediaSectionImage>
@@ -143,8 +143,6 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
             </>
         }
       </ResultsContainer>
-  
-      <FullScreenPanel list={mediaDetailsState[activeTab.id]} />
     </ProductDetailsContainer>
   );
 }

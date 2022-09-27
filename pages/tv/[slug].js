@@ -61,6 +61,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const [noOverview, setNoOverview] = useState(false);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
+  const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
+
 
   const isTablet = useMediaQuery(769);
 
@@ -197,8 +199,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     return list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
   }
 
-  const handleOnClickImage = (index, isOpen) => {
-    dispatch(setFullscreenPanel({isOpen, selected: index}));
+  const handleOnClickImage = (index, isOpen, list) => {
+    dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
 
   return (
@@ -307,18 +309,18 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <RatingBottle vote={roundVote(movieDetailsState?.vote_average, 1)} />   
                 </HeaderInfoVote>
               )}
-              {movieDetailsState?.vote_count > 0 && (
+              {userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === movieDetailsState.id).length > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"yourVote"} id={"yourVote"} />
                   </Montserrat>
-                  <RatingBottle personalVote vote={roundVote(movieDetailsState?.vote_average, 1)} />   
+                  <RatingBottle personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === movieDetailsState.id)[0]?.user_vote * 2} />   
                 </HeaderInfoVote>
               )}
             </HeaderInfoVoteActionsLeft>
             <HeaderInfoVoteActionsRight>
               <ActionButtons product={movieDetailsState} className="action-buttons" />
-              <Icon
+              {/* <Icon
                   className="icon-share"
                   fill={theme.colors.element.light}
                   width="20px"
@@ -326,7 +328,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   strokeWidth={0}
                 >
                   <ShareIcon />
-              </Icon>
+              </Icon> */}
             </HeaderInfoVoteActionsRight>
           </HeaderInfoVoteActions>
         </HeaderInfo>
@@ -421,7 +423,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               {movieImages?.all?.slice(0, 5).map((image, index) => (
                 <MediaSectionImage
                   key={index}
-                  onClick={() => handleOnClickImage(index, true)}
+                  onClick={() => handleOnClickImage(index, true, movieImages?.all)}
                   name={`${movieDetails?.title} image ${index}`}
                   srcImages={`${imgBasePath}/${image?.file_path}`}
                 ></MediaSectionImage>
@@ -618,8 +620,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           />
         </RecommendationsSection>
       )}
-        
-      <FullScreenPanel list={movieImages?.all} />
     </ProductDetailsContainer>
   );
 }
