@@ -122,5 +122,10 @@
   "searchKeywords": "Keywords",
 
   "tabMediaTitleBackgrounds": "Backgrounds",
-  "tabMediaTitlePosters": "Posters"
+  "tabMediaTitlePosters": "Posters",
+
+  "votePanelTitle": "Vote",
+  "votePanelButtonCancel": "Cancel",
+  "votePanelButtonConfirm": "Confirm",
+  "votePanelButtonDelete": "Delete vote"
 }

@@ -11,6 +11,8 @@ import AperitifBottleHalf from "../../assets/icons/aperitif-bottle-half.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../pages/api/auth/users';
 import { setUserProducts } from '../../store/actions/userDataAction';
+import { setVotePanel } from '../../store/actions/appAction';
+import { wasItVoted } from '../../js/utility';
 
 
 const ActionsProductButton = ({
@@ -20,6 +22,7 @@ const ActionsProductButton = ({
 		const dispatch = useDispatch();
 		const [isActive, setIsActive] = useState(false);
 		const [userDataListProducts, setUserDataListProducts] = useState([]);
+		const [isAlreadyVoted, setIsAlreadyVoted] = useState(false);
 		const [type, setType] = useState('');
 
 		const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
@@ -31,7 +34,10 @@ const ActionsProductButton = ({
 		}, [userDataListProductsRedux])
 
 		useEffect(() => {
-			setIsActive(isAlreadyOnTheList(action, product?.id))
+			setIsActive(isAlreadyOnTheList(action, product?.id));
+			if (Boolean(userDataListProductsRedux)) {
+				setIsAlreadyVoted(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === product?.id).length > 0);
+			}
 		}, [userDataListProducts, product, updateUser, action])
 
 		useEffect(() => {
@@ -45,21 +51,36 @@ const ActionsProductButton = ({
 		const handleOnClick = (e, type) => {
 			e.preventDefault();
 			e.stopPropagation();
-			console.log('CLICK - action type', type);
 			setIsActive(!isActive);
 		}
 
-		const handleOnClickVote = () => {
-			console.log('CLICK - VOTE');
+		const handleOnClickVote = (product) => {
+			console.log('product', product)
+			const isMovie = Boolean(product.title)
+			dispatch(setVotePanel({isOpen: true, selected: {
+				id: product.id, 
+				title: product.name || product.title,
+				product_type: isMovie ? 'movie' : 'tv',
+				user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)}}))
 		}
 
 		const handleOnClickWatch = () => {
+			const isPerson = Boolean(product.gender);
+			const isCollection = Boolean(product.parts);
+			const isMovie = !isPerson && !isCollection && Boolean(product.title)
+			
 			if (!isActive) {
 				const json = {
 					...userDataListProductsRedux[0].lists,
 					"watch": [
 						...userDataListProductsRedux[0].lists.watch,
-						{...product}]
+						{ 
+							id: product.id, 
+							title: product.title || product.name, 
+							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
+							user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
+						}
+					]
 				};
 				const body = {
 						"sub": userData.sub,
@@ -113,7 +134,8 @@ const ActionsProductButton = ({
 						{ 
 							id: product.id, 
 							title: product.title || product.name, 
-							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv'
+							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
+							user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
 						}
 					]
 				};
@@ -207,9 +229,9 @@ const ActionsProductButton = ({
 							fill="transparent"
 							width="100%"
 							height="100%"
-							handleOnClick={() => handleOnClickVote()}
+							handleOnClick={() => handleOnClickVote(product)}
 						>
-							{isActive ? (
+							{isAlreadyVoted ? (
 									<Image 
 										className="icon-image"
 										src={AperitifBottleHalf.src} 

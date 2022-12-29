@@ -8,6 +8,7 @@ import WelcomeBanner from "./WelcomeBanner";
 import FullScreenPanel from "./FullScreenPanel";
 import SliderFullScreen from "./Sliders";
 import SliderRowCards from "./Sliders";
+import VotePanel from "./VotePanel";
 
 export {
   GlobalLayout,
@@ -19,5 +20,6 @@ export {
   WelcomeBanner,
   FullScreenPanel,
   SliderFullScreen,
-  SliderRowCards
+  SliderRowCards,
+  VotePanel
 }

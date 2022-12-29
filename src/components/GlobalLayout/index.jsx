@@ -6,9 +6,22 @@ import { Container, Content, Main } from './style';
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
+import { FullScreenPanel, VotePanel } from ".."
 
 const GlobalLayout = ({ children }) => {
 	const user = useSelector((state) => state.userData);
+	const [listImages, setListImages] = useState([]);
+	const [votePanelSelected, setVotePanelSelected] = useState({});
+	const listFullScreenPanel = useSelector((state) => state.app?.fullScreenPanel?.list);
+	const selectedVotePanel = useSelector((state) => state.app?.votePanel?.selected);
+	
+	useEffect(() => {
+		setListImages(listFullScreenPanel)
+	}, [listFullScreenPanel])
+
+	useEffect(() => {
+		setVotePanelSelected(selectedVotePanel)
+	}, [selectedVotePanel])
 	return (
 			<>
 				<Head>
@@ -26,6 +39,9 @@ const GlobalLayout = ({ children }) => {
 						</Main>
 					</Content>
 				</Container>
+
+				<FullScreenPanel list={listImages} />
+				<VotePanel selected={votePanelSelected} />
 			</>
 	)
 };

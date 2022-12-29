@@ -1,9 +1,14 @@
-import { SET_FULLSCREEN_PANEL } from "../types";
+import { SET_FULLSCREEN_PANEL, SET_VOTE_PANEL } from "../types";
 
 const initialState = {
   fullScreenPanel: {
     isOpen: false,
-    selected: 0
+    selected: 0,
+    list: []
+  },
+  votePanel: {
+    isOpen: false,
+    selected: {}
   }
 };
 
@@ -13,6 +18,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         fullScreenPanel: action.payload,
+      };
+
+    case SET_VOTE_PANEL:
+      return {
+        ...state,
+        votePanel: action.payload,
       };
 
     default:

@@ -14,13 +14,16 @@ const ActionButtons = ({
 }) => {
 		return (
 			<ActionButtonsContainer className={className}>
+
 				<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
+
 				{(type !== 'person' && type !== 'person-card') && (
 					<>
 						<ActionsProductButton product={product} size={size} action="watch"/>
 						<ActionsProductButton product={product} size={size} action="vote"/>
 					</>
 				)}
+				
 			</ActionButtonsContainer>
 		)
 };

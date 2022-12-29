@@ -125,3 +125,8 @@ export const searchPeopleRoleCrew = (list, role) => {
   
   return list?.filter(el => el.job.toLowerCase() === role.toLowerCase());
 }
+
+export const wasItVoted = (id, list) => {  
+  const voted = list?.filter(el => el.id === id).user_vote;
+  if (voted) return voted;
+}
