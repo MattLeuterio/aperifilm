@@ -127,5 +127,17 @@
   "votePanelTitle": "Vote",
   "votePanelButtonCancel": "Cancel",
   "votePanelButtonConfirm": "Confirm",
-  "votePanelButtonDelete": "Delete vote"
+  "votePanelButtonDelete": "Delete vote",
+
+  "yourListsSelectOrderLast": "Last added",
+  "yourListsSelectOrderFirst": "First added",
+  "yourListsSelectOrderMoreDrunk": "More Drunk",
+  "yourListsSelectOrderLessDrunk": "Less Drunk",
+
+  "yourListsSelectTypeFilmTv": "Film and Tv-series",
+  "yourListsSelectTypeFilm": "Film",
+  "yourListsSelectTypeTv": "Tv-series",
+  "yourListsSelectTypePeople": "People",
+
+  "yourListsSelectGenreAll": "All genres"
 }

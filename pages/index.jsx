@@ -110,16 +110,16 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
 
             {userDataList?.lists?.favorite && (
               <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></p>
+                <h3><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></h3>
                 {userDataList?.lists?.favorite.map((elm, index) => (
-                  <p key={index}>{elm.title || elm.name}</p>
+                  <p key={index}>{elm.it.title || elm.it.name}</p>
                 ))}
               </>
             )}
 
             {userDataList?.lists?.vote && (
               <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></p>
+                <h3><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></h3>
                 {userDataList?.lists?.vote.map((elm, index) => (
                   <p key={index}>{elm.title || elm.name}</p>
                 ))}
@@ -128,7 +128,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
 
             {userDataList?.lists?.watch && (
               <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></p>
+                <h3><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></h3>
                 {userDataList?.lists?.watch?.map((elm, index) => (
                   <p key={index}>{elm.title || elm.name}</p>
                 ))}

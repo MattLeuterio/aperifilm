@@ -159,7 +159,11 @@ const Header = ({}) => {
 					&& Boolean(userData?.list_products) 
 					&& typeof userData?.list_products === 'string') 
 		{
-			const listProducts = JSON.parse(userData?.list_products);
+			const JSONproduct = JSON.parse(userData?.list_products);
+			
+			const listProducts = Object.keys(JSONproduct).length > 0 
+			? JSONproduct
+			: { favorite: [], watch: [], vote: [] } 
 			setUserListProducts(listProducts);
 		}
   }, [userData]);

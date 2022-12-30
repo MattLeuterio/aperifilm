@@ -25,7 +25,11 @@ export const parseContext = (context) => JSON.parse(JSON.stringify(context));
 
 export const formatDate = (date, locale) => DateTime.fromISO(date).setLocale(locale).toLocaleString();
 
-export const textToPath = (text) => text?.replaceAll('-', '').replaceAll(' ', '-').replaceAll('.', '').replaceAll(':', '').replaceAll('--', '-').toLowerCase();
+export const textToPath = (text) => {
+  if (typeof text === 'string') {
+    return text?.replace(/-/g, '').replace(/ /g, '-').replace(/"."/g, '').replace(/:/g, '').replace(/--/g, '-').toLowerCase()
+  };
+};
 
 export const genderPlaceholder = (gender) => {
   if (gender === 1) return PlaceholderPeopleFemale.src;
@@ -130,3 +134,41 @@ export const wasItVoted = (id, list) => {
   const voted = list?.filter(el => el.id === id).user_vote;
   if (voted) return voted;
 }
+
+export const selectOrderOptions = [
+  {
+    value: 'last',
+    label: 'yourListsSelectOrderLast'
+  },
+  {
+    value: 'first',
+    label: 'yourListsSelectOrderFirst'
+  },
+  {
+    value: 'more',
+    label: 'yourListsSelectOrderMoreDrunk'
+  },
+  {
+    value: 'less',
+    label: 'yourListsSelectOrderLessDrunk'
+  }
+]
+
+export const selectTypeOptions = [
+  {
+    value: 'film-tv',
+    label: 'yourListsSelectTypeFilmTv'
+  },
+  {
+    value: 'film',
+    label: 'yourListsSelectTypeFilm'
+  },
+  {
+    value: 'tv',
+    label: 'yourListsSelectTypeTv'
+  },
+  {
+    value: 'people',
+    label: 'yourListsSelectTypePeople'
+  }
+]

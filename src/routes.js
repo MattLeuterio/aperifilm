@@ -23,7 +23,7 @@ export const userRoutes = [
     icon: <HeartIcon />
   },
   {
-    to: "/user/voted",
+    to: "/user/vote",
     title: 'menuLinkTitleVoted',
     icon: (<><Image 
             className="icon-image--disable"
@@ -41,7 +41,7 @@ export const userRoutes = [
           /></>)
   },
   {
-    to: "/user/to-watch",
+    to: "/user/watch",
     title: 'menuLinkTitleToWatch',
     icon: <EyeIcon />
   },

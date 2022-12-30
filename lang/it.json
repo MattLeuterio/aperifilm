@@ -127,5 +127,17 @@
   "votePanelTitle": "Vota",
   "votePanelButtonCancel": "Annulla",
   "votePanelButtonConfirm": "Conferma",
-  "votePanelButtonDelete": "Elimina il voto"
+  "votePanelButtonDelete": "Elimina il voto",
+
+  "yourListsSelectOrderLast": "Dall’ultimo aggiunto",
+  "yourListsSelectOrderFirst": "Dal primo aggiunto",
+  "yourListsSelectOrderMoreDrunk": "Dal più ubriaco",
+  "yourListsSelectOrderLessDrunk": "Dal più sobrio",
+
+  "yourListsSelectTypeFilmTv": "Film e Serie Tv",
+  "yourListsSelectTypeFilm": "Film",
+  "yourListsSelectTypeTv": "Serie Tv",
+  "yourListsSelectTypePeople": "Persone",
+
+  "yourListsSelectGenreAll": "Tutti i generi"
 }

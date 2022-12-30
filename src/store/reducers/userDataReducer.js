@@ -4,6 +4,7 @@ const initialState = {
   translate: "",
   language: "",
   loading: true,
+  list_products: []
 };
 
 export default function (state = initialState, action) {
@@ -27,11 +28,22 @@ export default function (state = initialState, action) {
         loading: false,
       };
     case SET_USER_LIST_PRODUCTS:
+      const lists = action.payload;
+      const allUniqueProducts = [];
+      lists.favorite.map(el => {
+        if (!allUniqueProducts?.includes(el?.id)) allUniqueProducts.push(el.id);
+      })
+      lists.watch.map(el => {
+        if (!allUniqueProducts?.includes(el?.id)) allUniqueProducts.push(el.id);
+      })
+      lists.vote.map(el => {
+        if (!allUniqueProducts?.includes(el?.id)) allUniqueProducts.push(el.id);
+      })
       return {
         ...state,
         list_products: [
           {
-            total_products: action.payload.favorite.length + action.payload.vote.length + action.payload.watch.length,
+            total_products: allUniqueProducts.length,
             lists: {
               favorite: action.payload.favorite,
               vote: action.payload.vote,

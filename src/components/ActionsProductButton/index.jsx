@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../pages/api/auth/users';
 import { setUserProducts } from '../../store/actions/userDataAction';
 import { setVotePanel } from '../../store/actions/appAction';
-import { wasItVoted } from '../../js/utility';
+import { tmdbApiKey, wasItVoted } from '../../js/utility';
 
 
 const ActionsProductButton = ({
@@ -24,6 +24,7 @@ const ActionsProductButton = ({
 		const [userDataListProducts, setUserDataListProducts] = useState([]);
 		const [isAlreadyVoted, setIsAlreadyVoted] = useState(false);
 		const [type, setType] = useState('');
+		const [productLanguage, setProductLanguage] = useState({it: {}, en: {}})
 
 		const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
 
@@ -54,10 +55,34 @@ const ActionsProductButton = ({
 			setIsActive(!isActive);
 		}
 
+		const getDetails = async (el) => {
+			const isCollection = Boolean(el?.parts);
+			const isPerson = Boolean(el?.gender);
+			const isMovie = Boolean(el?.title);
+
+			const type = isCollection ? "collection" 
+				: isPerson ? "person" 
+				: isMovie ? "movie" 
+				: "tv";
+
+			if (el?.id) {
+				const detailsEn = await fetch(
+					`https://api.themoviedb.org/3/${type}/${el?.id}?api_key=${tmdbApiKey}&language=en-EN`
+					).then(res => res.json());
+	
+				const detailsIt = await fetch(
+					`https://api.themoviedb.org/3/${type}/${el?.id}?api_key=${tmdbApiKey}&language=it-IT`
+					).then(res => res.json());
+
+					setProductLanguage({en: detailsEn, it: detailsIt});
+			}
+	
+		}
+
 		const handleOnClickVote = (product) => {
-			console.log('product', product)
 			const isMovie = Boolean(product.title)
 			dispatch(setVotePanel({isOpen: true, selected: {
+				...productLanguage,
 				id: product.id, 
 				title: product.name || product.title,
 				product_type: isMovie ? 'movie' : 'tv',
@@ -65,24 +90,49 @@ const ActionsProductButton = ({
 		}
 
 		const handleOnClickWatch = () => {
+			getDetails(product);
+
 			const isPerson = Boolean(product.gender);
 			const isCollection = Boolean(product.parts);
 			const isMovie = !isPerson && !isCollection && Boolean(product.title)
 			
-			if (!isActive) {
-				const json = {
-					...userDataListProductsRedux[0].lists,
-					"watch": [
-						...userDataListProductsRedux[0].lists.watch,
-						{ 
-							id: product.id, 
-							title: product.title || product.name, 
-							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
-							user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
-						}
-					]
-				};
-				const body = {
+			if (Object.keys(productLanguage.en)) {
+				if (!isActive) {
+					const json = {
+						...userDataListProductsRedux[0].lists,
+						"watch": [
+							...userDataListProductsRedux[0].lists?.watch,
+							{ 
+								...productLanguage,
+								id: product.id, 
+								title: product.title || product.name, 
+								product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
+								user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
+							}
+						]
+					};
+					const body = {
+							"sub": userData.sub,
+							"given_name": userData.given_name,
+							"family_name": userData.family_name,
+							"nickname": userData.nickname,
+							"picture": userData.picture,
+							"locale": router.locale,
+							"updated_at": userData.updated_at,
+							"email": userData.email,
+							"language": userData.language,
+							"translate": userData.translate,
+							"list_products": JSON.stringify(json)
+					}
+					updateUser(userData.record_id, body);
+					dispatch(setUserProducts(json));
+				} else {
+					const newWatchList = userData.list_products[0].lists?.watch.filter(el => el.id !== product.id);
+					const json = {
+						...userDataListProductsRedux[0].lists,
+						"watch": newWatchList
+					}
+					const body = {
 						"sub": userData.sub,
 						"given_name": userData.given_name,
 						"family_name": userData.family_name,
@@ -94,52 +144,57 @@ const ActionsProductButton = ({
 						"language": userData.language,
 						"translate": userData.translate,
 						"list_products": JSON.stringify(json)
+					}
+					updateUser(userData.record_id, body);
+					dispatch(setUserProducts(json));
 				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
-			} else {
-				const newFavoriteList = userData.list_products[0].lists.watch.filter(el => el.id !== product.id);
-				const json = {
-					...userDataListProductsRedux[0].lists,
-					"watch": newFavoriteList
-				}
-				const body = {
-					"sub": userData.sub,
-					"given_name": userData.given_name,
-					"family_name": userData.family_name,
-					"nickname": userData.nickname,
-					"picture": userData.picture,
-					"locale": router.locale,
-					"updated_at": userData.updated_at,
-					"email": userData.email,
-					"language": userData.language,
-					"translate": userData.translate,
-					"list_products": JSON.stringify(json)
-				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
 			}
 		}
 
+		
 		const handleOnClickFavorite = () => {
+			getDetails(product);
+
 			const isPerson = Boolean(product.gender);
 			const isCollection = Boolean(product.parts);
-			const isMovie = !isPerson && !isCollection && Boolean(product.title)
+			const isMovie = !isPerson && !isCollection && Boolean(product?.title)
 
-			if (!isActive) {
-				const json = {
-					...userDataListProductsRedux[0]?.lists,
-					"favorite": [
-						...userDataListProductsRedux[0].lists.favorite,
-						{ 
-							id: product.id, 
-							title: product.title || product.name, 
-							product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
-							user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
-						}
-					]
-				};
-				const body = {
+			if (Object.keys(productLanguage.en)) {
+				if (!isActive) {
+					const json = {
+						...userDataListProductsRedux[0]?.lists,
+						"favorite": [
+							...userDataListProductsRedux[0].lists?.favorite,
+							{ 
+								...productLanguage,
+								id: product.id,
+								product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
+								user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
+							}
+						]
+					};
+					const body = {
+							"sub": userData.sub,
+							"given_name": userData.given_name,
+							"family_name": userData.family_name,
+							"nickname": userData.nickname,
+							"picture": userData.picture,
+							"locale": router.locale,
+							"updated_at": userData.updated_at,
+							"email": userData.email,
+							"language": userData.language,
+							"translate": userData.translate,
+							"list_products": JSON.stringify(json)
+					}
+					updateUser(userData.record_id, body);
+					dispatch(setUserProducts(json));
+				} else {
+					const newFavoriteList = userData.list_products[0].lists.favorite.filter(el => el.id !== product.id);
+					const json = {
+						...userDataListProductsRedux[0].lists,
+						"favorite": newFavoriteList
+					}
+					const body = {
 						"sub": userData.sub,
 						"given_name": userData.given_name,
 						"family_name": userData.family_name,
@@ -151,30 +206,10 @@ const ActionsProductButton = ({
 						"language": userData.language,
 						"translate": userData.translate,
 						"list_products": JSON.stringify(json)
+					}
+					updateUser(userData.record_id, body);
+					dispatch(setUserProducts(json));
 				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
-			} else {
-				const newFavoriteList = userData.list_products[0].lists.favorite.filter(el => el.id !== product.id);
-				const json = {
-					...userDataListProductsRedux[0].lists,
-					"favorite": newFavoriteList
-				}
-				const body = {
-					"sub": userData.sub,
-					"given_name": userData.given_name,
-					"family_name": userData.family_name,
-					"nickname": userData.nickname,
-					"picture": userData.picture,
-					"locale": router.locale,
-					"updated_at": userData.updated_at,
-					"email": userData.email,
-					"language": userData.language,
-					"translate": userData.translate,
-					"list_products": JSON.stringify(json)
-				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
 			}
 		}
 
@@ -183,6 +218,10 @@ const ActionsProductButton = ({
 				return Boolean(userDataListProducts[0]?.lists[type].find(el => Number(el.id) === idProd))
 			}
 		}
+
+		useEffect(() => {
+			getDetails(product)
+		}, [product])
 
 		return (
 				<ActionsProductButtonContainer
