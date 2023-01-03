@@ -130,12 +130,8 @@ export default function SearchResults({}) {
     setActiveTab(tab);
   };
 
-  if (query 
-    || (productsDetails.products?.movie.length <= 0
-        && productsDetails.products?.tv.length <= 0
-        && productsDetails.products?.person.length <= 0
-        && productsDetails.keywords?.total_results <= 0
-        && productsDetails.collections?.total_results <= 0
+  if ((productsDetails.products?.total_results > 0
+        || productsDetails.collections?.total_results > 0
       )) {
     return (
       <SearchContainer>
@@ -236,7 +232,6 @@ export default function SearchResults({}) {
             <meta name="msapplication-TileColor" content="#ffc40d" />
             <meta name="theme-color" content="#ffffff"></meta>
           </Head>
-    
           <TitlePage title="pageTitleSearchResults" hasBackButton />
           <CustomMessage text="noResults" style={{marginTop: '40px'}} />
 
