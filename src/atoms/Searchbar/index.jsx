@@ -87,8 +87,7 @@ const Searchbar = ({}) => {
 							onClick={(e) => handleOnClickSearchIcon(e)}
 						/>
 					)}
-				</Icon>
-
+			</Icon>
 				<SuggestionProduct isVisible={suggestionBoxVisibility}>
 					{searchResults?.results?.length > 0 ? (
 						<>
@@ -146,8 +145,7 @@ const Searchbar = ({}) => {
 						</GoToWrapper>
 					)}
 				</SuggestionProduct>
-			
-	</SearchContainer>
+		</SearchContainer>
 	)
 };
 

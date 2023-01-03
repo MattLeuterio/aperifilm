@@ -95,11 +95,16 @@ export const genresList = [
     "id": 37,
     "en": "Western",
     "it": "Western"
+  },
+  {
+    "id": 10765,
+    "en": "Sci-Fi & Fantasy",
+    "it": "Sci-Fi & Fantasy"
   }
 ];
 
 export const searchGenre = (id, lang) => {
-  const genre = genresList.filter(product => product.id === id);
+  const genre = genresList.filter(product => product.id === id?.id || product.id === id);
   if (lang === 'it') return genre[0]?.it;
-  return genre[0]?.en;
+  else return genre[0]?.en;
 }

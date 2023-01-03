@@ -138,6 +138,8 @@
   "yourListsSelectTypeFilm": "Film",
   "yourListsSelectTypeTv": "Tv-series",
   "yourListsSelectTypePeople": "People",
+  "yourListsSelectTypeCollections": "Collections",
 
-  "yourListsSelectGenreAll": "All genres"
+  "yourListMessageNoContent": "There is no content",
+  "yourListSearchPlaceholder": "Search by title"
 }

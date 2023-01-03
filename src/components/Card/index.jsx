@@ -56,6 +56,8 @@ const Card = ({
 
 		switch(type) {
 			case Card.TYPE.DEFAULT:
+			case Card.TYPE.MOVIE:
+			case Card.TYPE.TV:
 				return (
 					<CardContainer
 						type={type}
@@ -100,8 +102,14 @@ const Card = ({
 						</Top>
 
 						<Bottom>
-							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
+							{(Boolean(product?.genre_ids) || Boolean(product?.genres)) && (
+								<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{
+									searchGenre(
+										(Boolean(product?.genre_ids) ? product?.genre_ids[0] : product?.genres[0]), 
+										userLanguageState
+									)}</Montserrat>
+							)}
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: 16, fontWeight: 600, lineHeight: "1.2", color: theme.colors.element.light}}>{productDetails?.title || productDetails?.name}</Montserrat>
 							<StatisticsContainer type={type}>
 								<StatisticsRowCard views={product?.popularity} votes={product?.vote_count}/>
 							</StatisticsContainer>
@@ -169,7 +177,7 @@ const Card = ({
 						mainImg={`${imgBasePath}/${product?.backdrop_path}`}
 					>
 						<Top type={type}>
-							<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{product?.title || product?.name}</Montserrat>
+							<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{productDetails?.title || productDetails?.name}</Montserrat>
 							<Montserrat className="card-genre" type="h4" configuration={{lineHeight: "17.07px", color: theme.colors.element.dark}}>{searchGenre(product?.genre_ids[0], userLanguageState)}</Montserrat>
 							<Montserrat className="card-description" configuration={{fontSize: 12, lineHeight: "16px", color: theme.colors.element.light}}>{productDetails?.overview}</Montserrat>
 
@@ -300,6 +308,8 @@ const Card = ({
 
 Card.TYPE = {
 	DEFAULT: 'default',
+	MOVIE: 'movie',
+	TV: 'tv',
 	DISCOVER: 'discover',
 	PERSON: 'person',
 	TRENDING: 'trending',

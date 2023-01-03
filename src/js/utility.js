@@ -14,9 +14,17 @@ export const roundVote = (value, precision) => {
 
 export const pTypeConverter = (type) => {
   if (type === 'film' || type === 'productTypeFilm') return 'movie';
-  if (type === 'tv-series' || type === 'productTypeTvSeries') return 'tv';
+  if (type === 'tv-series' || type === 'productTypeTvSeries' || type === 'tv') return 'tv';
   if (type === 'collection' || type === 'productTypeCollection') return 'collection';
 }
+
+export const pTypeConverterLang = (type) => {
+  if (type === 'tv') return 'productTypeTvSeries';
+  if (type === 'collection') return 'productTypeCollection';
+  if (type === 'movie') return 'productTypeFilm';
+  if (type === 'person') return 'productTypePerson';
+}
+
 export const langConverter = (lang) => {
   if (lang === 'it' ) return 'it-IT';
   return 'en-EN';
@@ -135,25 +143,6 @@ export const wasItVoted = (id, list) => {
   if (voted) return voted;
 }
 
-export const selectOrderOptions = [
-  {
-    value: 'last',
-    label: 'yourListsSelectOrderLast'
-  },
-  {
-    value: 'first',
-    label: 'yourListsSelectOrderFirst'
-  },
-  {
-    value: 'more',
-    label: 'yourListsSelectOrderMoreDrunk'
-  },
-  {
-    value: 'less',
-    label: 'yourListsSelectOrderLessDrunk'
-  }
-]
-
 export const selectTypeOptions = [
   {
     value: 'film-tv',
@@ -168,7 +157,11 @@ export const selectTypeOptions = [
     label: 'yourListsSelectTypeTv'
   },
   {
-    value: 'people',
+    value: 'person',
     label: 'yourListsSelectTypePeople'
+  },
+  {
+    value: 'collection',
+    label: 'yourListsSelectTypeCollections'
   }
 ]

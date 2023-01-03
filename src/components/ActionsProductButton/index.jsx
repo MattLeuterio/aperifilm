@@ -81,6 +81,7 @@ const ActionsProductButton = ({
 
 		const handleOnClickVote = (product) => {
 			const isMovie = Boolean(product.title)
+	
 			dispatch(setVotePanel({isOpen: true, selected: {
 				...productLanguage,
 				id: product.id, 
@@ -168,6 +169,7 @@ const ActionsProductButton = ({
 							{ 
 								...productLanguage,
 								id: product.id,
+								title: product.title || product.name,
 								product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
 								user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
 							}

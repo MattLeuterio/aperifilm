@@ -6,22 +6,23 @@ import Select from 'react-select';;
 const CustomSelect = ({
 	onChange, defaultValue, options, 
 	isSearchable, isClearable, name, 
-	className, width
+	className, width, value
 }) => {
-		return (
-				<CustomSelectContainer width={width}>
-					<Select
-						className={`basic-single ${className}`}
-						classNamePrefix="select"
-						defaultValue={defaultValue}
-						onChange={onChange}
-						isSearchable={isSearchable}
-						isClearable={isClearable}
-						name={name}
-						options={options}
-					/>
-				</CustomSelectContainer>
-		)
+	return (
+		<CustomSelectContainer width={width}>
+			<Select
+				value={value}
+				className={`basic-single ${className}`}
+				classNamePrefix="select"
+				defaultValue={defaultValue}
+				onChange={onChange}
+				isSearchable={isSearchable}
+				isClearable={isClearable}
+				name={name}
+				options={options}
+			/>
+		</CustomSelectContainer>
+	)
 };
 
 CustomSelect.defaultProps = {

@@ -40,7 +40,6 @@ const VotePanel = ({
 		if (Boolean(userDataListProductsRedux)) {
 			const elementAlreadyVoted = userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
 			if(elementAlreadyVoted) {
-				console.log('elementAlreadyVoted', elementAlreadyVoted)
 				setVote(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id)[0]?.user_vote);
 			}
 		}
@@ -66,6 +65,8 @@ const VotePanel = ({
 				"vote": [
 					...userDataListProductsRedux[0].lists.vote,
 					{ 
+						en: voteStateSelected.en,
+						it: voteStateSelected.it,
 						id: voteStateSelected.id, 
 						title: voteStateSelected.title || voteStateSelected.name, 
 						product_type: voteStateSelected.product_type,

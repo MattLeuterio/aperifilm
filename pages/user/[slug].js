@@ -3,23 +3,20 @@ import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
-import Logo from '../../src/assets/images/logo-aperifilm.svg';
-import { CustomMessage, CustomSelect, Image, Tabs, TitlePage } from "../../src/atoms";
+import {CustomMessage, CustomSelect, Icon, Tabs, TitlePage } from "../../src/atoms";
 import { Card } from "../../src/components";
-import { langConverter, parseContext, textToPath, tmdbApiKey } from "../../src/js/utility";
-import { HomeContainer, Keyword, ResultsContainer, SearchContainer, SelectsContainer, TabsContainer, UserListsContainer } from "../../src/styles/Pages/userListsStyle";
+import { SearchIcon, XIcon } from '@heroicons/react/solid';
+import { parseContext, pTypeConverterLang, selectTypeOptions } from "../../src/js/utility";
+import { Main, PageMainContainer, ResultsContainer, SearchContainer, SearchInput, FiltersContainer, TabsContainer, UserListsContainer } from "../../src/styles/Pages/userListsStyle";
 import Montserrat from "../../src/typography/montserrat";
-import { AtSymbolIcon, EyeIcon, HeartIcon, HomeIcon, InformationCircleIcon, TrendingUpIcon } from "@heroicons/react/solid";
-import AperitifBottleDisable from "../../src/assets/icons/aperitif-bottle-disable.png"
-import AperitifBottleActive from "../../src/assets/icons/aperitif-bottle-active.png"
 import theme from "../../src/theme";
-import En from "../../lang/en.json";
-import It from "../../lang/it.json";
-import { genresList } from "../../src/js/genreList";
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select from '@mui/material/Select';
+import en from "../../lang/en.json";
+import it from "../../lang/it.json";
+import useMediaQuery from "../../src/hooks/useMediaQuery";
+
+const initialFilters = {
+  type: 'film-tv',
+}
 
 export async function getServerSideProps(context) {
   try {
@@ -44,6 +41,8 @@ export default function UserLists({query}) {
   const userLanguageState = useSelector((state) => state.userData?.language);
   const userListProductsState = useSelector((state) => state.userData?.list_products[0]);
 
+  const isMobile = useMediaQuery(426);
+
   const tabsListDefault = [
     {
       id: 'favorite',
@@ -61,38 +60,60 @@ export default function UserLists({query}) {
       number: null
     },
   ]
-  let selectGenresOptions = genresList.reduce((acc, el) => {
-    return [
-      ...acc,
-      {
-        value: String(el.id),
-        label: el[userLanguageState]
-      }
-    ]
-  }, []);
 
-  selectGenresOptions = [
-    {
-      value: 'all-genre',
-      label: userLanguageState === 'it' ? It['yourListsSelectGenreAll'] : En['yourListsSelectGenreAll']
-    },
-    ...selectGenresOptions,
-  ]
 
   const router = useRouter();
-  const [tabsList, setTabzsList] = useState(tabsListDefault);
-  const [userProductsList, setUserProductsList] = useState({
-    collections: [],
-    movie: [],
-    tv: []
-  });
-  const [collection, setCollection] = useState({});
+  const [tabsList, setTabsList] = useState(tabsListDefault);
+  const [userProductsList, setUserProductsList] = useState({});
   const [resultsList, setResultsList] = useState([]);
-  const [page, setPage] = useState(1);
   const [queryType, setQueryType] = useState('favorite');
   const [activeTab, setActiveTab] = useState(tabsList[0]);
-  const [productsDetails, setProductDetails] = useState([]);
   const [userLanguage, setUserLanguage] = useState(router.locale);
+  const [filters, setFilters] = useState(initialFilters);
+  const [filteredList, setFilteredList] = useState(resultsList);
+  const [valueSearch, setValueSearch] = useState("");
+
+
+	const handleOnChange = (value) => {
+    setValueSearch(value);
+    if (valueSearch.length >= 2) {
+      const regex = new RegExp(value, "gi");
+			const filt = filteredList.filter(p=>p.title.match(regex));
+      setFilteredList(filt);
+    } else {
+      filtByType();
+		}
+  };
+
+  const onCloseValueSearch = () => {
+    setValueSearch('');
+    filtByType();
+  };
+
+  // Select Type
+  let selectTypeOptionsLang = activeTab?.id === 'favorite' ? (
+    selectTypeOptions.reduce((acc, el) => {
+      return [
+        ...acc,
+        {
+          value: String(el.value),
+          label: userLanguage === 'en' ? en[el.label] : it[el.label]
+        }
+      ]
+    }, [])
+  ) : (
+    selectTypeOptions.filter(el => el.value !== 'collection').filter(el => el.value !== 'person').reduce((acc, el) => {
+      return [
+        ...acc,
+        {
+          value: String(el.value),
+          label: userLanguage === 'en' ? en[el.label] : it[el.label]
+        }
+      ]
+    }, [])
+  );
+      
+  const [valueSelectType, setValueSelectType] = useState(selectTypeOptionsLang[0]);
 
   useEffect(() => {
     setQueryType(query.slug);
@@ -109,33 +130,76 @@ export default function UserLists({query}) {
   useEffect(() => {setUserLanguage(userLanguageState)}, [userLanguageState])
   
   useEffect(() => {
-    getDetails();
-  }, [userLanguage, userProductsList, activeTab, queryType]);
+    setTabsList([
+      {
+        id: 'favorite',
+        label: 'menuLinkTitleFavorite',
+        number: userProductsList?.favorite?.length
+      },
+      {
+        id: 'vote',
+        label: 'menuLinkTitleVoted',
+        number: userProductsList?.vote?.length
+      },
+      {
+        id: 'watch',
+        label: 'menuLinkTitleToWatch',
+        number: userProductsList?.watch?.length
+      },
+    ])
 
+    if (Boolean(userProductsList) && userProductsList[activeTab?.id]?.filter(el=> el.product_type === 'movie').length <= 0) {
+      selectTypeOptionsLang = selectTypeOptionsLang?.filter(s=>s.value !== 'film');
+    }
 
-
-
-  const getDetails = async () => {
-
-  }
-
+    setValueSelectType(selectTypeOptionsLang[0])
+    setFilters(initialFilters)
+    onCloseValueSearch();
+    if (Boolean(userLanguage) && Boolean(activeTab?.id) && Boolean(userProductsList)) {
+      setResultsList(userProductsList[activeTab?.id])
+    }
+  }, [userLanguage, userProductsList, queryType]);
 
   const onChangeTab = tab => {
     setActiveTab(tab);
     router.push(`/user/${tab.id}`);
-  };
+  };  
 
-  const handleOnChangeOrder = (e) => {
-    setValueSelectOrder(e.target.value);
+  const handleOnChangeType = (selected) => {
+		setValueSelectType(selected);
+    setFilters({...filters, type: selected.value})
 	}
 
-  const handleOnChangeType = (el) => {
-		setValueSelectType(el);
-	}
+  useEffect(() => {
+    setFilteredList(resultsList)
+  }, [resultsList])
 
-  const handleOnChangeGenre = (el) => {
-		setValueSelectGenre(el);
-	}
+  const filtByType = () => {
+    if (filters.type === 'film-tv') {
+      const filt = resultsList?.filter(el => (el.product_type === 'movie' || el.product_type === 'tv'));
+      setFilteredList(filt);
+    }
+    if (filters.type === 'film') {
+      const filt = resultsList?.filter(el => el.product_type === 'movie');
+      setFilteredList(filt);
+    }
+    if (filters.type === 'tv') {
+      const filt = resultsList?.filter(el => el.product_type === 'tv');
+      setFilteredList(filt);
+    }
+    if (filters.type === 'person') {
+      const filt = resultsList?.filter(el => el.product_type === 'person');
+      setFilteredList(filt);
+    }
+    if (filters.type === 'collection') {
+      const filt = resultsList?.filter(el => el.product_type === 'collection');
+      setFilteredList(filt);
+    }
+  }
+  useEffect(() => {
+    onCloseValueSearch();
+    filtByType();
+  }, [filters, valueSelectType, activeTab])
 
   return (
     <UserListsContainer>
@@ -162,9 +226,53 @@ export default function UserLists({query}) {
           tabsList={tabsList}
         />
       </TabsContainer>
-      
-      <ResultsContainer>
-      </ResultsContainer>
+      <PageMainContainer>
+        <Main>
+          <FiltersContainer>
+            <CustomSelect
+              width={isMobile ? "100%" : "160px"}
+              defaultValue={valueSelectType}
+              value={valueSelectType}
+              onChange={(value) => handleOnChangeType(value)}
+              name="color"
+              options={selectTypeOptionsLang}
+            />
+            <SearchContainer>
+              <SearchInput
+                type="text"
+                placeholder={userLanguage === 'en' ? en["yourListSearchPlaceholder"] : it["yourListSearchPlaceholder"]}
+                value={valueSearch}
+                onChange={(e) => handleOnChange(e.target.value)}
+                maxlength="10"
+              />
+              <Icon
+                className="icn-search"
+                size="20px"
+                fill={theme.colors.element.dark}
+                strokeWidth="0px"
+                >
+                  {valueSearch.length ? (
+                    <XIcon
+                      onClick={() => onCloseValueSearch()}
+                    />
+                  ) : (
+                    <SearchIcon
+                      onClick={(e) => handleOnClickSearchIcon(e)}
+                    />
+                  )}
+              </Icon>
+            </SearchContainer>
+          </FiltersContainer>
+          <ResultsContainer>
+            {filteredList?.length > 0 ? filteredList?.map((prod) => {
+              return (
+              <Card key={prod?.id} product={prod[userLanguage]} type={prod.product_type} productType={pTypeConverterLang(prod.product_type)} className="card" />
+            )}) : (
+              <CustomMessage text={"yourListMessageNoContent"} />
+            )}
+          </ResultsContainer>
+        </Main>
+      </PageMainContainer>
     </UserListsContainer>
   );
 }

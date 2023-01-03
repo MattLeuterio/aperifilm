@@ -138,6 +138,8 @@
   "yourListsSelectTypeFilm": "Film",
   "yourListsSelectTypeTv": "Serie Tv",
   "yourListsSelectTypePeople": "Persone",
+  "yourListsSelectTypeCollections": "Collezioni",
 
-  "yourListsSelectGenreAll": "Tutti i generi"
+  "yourListMessageNoContent": "Non ci sono contenuti.",
+  "yourListSearchPlaceholder": "Cerca per titolo"
 }
