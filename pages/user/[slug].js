@@ -158,7 +158,7 @@ export default function UserLists({query}) {
     if (Boolean(userLanguage) && Boolean(activeTab?.id) && Boolean(userProductsList)) {
       setResultsList(userProductsList[activeTab?.id])
     }
-  }, [userLanguage, userProductsList, queryType]);
+  }, [userLanguage, userProductsList, queryType, activeTab]);
 
   const onChangeTab = tab => {
     setActiveTab(tab);
