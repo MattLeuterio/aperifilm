@@ -174,7 +174,7 @@ const Card = ({
 						totalVotes={totalVotes}
 						widthCard={widthCard}
 						heightCard={heightCard}
-						mainImg={`${imgBasePath}/${product?.backdrop_path}`}
+						mainImg={checkImage(product?.backdrop_path)}
 					>
 						<Top type={type}>
 							<Montserrat className="card-title" type="bold" configuration={{fontSize: isTablet ? 20 : 24, lineHeight: "29.26px", color: theme.colors.element.light}}>{productDetails?.title || productDetails?.name}</Montserrat>

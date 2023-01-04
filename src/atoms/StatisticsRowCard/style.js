@@ -7,11 +7,9 @@ export const StatisticsRowCardContainer = styled.div`
   align-items: center;
   width: fit-content;
   height: fit-content;
-  justify-content: space-between;
-  width: 100%;
 
   > div:not(:last-child) {
-    //margin-right: 12px;
+    margin-right: 12px;
   }
 `;
 

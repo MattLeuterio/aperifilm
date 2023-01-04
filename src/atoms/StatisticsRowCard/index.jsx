@@ -30,8 +30,7 @@ const StatisticsRowCard = ({
 						>
 							<EyeIcon />
 						</Icon>
-						<Montserrat type="xsmall" configuration={{fontWeight: 600, lineHeight: '12.19px'}}>{views} 
-						{/* <FormattedMessage defaultMessage={"cardStatsViews"} id={"cardStatsViews"} /> */}
+						<Montserrat type="xsmall" configuration={{fontWeight: 600, lineHeight: '12.19px'}}>{views} <FormattedMessage defaultMessage={"cardStatsViews"} id={"cardStatsViews"} />
 						</Montserrat>
 					</StatsWrapper>
 				)}
@@ -52,8 +51,7 @@ const StatisticsRowCard = ({
 								layout="fixed" 
 							/>
 						</Icon>
-						<Montserrat type="xsmall" configuration={{fontWeight: 600, lineHeight: '12.19px'}}>{votes} 
-						{/* <FormattedMessage defaultMessage={"cardStatsVotes"} id={"cardStatsVotes"} /> */}
+						<Montserrat type="xsmall" configuration={{fontWeight: 600, lineHeight: '12.19px'}}>{votes} <FormattedMessage defaultMessage={"cardStatsVotes"} id={"cardStatsVotes"} />
 						</Montserrat>
 					</StatsWrapper>
 				)}
