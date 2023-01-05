@@ -141,5 +141,9 @@
   "yourListsSelectTypeCollections": "Collezioni",
 
   "yourListMessageNoContent": "Non ci sono contenuti.",
-  "yourListSearchPlaceholder": "Cerca per titolo"
+  "yourListSearchPlaceholder": "Cerca per titolo",
+
+  "shareTitle": "Condividi",
+  "shareCopyLink": "Copia link",
+  "shareCopied": "Copiato"
 }

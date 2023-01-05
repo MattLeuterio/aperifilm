@@ -3,9 +3,10 @@ import PlaceholderPeopleMale from '../assets/images/placeholder-people-male.png'
 import PlaceholderPeopleFemale from '../assets/images/placeholder-people-female.png';
 import PlaceholderNoImage from '../assets/images/placeholder-no-image.png';
 
-export const tmdbApiKey = 'e2330ecaa641a077ab62520c44ab636f';
 
+export const tmdbApiKey = 'e2330ecaa641a077ab62520c44ab636f';
 export const imgBasePath = 'https://image.tmdb.org/t/p/original';
+export const siteBasePath = `http://localhost:3000`;
 
 export const roundVote = (value, precision) => {
   var multiplier = Math.pow(10, precision || 0);
