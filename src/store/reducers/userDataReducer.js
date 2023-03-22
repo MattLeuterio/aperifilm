@@ -1,7 +1,6 @@
-import { SET_LANGUAGE, SET_TRANSLATE, SET_USER_DATA_FROM_LOGIN, SET_USER_LIST_PRODUCTS, USERS_ERROR } from "../types";
+import { SET_LANGUAGE, SET_USER_DATA_FROM_LOGIN, SET_USER_LIST_PRODUCTS, USERS_ERROR } from "../types";
 
 const initialState = {
-  translate: "",
   language: "",
   loading: true,
   list_products: []
@@ -15,12 +14,6 @@ export default function (state = initialState, action) {
         language: action.payload,
         loading: false,
       };
-    case SET_TRANSLATE:
-      return {
-        ...state,
-        translate: action.payload,
-        loading: false,
-      }
     case SET_USER_DATA_FROM_LOGIN:
       return {
         ...state,

@@ -84,7 +84,6 @@ const VotePanel = ({
 					"updated_at": userData.updated_at,
 					"email": userData.email,
 					"language": userData.language,
-					"translate": userData.translate,
 					"list_products": JSON.stringify(json)
 			}
 			updateUser(userData.record_id, body);
@@ -117,7 +116,6 @@ const VotePanel = ({
 				"updated_at": userData.updated_at,
 				"email": userData.email,
 				"language": userData.language,
-				"translate": userData.translate,
 				"list_products": JSON.stringify(json)
 			}
 			updateUser(userData.record_id, body);
@@ -148,7 +146,6 @@ const VotePanel = ({
 				"updated_at": userData.updated_at,
 				"email": userData.email,
 				"language": userData.language,
-				"translate": userData.translate,
 				"list_products": JSON.stringify(json)
 			}
 			updateUser(userData.record_id, body);
