@@ -1,14 +1,12 @@
 import Head from "next/head";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { FormattedMessage } from "react-intl";
 import { useSelector } from "react-redux";
 import {CustomMessage, CustomSelect, Icon, Tabs, TitlePage } from "../../src/atoms";
 import { Card } from "../../src/components";
 import { SearchIcon, XIcon } from '@heroicons/react/solid';
 import { parseContext, pTypeConverterLang, selectTypeOptions } from "../../src/js/utility";
 import { Main, PageMainContainer, ResultsContainer, SearchContainer, SearchInput, FiltersContainer, TabsContainer, UserListsContainer } from "../../src/styles/Pages/userListsStyle";
-import Montserrat from "../../src/typography/montserrat";
 import theme from "../../src/theme";
 import en from "../../lang/en.json";
 import it from "../../lang/it.json";
@@ -198,7 +196,6 @@ export default function UserLists({query}) {
   }
   useEffect(() => {
     onCloseValueSearch();
-    filtByType();
   }, [filters, valueSelectType, activeTab])
 
   return (
