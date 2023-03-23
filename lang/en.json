@@ -20,7 +20,6 @@
   "buttonLogin": "Login",
   "buttonLogout": "Logout",
   "settingButtonSettings": "Settings",
-  "settingButtonTitleTranslate": "Content translation",
   "settingButtonTitleLanguage": "Language preferences",
 
   "sidebarMenuTitle": "Menu",
@@ -145,5 +144,15 @@
 
   "shareTitle": "Share",
   "shareCopyLink": "Copy link",
-  "shareCopied": "Copied"
+  "shareCopied": "Copied",
+
+  "settingsTitlePage": "Settings",
+
+  "settingsLabelEmail": "Email",
+  "settingsLabelName": "Name",
+  "settingsLabelNickname": "Nickname",
+  "settingsLabelPicture": "Picture profile",
+  "settingsLabelLanguage": "Language",
+  "settingsLabelButtonSave": "Save",
+  "settingsLabelButtonRestore": "Restore"
 }

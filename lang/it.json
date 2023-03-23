@@ -145,5 +145,15 @@
 
   "shareTitle": "Condividi",
   "shareCopyLink": "Copia link",
-  "shareCopied": "Copiato"
+  "shareCopied": "Copiato",
+
+  "settingsTitlePage": "Impostazioni",
+  
+  "settingsLabelEmail": "Email",
+  "settingsLabelName": "Nome",
+  "settingsLabelPicture": "Immagine del profilo",
+  "settingsLabelNickname": "Soprannome",
+  "settingsLabelLanguage": "Lingua",
+  "settingsLabelButtonSave": "Salva",
+  "settingsLabelButtonRestore": "Ripristina"
 }
