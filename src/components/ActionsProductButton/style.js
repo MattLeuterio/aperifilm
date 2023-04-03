@@ -162,6 +162,10 @@ export const ActionsProductButtonContainer = styled.div`
       }
     }
   }
+
+  ${props => props.disable && css`
+    cursor: default;
+  `};
 `;
 
 export const Label = styled.div`

@@ -4,18 +4,23 @@ import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 import { useState } from 'react';
 import Icon from '../Icon';
-import { Router } from 'next/router';
+import { Router, useRouter } from 'next/router';
 import { HeartIcon } from '@heroicons/react/outline';
 import { ActionsProductButton } from '../../components';
+import { useUser } from '@auth0/nextjs-auth0';
+import { Tooltip } from '@mui/material';
 
 
 const ActionButtons = ({
 	className, size, product, type
 }) => {
+		const router = useRouter();
+		const { user, error, isLoading } = useUser();
 		return (
 			<ActionButtonsContainer className={className}>
-
-				<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
+				<Tooltip title="Salva nei preferiti" placement="top-start">
+					<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
+				</Tooltip>
 
 				{(type !== 'person' && type !== 'person-card') && (
 					<>
