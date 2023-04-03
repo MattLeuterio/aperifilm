@@ -7,7 +7,7 @@ import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, Share, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
-import { checkImage, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, searchPeopleRoleCrew, textToPath, tmdbApiKey } from "../../src/js/utility";
+import { checkImage, currency, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, searchPeopleRoleCrew, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
@@ -19,6 +19,7 @@ import { setFullscreenPanel } from "../../src/store/actions/appAction";
 import FacebookIcon from "../../src/assets/icons/logo-facebook.png";
 import InstagramIcon from "../../src/assets/icons/logo-instagram.png";
 import TwitterIcon from "../../src/assets/icons/logo-twitter.png";
+import { dividerClasses } from "@mui/material";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -154,11 +155,13 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
 
   useEffect(() => {
     getDetailsProduct();
-  }, [userLanguageState, movieDetails]);
+  }, [userLanguageState, movieDetails, query]);
 
   useEffect(() => {
     if (movieDetailsState?.belongs_to_collection) {
       getCollection(movieDetailsState?.belongs_to_collection?.id);
+    } else {
+      setMovieCollection([])
     }
   }, [userLanguageState, movieDetailsState]);
 
@@ -189,8 +192,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const handleOnClickImage = (index, isOpen, list) => {
     dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
-
-  console.log('movieDetails', Boolean(movieDetails?.overview) ? movieDetails?.overview : movieDetails?.title)
 
   return (
     <ProductDetailsContainer>
@@ -377,35 +378,51 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         ) : movieDetailsState?.backdrop_path && (
           <BackdropSection url={movieDetailsState?.backdrop_path}></BackdropSection>
         )}
-        <InfoSection row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-          <Montserrat type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>Info</Montserrat>
-          <InfoSectionWrapperElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-            <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-              <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementOriginalTitle"} id={"infoSectionElementOriginalTitle"} />
-              </Montserrat>
-              <Montserrat type="h4">{movieDetailsState?.original_title}</Montserrat>
-            </InfoSectionElement>
-            <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-              <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementStatus"} id={"infoSectionElementStatus"} />
-              </Montserrat>
-              <Montserrat type="h4">{movieDetailsState?.status}</Montserrat>
-            </InfoSectionElement>
-            <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-              <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementBudget"} id={"infoSectionElementBudget"} />
-              </Montserrat>
-              <Montserrat type="h4">{movieDetailsState?.budget}</Montserrat>
-            </InfoSectionElement>
-            <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
-              <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
-                <FormattedMessage defaultMessage={"infoSectionElementRevenue"} id={"infoSectionElementRevenue"} />
-              </Montserrat>
-              <Montserrat type="h4">{movieDetailsState?.revenue}</Montserrat>
-            </InfoSectionElement>
-          </InfoSectionWrapperElement>
-        </InfoSection>
+        {(Boolean(movieDetailsState?.original_title)
+          || Boolean(movieDetailsState?.status)
+          || Boolean(movieDetailsState?.budget)
+          || Boolean(movieDetailsState?.revenue)) && (
+            <InfoSection row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
+              <Montserrat type="productDetailsSectionTitle" configuration={{fontSize: isTablet ? 20 : 24}}>Info</Montserrat>
+              <InfoSectionWrapperElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
+                <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
+                  <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
+                    <FormattedMessage defaultMessage={"infoSectionElementOriginalTitle"} id={"infoSectionElementOriginalTitle"} />
+                  </Montserrat>
+                  <Montserrat type="h4">{movieDetailsState?.original_title}</Montserrat>
+                </InfoSectionElement>
+                <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
+                  <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
+                    <FormattedMessage defaultMessage={"infoSectionElementStatus"} id={"infoSectionElementStatus"} />
+                  </Montserrat>
+                  <Montserrat type="h4">{movieDetailsState?.status}</Montserrat>
+                </InfoSectionElement>
+                {Boolean(movieDetailsState?.budget) && (
+                  <InfoSectionElement 
+                    row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}
+                  >
+                    <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
+                      <FormattedMessage defaultMessage={"infoSectionElementBudget"} id={"infoSectionElementBudget"} />
+                    </Montserrat>
+                    <Montserrat type="h4">
+                      {currency(movieDetailsState?.budget, movieDetailsState?.production_companies[0]?.origin_country)}
+                    </Montserrat>
+                  </InfoSectionElement>
+                )}
+                {Boolean(movieDetailsState?.revenue) && (
+                  <InfoSectionElement row={movieVideo?.length <= 0 && !movieDetailsState?.backdrop_path}>
+                    <Montserrat type="h4" configuration={{fontWeight: 600, lineHeight: 2, color: theme.colors.element.dark}}>
+                      <FormattedMessage defaultMessage={"infoSectionElementRevenue"} id={"infoSectionElementRevenue"} />
+                    </Montserrat>
+                    <Montserrat type="h4">
+                    {currency(movieDetailsState?.revenue, movieDetailsState?.production_companies[0]?.origin_country)}
+                    </Montserrat>
+                  </InfoSectionElement>
+                )}
+              </InfoSectionWrapperElement>
+            </InfoSection>
+          )
+        }
       </VideoAndInfoSection>
 
       {movieImages?.all?.length > 0 && (

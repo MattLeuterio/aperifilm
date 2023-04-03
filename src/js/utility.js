@@ -2,6 +2,7 @@ import { DateTime } from "luxon";
 import PlaceholderPeopleMale from '../assets/images/placeholder-people-male.png';
 import PlaceholderPeopleFemale from '../assets/images/placeholder-people-female.png';
 import PlaceholderNoImage from '../assets/images/placeholder-no-image.png';
+import currencyCountries from '../js/currencyCountries.json'
 
 
 export const tmdbApiKey = 'e2330ecaa641a077ab62520c44ab636f';
@@ -73,6 +74,7 @@ export const getTvSeriesType = (type) => {
       return `${type}`;
   }
 }
+
 export const getTvSeriesStatus = (status) => {
   switch (status) {
     case "Pilot":
@@ -166,3 +168,13 @@ export const selectTypeOptions = [
     label: 'yourListsSelectTypeCollections'
   }
 ]
+
+
+export const currency = (value, country) => {
+  const selectedCountry = currencyCountries.filter(c => c.CountryCode === country)[0];
+  const resultd = (value).toLocaleString(selectedCountry.CountryCode, { 
+    style: 'currency', 
+    currency: selectedCountry.Code
+  });
+  return resultd
+}
