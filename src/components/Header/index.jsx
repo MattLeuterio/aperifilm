@@ -5,7 +5,7 @@ import { UserIcon, ChevronDownIcon, ChevronUpIcon, AdjustmentsIcon, TranslateIco
 import { useUser } from "@auth0/nextjs-auth0";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect, useRef } from "react";
-import { setUserDataFromLogin, setUserLanguage, setUserProducts, setUserTranslate } from "../../store/actions/userDataAction";
+import { setUserDataFromLogin, setUserLanguage, setUserProducts } from "../../store/actions/userDataAction";
 import theme from "../../theme";
 import { FormattedMessage } from "react-intl";
 import Montserrat from "../../typography/montserrat";
@@ -13,7 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Flagen from "../../assets/images/flag-en.webp";
 import Flagit from "../../assets/images/flag-it.webp";
-import { languageOption, countryTranslation } from "../../js";
+import { languageOption } from "../../js";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { infoRoutes, primaryRoutes, userRoutes } from "../../routes";
@@ -28,45 +28,29 @@ const Header = ({}) => {
 	const [userData, setUserData] = useState({});
 	const [usersList, setUsersList] = useState(null);
 	const [userListProducts, setUserListProducts] = useState([]);
-	const [userDropdownStatus, setUserDropdownStatus] = useState(false);
-	const [languageDropdownStatus, setLanguageDropdownStatus] = useState(false);
-	const [countryList, setCountryList] = useState([]);
-	// const [defaultValueSelectTranslate, setDefaultValueSelectTranslate] = useState({});
-	const [visibilitySearchBar, setVisibilitySearchBar] = useState(false);
-	const [visibilityMobileMenu, setVisibilityMobileMenu] = useState(false);
-	const [defaultValueSelectLanguage, setDefaultValueSelectLanguage] = useState({});
-	
+
+	// User states Selectors
 	const userDataSelector = useSelector((state) => state.userData);
 	const userListSelector = useSelector((state) => state.usersList.list);
+	
+	// Menus Visibility
+	const [visibilitySearchBar, setVisibilitySearchBar] = useState(false);
+	const [visibilityMobileMenu, setVisibilityMobileMenu] = useState(false);
 
+	// Dropdowns
+	const [userDropdownStatus, setUserDropdownStatus] = useState(false);
+	const [languageDropdownStatus, setLanguageDropdownStatus] = useState(false);
+	const [defaultValueSelectLanguage, setDefaultValueSelectLanguage] = useState({});
+
+	// Dropdown's wrappers
 	const wrapperRefUserDropdown = useRef(null);
 	const wrapperRefLanguageDropdown = useRef(null);
 
   const isLaptop = useMediaQuery(1024);
 
 	useEffect(() => {
-		const list = countryTranslation?.reduce((acc, obj) => {
-			return [
-				{
-					value: obj.code, 
-					label: obj.name,
-				},
-				...acc
-			]
-		}, []).reverse();
-
-		setCountryList(list);
-		
 		const language = userData?.language?.length > 0 ? userData.language : router.locale;
-
 		handleOnChangeLanguage(languageOption?.filter(el => el.value === language)[0])
-
-		const langTranslate = Boolean(userData?.translate) 
-		? userData?.translate 
-			: Boolean(userData?.language)
-		? userData.language === 'en' ? 'en-US' : 'it-IT'
-			: router.locale;
-		// handleOnChangeTranslate(list?.filter(el => el.value === langTranslate)[0]);
 	}, [usersList]);
 
 	useEffect(() => {
@@ -188,14 +172,6 @@ const Header = ({}) => {
 		}
 	}
 
-	// const handleOnChangeTranslate = (el) => {
-	// 	setDefaultValueSelectTranslate(el);
-	// 	dispatch(setUserTranslate(el?.value));
-	// 	if (userData.record_id) {
-	// 		updateUser(userData.record_id, {"translate": el?.value})
-	// 	}
-	// }
-
 	const handleOnChangeLanguage = (el) => {
 		setDefaultValueSelectLanguage(el);
 		dispatch(setUserLanguage(el?.value));
@@ -289,7 +265,7 @@ const Header = ({}) => {
 							<UserName
 								onClick={() => handleOnClickUser()}
 							>
-								{userData.given_name ? userData.given_name : userData.nickname }
+								{userData.nickname ? userData.nickname : userData.email}
 							</UserName>
 							<Icon
 								className="icn-arrow-user"
@@ -312,7 +288,7 @@ const Header = ({}) => {
 										>
 											<AdjustmentsIcon />
 										</Icon>
-										<Link href="/settings">
+										<Link href="/user/settings">
 											<Montserrat type="settingButton">
 												<FormattedMessage defaultMessage={"settingButtonSettings"} id={"settingButtonSettings"} />
 											</Montserrat>
@@ -364,35 +340,6 @@ const Header = ({}) => {
 							<LanguageDropdown
 								ref={wrapperRefLanguageDropdown}
 							>
-								{/* <LDropSection>
-									<LDropTitle>
-										<Icon
-											stroke="transparent"
-											fill={theme.colors.element.dark}
-											width="17px"
-											height="17px"
-											handleOnClick={() => handleOnClickUser()}
-										>
-											<TranslateIcon />
-										</Icon>
-										<Montserrat 
-											type="settingButton"
-											configuration={{ fontWeight: 600 }}
-										>
-											<FormattedMessage defaultMessage={"settingButtonTitleTranslate"} id={"settingButtonTitleTranslate"} />
-										</Montserrat>
-									</LDropTitle>
-									<SelectCtn>
-										<CustomSelect
-											defaultValue={defaultValueSelectTranslate}
-											isLoading={isLoading}
-											onChange={(e) => handleOnChangeTranslate(e)}
-											isSearchable
-											name="color"
-											options={countryList}
-										/>
-									</SelectCtn>
-								</LDropSection> */}
 								<LDropSection>
 									<LDropTitle>
 										<Icon

@@ -40,7 +40,7 @@ const Card = ({
 		
 		useEffect(() => {
 			getDetailsProduct();
-		}, [userLanguageState])
+		}, [userLanguageState, productDetailsState, product])
 
 		const handleOnClickCard = (e) => {
 			Router.push(`/${pTypeConverter(productType)}/${textToPath(product?.title || product?.name)}?id=${product?.id}`);
@@ -86,7 +86,7 @@ const Card = ({
 							{/* Position Absolute */}
 							<Badge text={productType} top="15px" left="15px"/>
 							<ActionButtons product={productDetails} size="small" className="action-buttons" />
-							{(Boolean(userDataListProductsRedux) &&userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
+							{(Boolean(userDataListProductsRedux) && userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
 								<RatingBottle size="small" className="rating-container personal-vote" personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
 							) : (
 								<>
@@ -159,7 +159,6 @@ const Card = ({
 					<CardContainer
 						onClick={() => handleOnClickCard()}
 						type={type}
-						//onClick={handleOnClick}
 						className={className}
 						color={colorText}
 						backgroundColor={backgroundColor}

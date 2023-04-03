@@ -39,6 +39,13 @@
   "productTypeCollection": "Collection",
   "productTypeSeasons": "Seasons",
 
+  "actionBtnFavoriteTooltipLogged": "Add to favourites",
+  "actionBtnWatchTooltipLogged": "Add to watch list",
+  "actionBtnVoteTooltipLogged": "Vote",
+  "actionBtnFavoriteTooltip": "Create an account and add to favourites",
+  "actionBtnWatchTooltip": "Create an account and add to watch list",
+  "actionBtnVoteTooltip": " Create an account and vote",
+
   "cardStatsViews": "views",
   "cardStatsVotes": "votes",
 
@@ -140,7 +147,7 @@
   "yourListsSelectTypeCollections": "Collections",
 
   "yourListMessageNoContent": "There is no content",
-  "yourListSearchPlaceholder": "Search by title",
+  "yourListSearchPlaceholder": "Filter by title",
 
   "shareTitle": "Share",
   "shareCopyLink": "Copy link",
@@ -154,5 +161,12 @@
   "settingsLabelPicture": "Picture profile",
   "settingsLabelLanguage": "Language",
   "settingsLabelButtonSave": "Save",
-  "settingsLabelButtonRestore": "Restore"
+  "settingsLabelButtonRestore": "Restore",
+  "settingsLabelError": "Error",
+
+  "settingsErrorMessageMinLenght": "Must have at least three characters",
+  "settingsErrorMessageMaxLenght": "Cannot have more than 20 characters",
+  "settingsErrorMessageEmailInvalid": "Invalid email address",
+  "settingsErrorMessageUrlInvalid": "Invalid url",
+  "settingsErrorMessageRequired": "Required field"
 }

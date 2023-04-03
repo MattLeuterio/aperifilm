@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header`
   width: ${HeaderWidthDSK};
   height: ${HeaderHeightDSK};
   z-index: ${theme.zIndex.header};
+  backdrop-filter: blur(2px);
 
   .logo-website {
     cursor: pointer;

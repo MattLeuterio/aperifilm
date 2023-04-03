@@ -33,6 +33,7 @@ export const MainContainer = styled.div`
 
   .vote-title-product {
     margin-top: 10px;
+    text-align: center;
   }
 `;
 

@@ -20,7 +20,6 @@
   "buttonLogin": "Entra",
   "buttonLogout": "Esci",
   "settingButtonSettings": "Impostazioni",
-  "settingButtonTitleTranslate": "Traduzione Contenuti",
   "settingButtonTitleLanguage": "Preferenze di lingua",
 
   "sidebarMenuTitle": "Menu",
@@ -39,6 +38,13 @@
   "productTypePerson": "Persona",
   "productTypeCollection": "Collezione",
   "productTypeSeasons": "Stagioni",
+
+  "actionBtnFavoriteTooltipLogged": "Add to favourites",
+  "actionBtnWatchTooltipLogged": "Add to watch list",
+  "actionBtnVoteTooltipLogged": "Vote",
+  "actionBtnFavoriteTooltip": "Create an account and add to favourites",
+  "actionBtnWatchTooltip": "Create an account and add to watch list",
+  "actionBtnVoteTooltip": " Create an account and vote",
 
   "cardStatsViews": "visual.",
   "cardStatsVotes": "voti",
@@ -141,7 +147,7 @@
   "yourListsSelectTypeCollections": "Collezioni",
 
   "yourListMessageNoContent": "Non ci sono contenuti.",
-  "yourListSearchPlaceholder": "Cerca per titolo",
+  "yourListSearchPlaceholder": "Filtra per titolo",
 
   "shareTitle": "Condividi",
   "shareCopyLink": "Copia link",
@@ -155,5 +161,12 @@
   "settingsLabelNickname": "Soprannome",
   "settingsLabelLanguage": "Lingua",
   "settingsLabelButtonSave": "Salva",
-  "settingsLabelButtonRestore": "Ripristina"
+  "settingsLabelButtonRestore": "Ripristina",
+  "settingsLabelError": "Errore",
+
+  "settingsErrorMessageMinLenght": "Deve avere minimo 3 caratteri",
+  "settingsErrorMessageMaxLenght": "Non può avere più di 20 caratteri",
+  "settingsErrorMessageEmailInvalid": "Indirizzo email non valido",
+  "settingsErrorMessageUrlInvalid": "Url non valido",
+  "settingsErrorMessageRequired": "Campo obbligatorio"
 }

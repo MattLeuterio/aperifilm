@@ -222,7 +222,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 		//dispatch(setUserTranslate(el?.value));
 	}
 
-  console.log(personDetails);
   return (
     <PersonDetailsContainer>
       <Head>
