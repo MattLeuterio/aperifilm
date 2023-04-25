@@ -57,7 +57,7 @@ const WelcomeBanner = ({
 												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
 											</a>
 										</Link>
-										e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+										{" "}e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
 										Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
 									</Montserrat>
 								) : (
