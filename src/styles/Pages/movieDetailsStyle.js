@@ -59,6 +59,11 @@ export const HeaderInfoDatasGenres = styled.div`
       color: ${theme.colors.mainBrandColors.dark};
     }
   }
+
+  @media ${theme.device.mobileL} {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 export const ReleaseDate = styled.div`

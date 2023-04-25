@@ -6,7 +6,7 @@ import { Container, HomeContainer} from "../src/styles/Pages/homeStyle";
 import { useEffect, useState } from "react";
 import { RowCard } from "../src/components";
 import useMediaQuery from "../src/hooks/useMediaQuery";
-import { langConverter, tmdbApiKey } from "../src/js/utility";
+import { tmdbApiKey } from "../src/js/utility";
 
 export async function getServerSideProps() {
   try {
@@ -45,7 +45,6 @@ export async function getServerSideProps() {
 }
 
 export default function Home({discoverMovieList, comingSoonMovieList, discoverTvList, popularPeopleList, popularTvList}) {
-  const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [discoverMovieListState, setDiscoverMovieListState] = useState([]);
   const [comingSoonMovieListState, setComingSoonListState] = useState([]);
   const [discoverTvListState, setDiscoverTvListState] = useState([]);
@@ -74,6 +73,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
 
   useEffect(() => {
     getComingSoonByRegion();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState]);
 
   useEffect(() => {
@@ -81,6 +81,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
     setComingSoonListState(comingSoonMovieList?.results.slice(0, 4));
     setDiscoverTvListState(discoverTvList?.results.slice(0, 2));
     setPopularPeopleListState(popularPeopleList?.results.slice(0, 5));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [discoverMovieList, comingSoonMovieList, popularPeopleList, popularTvList])
 
   return (
@@ -98,7 +99,8 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
-      {userDataRedux?.email && (
+      {/* TODO: delete */}
+      {/* {userDataRedux?.email && (
         <Container>
           {userDataRedux && Object.entries(userDataRedux).map(([key, value], i) => {
             if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
@@ -136,7 +138,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
             )}
             
         </Container>
-      )}
+      )} */}
 
       <TitlePage title="menuLinkTitleDiscover" />
 

@@ -230,7 +230,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
             <HeaderInfoDatasLeft>
               <Badge isRelative text="productTypeTvSeries" />
               <HeaderInfoDatasGenres>
-                {movieDetailsState?.genres?.map((gen, index) => (
+                {movieDetailsState?.genres?.slice(0, 3).map((gen, index) => (
                   <Montserrat type="h4" className="header-info-genre" key={index} htmlAttribute={"span"}>{gen.name}</Montserrat>
                 ))}
               </HeaderInfoDatasGenres>
