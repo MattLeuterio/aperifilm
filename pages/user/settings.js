@@ -7,11 +7,7 @@ import { Button, Icon, Image, TitlePage } from "../../src/atoms";
 import { ActionsWrapper, Error, ErrorWrapper, FieldsWrapper, Form, Input, Main, UserSettingsContainer } from "../../src/styles/Pages/userSettingsStyle";
 import en from "../../lang/en.json";
 import it from "../../lang/it.json";
-
-// This
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { MenuItem, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import theme from "../../src/theme";
 import { updateUser } from "../api/auth/users";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -63,18 +59,17 @@ export default function UserLists() {
 
   useEffect(() => {
     newUserValues.map(el => setValue(el.id, el.value));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [newUserValues])
 
   const resetAll = () => {
     newUserValues.map(el => setValue(el.id, el.value))
   }
-
-  console.log('user', user)
   
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const onSubmit = (data) => {
-    const json = userState.list_products[0];
-    
+    const json = userState.list_products[0].lists;
+
     const body = {
       "email": data.email,
       "nickname": data.nickname,
