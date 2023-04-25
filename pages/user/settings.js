@@ -69,17 +69,11 @@ export default function UserLists() {
     newUserValues.map(el => setValue(el.id, el.value))
   }
 
-  console.log('newUserValues', newUserValues)
+  console.log('user', user)
   
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const onSubmit = (data) => {
     const json = userState.list_products[0];
-
-    console.log('data', data)
-
-    const email = newUserValues.filter(el => el.id === "email")[0].value;
-    const nickname = newUserValues.filter(el => el.id === "nickname")[0].value;
-    const picture = newUserValues.filter(el => el.id === "picture")[0].value;
     
     const body = {
       "email": data.email,
@@ -94,10 +88,9 @@ export default function UserLists() {
       "list_products": JSON.stringify(json)
     }
 
-    console.log('body', body);
-    updateUser(userState.record_id, body);
-
-    location.reload();
+    updateUser(userState.record_id, body).then(() => {
+      location.reload();
+    });
   };
 
   if (user) {
