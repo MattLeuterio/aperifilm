@@ -39,12 +39,12 @@
   "productTypeCollection": "Collezione",
   "productTypeSeasons": "Stagioni",
 
-  "actionBtnFavoriteTooltipLogged": "Add to favourites",
-  "actionBtnWatchTooltipLogged": "Add to watch list",
-  "actionBtnVoteTooltipLogged": "Vote",
-  "actionBtnFavoriteTooltip": "Create an account and add to favourites",
-  "actionBtnWatchTooltip": "Create an account and add to watch list",
-  "actionBtnVoteTooltip": " Create an account and vote",
+  "actionBtnFavoriteTooltipLogged": "Aggiungi ai preferiti",
+  "actionBtnWatchTooltipLogged": "Aggiungi ai da guardare",
+  "actionBtnVoteTooltipLogged": "Vota",
+  "actionBtnFavoriteTooltip": "Crea un account e aggiungi ai preferiti",
+  "actionBtnWatchTooltip": "Crea un account e aggiungi ai da guardare",
+  "actionBtnVoteTooltip": "Crea un account e vota",
 
   "cardStatsViews": "visual.",
   "cardStatsVotes": "voti",

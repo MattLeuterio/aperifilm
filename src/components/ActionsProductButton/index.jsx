@@ -308,7 +308,8 @@ const ActionsProductButton = ({
 							{isAlreadyVoted ? (
 									<Image 
 										className="icon-image"
-										src={AperitifBottleHalf.src} 
+										src={AperitifBottleHalf.src}
+										alt="icon image" 
 										width="9px !important"
 										height="20px !important"
 										layout="fixed" 
@@ -316,7 +317,8 @@ const ActionsProductButton = ({
 								) : (
 									<Image 
 										className="icon-image"
-										src={AperitifBottleWhite.src} 
+										src={AperitifBottleWhite.src}
+										alt="icon image" 
 										width="9px !important"
 										height="20px !important"
 										layout="fixed" 
