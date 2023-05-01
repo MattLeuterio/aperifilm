@@ -30,6 +30,7 @@ const Header = ({}) => {
 	
 	// User states Selectors
 	const userDataSelector = useSelector((state) => state.userData);
+	const userLanguageSelector = useSelector((state) => state.userData.language);
 	
 	// Menus Visibility
 	const [visibilitySearchBar, setVisibilitySearchBar] = useState(false);
@@ -156,6 +157,12 @@ const Header = ({}) => {
 			updateUser(userData.record_id, {"language": el?.value})
 		}
 	}
+
+	useEffect(() => {
+		setDefaultValueSelectLanguage(languageOption?.filter(el => el.value === userLanguageSelector));
+	}, [userLanguageSelector])
+
+	console.log('defaultValueSelectLanguage', defaultValueSelectLanguage)
 
 	const handleOnClickLoginButton = (url) => {
 		router.push(url);
@@ -308,6 +315,7 @@ const Header = ({}) => {
 						>
 							<Image
 								onClick={() => setLanguageDropdownStatus(!languageDropdownStatus)}
+								alt="language flag"
 								src={renderFlag()} 
 								width="25px"
 								height="16px"
