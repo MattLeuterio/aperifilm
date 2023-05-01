@@ -42,6 +42,8 @@ export default function UserLists() {
   const [ initialUserValues, setInitialUserValues] = useState(initialNewUserValues);
   const [newUserValues, setNewUserValues] = useState(initialNewUserValues);
 
+  console.log('userState', userState);
+
   useEffect(() => {
     if (!user) Router.push('/');
   }, [user])
@@ -106,7 +108,7 @@ export default function UserLists() {
   
         <TitlePage hasBackButton primaryTitle={"settingsTitlePage"} title={`${setNaming(userState)}`} />
   
-        {userState?.name && (
+        {userState?.nickname && (
           <Main>            
             <Form onSubmit={handleSubmit(onSubmit)}>
 

@@ -1,5 +1,3 @@
-export const GET_USERS_LIST = 'GET_USERS_LIST';
-export const GET_USERS_LIST_ERROR = 'GET_USERS_LIST_ERROR';
 export const USERS_ERROR = 'USERS_ERROR';
 
 // App

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 const Airtable = require('airtable');
 const base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base(process.env.AIRTABLE_BASE_ID);
