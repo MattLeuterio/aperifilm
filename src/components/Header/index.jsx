@@ -58,7 +58,6 @@ const Header = ({}) => {
 				setUserDropdownStatus(false);
 			}
 		};
-
 		document.addEventListener('click', handleClickOutside, true);
 		return () => {
 		document.removeEventListener('click', handleClickOutside, true);

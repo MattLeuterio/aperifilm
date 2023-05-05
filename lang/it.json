@@ -39,9 +39,13 @@
   "productTypeCollection": "Collezione",
   "productTypeSeasons": "Stagioni",
 
-  "actionBtnFavoriteTooltipLogged": "Aggiungi ai preferiti",
-  "actionBtnWatchTooltipLogged": "Aggiungi ai da guardare",
-  "actionBtnVoteTooltipLogged": "Vota",
+  "actionBtnFavoriteTooltipLoggedAdd": "Aggiungi ai preferiti",
+  "actionBtnWatchTooltipLoggedAdd": "Aggiungi ai da guardare",
+  "actionBtnVoteTooltipLoggedAdd": "Vota",
+  "actionBtnFavoriteTooltipLoggedRemove": "Rimuovi dai preferiti",
+  "actionBtnWatchTooltipLoggedRemove": "Rimuovi dai da guardare",
+  "actionBtnVoteTooltipLoggedRemove": "Aggiorna Voto",
+  
   "actionBtnFavoriteTooltip": "Crea un account e aggiungi ai preferiti",
   "actionBtnWatchTooltip": "Crea un account e aggiungi ai da guardare",
   "actionBtnVoteTooltip": "Crea un account e vota",

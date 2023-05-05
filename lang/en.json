@@ -39,9 +39,13 @@
   "productTypeCollection": "Collection",
   "productTypeSeasons": "Seasons",
 
-  "actionBtnFavoriteTooltipLogged": "Add to favourites",
-  "actionBtnWatchTooltipLogged": "Add to watch list",
-  "actionBtnVoteTooltipLogged": "Vote",
+  "actionBtnFavoriteTooltipLoggedAdd": "Add to favourites",
+  "actionBtnWatchTooltipLoggedAdd": "Add to watch list",
+  "actionBtnVoteTooltipLoggedAdd": "Vote",
+  "actionBtnFavoriteTooltipLoggedRemove": "Remove from favourites",
+  "actionBtnWatchTooltipLoggedRemove": "Remove from watch list",
+  "actionBtnVoteTooltipLoggedRemove": "Update Vote",
+
   "actionBtnFavoriteTooltip": "Create an account and add to favourites",
   "actionBtnWatchTooltip": "Create an account and add to watch list",
   "actionBtnVoteTooltip": " Create an account and vote",
