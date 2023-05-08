@@ -20,7 +20,6 @@
   "buttonLogin": "Login",
   "buttonLogout": "Logout",
   "settingButtonSettings": "Settings",
-  "settingButtonTitleTranslate": "Content translation",
   "settingButtonTitleLanguage": "Language preferences",
 
   "sidebarMenuTitle": "Menu",
@@ -39,6 +38,17 @@
   "productTypePerson": "Person",
   "productTypeCollection": "Collection",
   "productTypeSeasons": "Seasons",
+
+  "actionBtnFavoriteTooltipLoggedAdd": "Add to favourites",
+  "actionBtnWatchTooltipLoggedAdd": "Add to watch list",
+  "actionBtnVoteTooltipLoggedAdd": "Vote",
+  "actionBtnFavoriteTooltipLoggedRemove": "Remove from favourites",
+  "actionBtnWatchTooltipLoggedRemove": "Remove from watch list",
+  "actionBtnVoteTooltipLoggedRemove": "Update Vote",
+
+  "actionBtnFavoriteTooltip": "Create an account and add to favourites",
+  "actionBtnWatchTooltip": "Create an account and add to watch list",
+  "actionBtnVoteTooltip": " Create an account and vote",
 
   "cardStatsViews": "views",
   "cardStatsVotes": "votes",
@@ -122,5 +132,45 @@
   "searchKeywords": "Keywords",
 
   "tabMediaTitleBackgrounds": "Backgrounds",
-  "tabMediaTitlePosters": "Posters"
+  "tabMediaTitlePosters": "Posters",
+
+  "votePanelTitle": "Vote",
+  "votePanelButtonCancel": "Cancel",
+  "votePanelButtonConfirm": "Confirm",
+  "votePanelButtonDelete": "Delete vote",
+
+  "yourListsSelectOrderLast": "Last added",
+  "yourListsSelectOrderFirst": "First added",
+  "yourListsSelectOrderMoreDrunk": "More Drunk",
+  "yourListsSelectOrderLessDrunk": "Less Drunk",
+
+  "yourListsSelectTypeFilmTv": "Film and Tv-series",
+  "yourListsSelectTypeFilm": "Film",
+  "yourListsSelectTypeTv": "Tv-series",
+  "yourListsSelectTypePeople": "People",
+  "yourListsSelectTypeCollections": "Collections",
+
+  "yourListMessageNoContent": "There is no content",
+  "yourListSearchPlaceholder": "Filter by title",
+
+  "shareTitle": "Share",
+  "shareCopyLink": "Copy link",
+  "shareCopied": "Copied",
+
+  "settingsTitlePage": "Settings",
+
+  "settingsLabelEmail": "Email",
+  "settingsLabelName": "Name",
+  "settingsLabelNickname": "Nickname",
+  "settingsLabelPicture": "Picture profile",
+  "settingsLabelLanguage": "Language",
+  "settingsLabelButtonSave": "Save",
+  "settingsLabelButtonRestore": "Restore",
+  "settingsLabelError": "Error",
+
+  "settingsErrorMessageMinLenght": "Must have at least three characters",
+  "settingsErrorMessageMaxLenght": "Cannot have more than 20 characters",
+  "settingsErrorMessageEmailInvalid": "Invalid email address",
+  "settingsErrorMessageUrlInvalid": "Invalid url",
+  "settingsErrorMessageRequired": "Required field"
 }

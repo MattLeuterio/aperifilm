@@ -59,6 +59,11 @@ export const HeaderInfoDatasGenres = styled.div`
       color: ${theme.colors.mainBrandColors.dark};
     }
   }
+
+  @media ${theme.device.mobileL} {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 export const ReleaseDate = styled.div`
@@ -518,7 +523,7 @@ export const CollectionPart = styled.div`
   width: 129px;
   height: 194px;
   border-radius: 5px;
-  background-image: ${props => `url(${imgBasePath}${props.imgPoster})`};
+  background: ${props => `url(${props.imgPoster}),${theme.colors.gradients.background}`};
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

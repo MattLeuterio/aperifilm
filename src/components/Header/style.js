@@ -13,6 +13,7 @@ export const HeaderContainer = styled.header`
   width: ${HeaderWidthDSK};
   height: ${HeaderHeightDSK};
   z-index: ${theme.zIndex.header};
+  backdrop-filter: blur(2px);
 
   .logo-website {
     cursor: pointer;
@@ -41,7 +42,7 @@ export const HeaderContainer = styled.header`
 
 export const SearchWrapper = styled.div`
   width: 60%;
-  transition: transform .5s ease-in-out;
+  transition: all .5s ease-in-out;
   
   @media ${props => props.theme.device.tabletL} {
     width: 100%;
@@ -49,8 +50,10 @@ export const SearchWrapper = styled.div`
     top: calc(${HeaderHeightMOB} + 20px);
     left: 0;
     padding: 0 10px;
+    opacity: 1;
     ${props => !props?.isVisible && css`
       transform: translateY(calc(-100% - ${HeaderHeightMOB} - 20px));
+      opacity: 0;
     `};
   }
 `;
@@ -111,6 +114,13 @@ export const UserImageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  border: 2px solid ${theme.colors.primary.white};
+
+  .user-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   @media ${props => props.theme.device.tabletL} {
     .user-image {

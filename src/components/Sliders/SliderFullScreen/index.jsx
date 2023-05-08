@@ -24,7 +24,7 @@ const SliderFullScreen = ({indexImage, imagesList}) => {
 		<>
 			<SliderFullScreenContainer>
 				<Swiper
-					initialSlide={indexImage}
+					initialSlide={indexImage + 1}
 					loop
 					navigation={true}
 					pagination={{

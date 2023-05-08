@@ -15,6 +15,7 @@ import BackButton from "./BackButton";
 import CustomMessage from "./CustomMessage";
 import Tabs from "./Tabs";
 import Paginate from "./Paginate";
+import Share from "./Share";
 
 export {
   ActiveLink,
@@ -33,5 +34,6 @@ export {
   BackButton,
   CustomMessage,
   Tabs,
-  Paginate
+  Paginate,
+  Share
 }

@@ -19,6 +19,12 @@ export const retrieveUser = async (id) => {
   return retrieveRecord;
 }
 
+export const getUser = async (id) => {
+  const airtableField = 'email';
+  const records = await tableUsers.select({maxRecords: 1,filterByFormula: `${airtableField} = "${id}"`}).firstPage();
+  return records;
+}
+
 export const createUser = async (fields) => {
   const createRecord = await tableUsers.create(fields);
   return createRecord;

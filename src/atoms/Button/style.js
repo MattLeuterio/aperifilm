@@ -4,6 +4,7 @@ import theme from '../../theme';
 export const ButtonContainer = styled.div`
   cursor: pointer;
   display: flex;
+  user-select: none;
   justify-content: center;
   align-items: center;
   border-radius: 8px;
@@ -26,6 +27,12 @@ export const ButtonContainer = styled.div`
 
   ${props => props.hide && css`
     display: none;
+  `}
+
+  ${props => props.disabled && css`
+    cursor: not-allowed;
+    filter: opacity(0.3);
+    pointer-events: none;
   `}
   
   ${props => {

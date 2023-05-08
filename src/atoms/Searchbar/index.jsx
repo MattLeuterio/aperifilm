@@ -48,8 +48,10 @@ const Searchbar = ({}) => {
   };
 
 	const handleOnClickSearchIcon = (e) => {
-    router.push(`/search?query=${valueSearch.replaceAll(" ", "-")}`);
-    onClose();
+		if(valueSearch.length > 0) {
+			router.push(`/search?query=${valueSearch.replaceAll(" ", "-")}`);
+			onClose();
+		}
   };
 
 	const handleOnClickResult = (item) => {
@@ -87,8 +89,7 @@ const Searchbar = ({}) => {
 							onClick={(e) => handleOnClickSearchIcon(e)}
 						/>
 					)}
-				</Icon>
-
+			</Icon>
 				<SuggestionProduct isVisible={suggestionBoxVisibility}>
 					{searchResults?.results?.length > 0 ? (
 						<>
@@ -146,8 +147,7 @@ const Searchbar = ({}) => {
 						</GoToWrapper>
 					)}
 				</SuggestionProduct>
-			
-	</SearchContainer>
+		</SearchContainer>
 	)
 };
 

@@ -22,6 +22,10 @@ a {
   margin: 0;
 }
 
+.MuiPaper-root {
+  background-color: red;
+}
+
 @font-face {
   font-family: 'Montserrat';
   font-style: normal;

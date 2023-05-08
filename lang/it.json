@@ -20,7 +20,6 @@
   "buttonLogin": "Entra",
   "buttonLogout": "Esci",
   "settingButtonSettings": "Impostazioni",
-  "settingButtonTitleTranslate": "Traduzione Contenuti",
   "settingButtonTitleLanguage": "Preferenze di lingua",
 
   "sidebarMenuTitle": "Menu",
@@ -40,7 +39,18 @@
   "productTypeCollection": "Collezione",
   "productTypeSeasons": "Stagioni",
 
-  "cardStatsViews": "visualizzazioni",
+  "actionBtnFavoriteTooltipLoggedAdd": "Aggiungi ai preferiti",
+  "actionBtnWatchTooltipLoggedAdd": "Aggiungi ai da guardare",
+  "actionBtnVoteTooltipLoggedAdd": "Vota",
+  "actionBtnFavoriteTooltipLoggedRemove": "Rimuovi dai preferiti",
+  "actionBtnWatchTooltipLoggedRemove": "Rimuovi dai da guardare",
+  "actionBtnVoteTooltipLoggedRemove": "Aggiorna Voto",
+  
+  "actionBtnFavoriteTooltip": "Crea un account e aggiungi ai preferiti",
+  "actionBtnWatchTooltip": "Crea un account e aggiungi ai da guardare",
+  "actionBtnVoteTooltip": "Crea un account e vota",
+
+  "cardStatsViews": "visual.",
   "cardStatsVotes": "voti",
 
   "sectionTitleComingOutFilm": "Film in uscita",
@@ -122,5 +132,45 @@
   "searchKeywords": "Parole chiavi",
 
   "tabMediaTitleBackgrounds": "Sfondi",
-  "tabMediaTitlePosters": "Locandine"
+  "tabMediaTitlePosters": "Locandine",
+
+  "votePanelTitle": "Vota",
+  "votePanelButtonCancel": "Annulla",
+  "votePanelButtonConfirm": "Conferma",
+  "votePanelButtonDelete": "Elimina il voto",
+
+  "yourListsSelectOrderLast": "Dall’ultimo aggiunto",
+  "yourListsSelectOrderFirst": "Dal primo aggiunto",
+  "yourListsSelectOrderMoreDrunk": "Dal più ubriaco",
+  "yourListsSelectOrderLessDrunk": "Dal più sobrio",
+
+  "yourListsSelectTypeFilmTv": "Film e Serie Tv",
+  "yourListsSelectTypeFilm": "Film",
+  "yourListsSelectTypeTv": "Serie Tv",
+  "yourListsSelectTypePeople": "Persone",
+  "yourListsSelectTypeCollections": "Collezioni",
+
+  "yourListMessageNoContent": "Non ci sono contenuti.",
+  "yourListSearchPlaceholder": "Filtra per titolo",
+
+  "shareTitle": "Condividi",
+  "shareCopyLink": "Copia link",
+  "shareCopied": "Copiato",
+
+  "settingsTitlePage": "Impostazioni",
+  
+  "settingsLabelEmail": "Email",
+  "settingsLabelName": "Nome",
+  "settingsLabelPicture": "Immagine del profilo",
+  "settingsLabelNickname": "Soprannome",
+  "settingsLabelLanguage": "Lingua",
+  "settingsLabelButtonSave": "Salva",
+  "settingsLabelButtonRestore": "Ripristina",
+  "settingsLabelError": "Errore",
+
+  "settingsErrorMessageMinLenght": "Deve avere minimo 3 caratteri",
+  "settingsErrorMessageMaxLenght": "Non può avere più di 20 caratteri",
+  "settingsErrorMessageEmailInvalid": "Indirizzo email non valido",
+  "settingsErrorMessageUrlInvalid": "Url non valido",
+  "settingsErrorMessageRequired": "Campo obbligatorio"
 }

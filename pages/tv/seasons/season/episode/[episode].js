@@ -93,8 +93,8 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
     getDetailsProduct();
   }, [userLanguageState, episodeDetails, productDetails]);
 
-  const handleOnClickImage = (index, isOpen) => {
-    dispatch(setFullscreenPanel({isOpen, selected: index}));
+  const handleOnClickImage = (index, isOpen, list) => {
+    dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
   
   return (
@@ -207,7 +207,7 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
               <MediaSectionImage
                 key={index}
                 version=""
-                onClick={() => handleOnClickImage(index, true)}
+                onClick={() => handleOnClickImage(index, true, episodeImagesState?.stills)}
                 name={`${episodeDetailsState?.title} image ${index}`}
                 srcImages={`${imgBasePath}/${item?.file_path}`}
               ></MediaSectionImage>
@@ -215,8 +215,6 @@ export default function EpisodeDetails({episodeDetails, productDetails, productT
           </GuestStarsResults>
         </SectionContainer>
       )}
-
-      <FullScreenPanel list={episodeImagesState?.stills} />
     </ProductDetailsContainer>
   );
 }

@@ -11,6 +11,7 @@ import AperitifBottleHalf from "../../assets/icons/aperitif-bottle-half.png"
 import Montserrat from '../../typography/montserrat';
 import IconWelcome from "../../assets/icons/apericheers-red.png";
 import { useSelector } from 'react-redux';
+import { loginPath } from '../../js/utility';
 
 
 const WelcomeBanner = ({
@@ -52,17 +53,17 @@ const WelcomeBanner = ({
 							<Montserrat type="h1">
 								{userLanguageState === 'it' ? (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<Link href="/api/auth/login">
+										<Link href={loginPath}>
 											<a>
 												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
 											</a>
 										</Link>
-										e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
+										{" "}e tieni traccia di tutti i <strong>film</strong> e le <strong>serie tv</strong> sulle quali hai messo gli occhi. <br />
 										Vota usando i nostri <Montserrat htmlAttribute={'span'} configuration={{color: theme.colors.mainBrandColors.dark, fontStyle: 'italic'}}>Aperitivini</Montserrat> che contengono la vitamina F (Felicitina). Tutto completamente gratuito.
 									</Montserrat>
 								) : (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<Link href="/api/auth/login">
+										<Link href={loginPath}>
 											<a>
 												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
 											</a>

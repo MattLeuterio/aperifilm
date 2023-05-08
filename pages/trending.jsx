@@ -74,49 +74,7 @@ export default function Trending({trendingMovieList, trendingTvList, trendingPeo
         <meta name="msapplication-TileColor" content="#ffc40d" />
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
-
-      {user?.email && (
-        <Container>
-          {user && Object.entries(user).map(([key, value], i) => {
-            if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
-              return (
-                <p key={i}>{i + 1} - {key}: {value}</p>
-              )
-            } 
-            })}
-
-            {user?.favorite && (
-              <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></p>
-                {user.favorite.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
-                ))}
-              </>
-            )}
-
-            {user?.voted && (
-              <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></p>
-                {user.voted.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
-                ))}
-              </>
-            )}
-
-            {user?.towatch && (
-              <>
-                <p><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></p>
-                {user.towatch.map((elm, index) => (
-                  <p key={index}>{elm.title}</p>
-                ))}
-              </>
-            )}
-            
-        </Container>
-      )}
-
       <TitlePage title="menuLinkTitleTrending" />
-
       <Container>
         <Tabs
           className="tabs" 

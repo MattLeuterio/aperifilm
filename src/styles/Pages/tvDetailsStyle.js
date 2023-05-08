@@ -54,6 +54,11 @@ export const HeaderInfoDatasGenres = styled.div`
       margin-right: 4px;
     }
   }
+
+  @media ${theme.device.mobileL} {
+    display: flex;
+    flex-wrap: wrap;
+  }
 `;
 
 export const ReleaseDate = styled.div`

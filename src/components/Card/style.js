@@ -111,6 +111,10 @@ export const Top = styled.div`
             position: absolute;
             bottom: -13px;
             right: 15px;
+
+            &.personal-vote {
+              border: 1px solid ${theme.colors.mainBrandColors.dark};
+            }
           }
 
           .card-position {

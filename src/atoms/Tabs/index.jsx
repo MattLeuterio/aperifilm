@@ -23,7 +23,7 @@ export const defaultTabsList = [
 ]
 
 const Tabs = ({
-	className, sizeButtons, tabsList, selected, onChange, number, disabled, isSearch
+	className, sizeButtons, tabsList, selected, onChange, number, disabled, isSearch, iconFill, iconStroke
 }) => {
 	const [selectedTab, setSelectedTab] = useState(false);
 
@@ -46,20 +46,17 @@ const Tabs = ({
 						hide={isSearch && !tab?.number}
 						number={tab?.number || 0}
 						size={sizeButtons}
+						iconFill={iconFill}
+						iconStroke={iconStroke}
 						className="collection-action-btn"
 						handleOnClick={() => handleOnClickTab(tab)}
 						active={tab.id === selectedTab.id}
 						text={tab.label}
 					>
 						{tab.icon && (
-							<Icon
-								width="17px"
-								height="17px"
-								fill={theme.colors.element.light}
-								stroke="transparent"
-							>
-								<EyeIcon />
-							</Icon>
+							<>
+								{tab.icon}
+							</>
 						)}
 					</Button>
 				))}

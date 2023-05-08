@@ -23,7 +23,7 @@ const FullScreenPanel = ({
 	const isOpenState = useSelector((state) => state.app.fullScreenPanel);
 
 	const handleOnClose = () => {
-		dispatch(setFullscreenPanel({isOpen: false, selected: 0}));
+		dispatch(setFullscreenPanel({isOpen: false, selected: 0, list: []}));
 	}
 
 	return (
