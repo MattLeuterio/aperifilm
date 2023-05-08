@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../pages/api/auth/users';
 import { setUserProducts } from '../../store/actions/userDataAction';
 import { setVotePanel } from '../../store/actions/appAction';
-import { tmdbApiKey, wasItVoted } from '../../js/utility';
+import { loginPath, tmdbApiKey, wasItVoted } from '../../js/utility';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import { useTheme } from 'styled-components';
@@ -106,6 +106,8 @@ const ActionsProductButton = ({
 				title: product.name || product.title,
 				product_type: isMovie ? 'movie' : 'tv',
 				user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)}}))
+		} else {
+			router.push(loginPath)
 		}
 	}
 
@@ -168,7 +170,9 @@ const ActionsProductButton = ({
 					dispatch(setUserProducts(json));
 				}
 			}
-		}
+		} else {
+			router.push(loginPath)
+		} 
 	}
 
 	const handleOnClickFavorite = () => {
@@ -230,6 +234,8 @@ const ActionsProductButton = ({
 					dispatch(setUserProducts(json));
 				}
 			}
+		} else {
+			router.push(loginPath)
 		}
 	}
 
@@ -304,7 +310,7 @@ const ActionsProductButton = ({
 	return (
 		<LightTooltip title={tooltipText(type)} placement="top">
 			<ActionsProductButtonContainer
-				disable={!user}
+				// disable={!user}
 				size={size}
 				type={type}
 				onClick={(e) => handleOnClick(e, action)}

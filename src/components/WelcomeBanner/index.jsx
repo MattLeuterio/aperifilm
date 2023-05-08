@@ -11,6 +11,7 @@ import AperitifBottleHalf from "../../assets/icons/aperitif-bottle-half.png"
 import Montserrat from '../../typography/montserrat';
 import IconWelcome from "../../assets/icons/apericheers-red.png";
 import { useSelector } from 'react-redux';
+import { loginPath } from '../../js/utility';
 
 
 const WelcomeBanner = ({
@@ -52,7 +53,7 @@ const WelcomeBanner = ({
 							<Montserrat type="h1">
 								{userLanguageState === 'it' ? (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<Link href="/api/auth/login">
+										<Link href={loginPath}>
 											<a>
 												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
 											</a>
@@ -62,7 +63,7 @@ const WelcomeBanner = ({
 									</Montserrat>
 								) : (
 									<Montserrat configuration={{lineHeight: '17px'}}>
-										<Link href="/api/auth/login">
+										<Link href={loginPath}>
 											<a>
 												<Montserrat htmlAttribute={'span'} type="link">Crea il tuo account</Montserrat>
 											</a>

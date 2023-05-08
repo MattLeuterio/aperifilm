@@ -19,6 +19,7 @@ import useMediaQuery from "../../hooks/useMediaQuery";
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { infoRoutes, primaryRoutes, userRoutes } from "../../routes";
 import { createUser, updateUser, getUser } from "../../../pages/api/auth/users";
+import { loginPath, logoutPath } from "../../js/utility";
 
 const Header = ({}) => {
 	const { user, error, isLoading } = useUser();
@@ -285,7 +286,7 @@ const Header = ({}) => {
 										>
 											<LogoutIcon />
 										</Icon>
-										<Link href="/api/auth/logout">
+										<Link href={logoutPath}>
 											<Montserrat 
 												type="settingButton" 
 											>
@@ -298,10 +299,10 @@ const Header = ({}) => {
 						</UserWrapper>
 					) : (
 						<Button
-							handleOnClick={() => handleOnClickLoginButton('/api/auth/login')}
+							handleOnClick={() => handleOnClickLoginButton(loginPath)}
 							className="login-button"
 							active
-							url="/api/auth/login"
+							url={loginPath}
 						>
 							<LoginIcon />
 						</Button>
