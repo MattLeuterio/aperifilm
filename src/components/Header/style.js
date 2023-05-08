@@ -115,6 +115,12 @@ export const UserImageWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border: 2px solid ${theme.colors.primary.white};
+
+  .user-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   
   @media ${props => props.theme.device.tabletL} {
     .user-image {
