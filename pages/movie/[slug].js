@@ -28,6 +28,7 @@ export async function getServerSideProps(context) {
     const resolvedUrl = parseContext(context.resolvedUrl).split('/')[1]
     const res = await fetch(`https://api.themoviedb.org/3/${resolvedUrl}/${query.id}?api_key=${tmdbApiKey}`);
     const movieDetails = await res.json()
+    console.log('movieDetails', movieDetails);
     return {
       props: {
         movieDetails,
@@ -117,11 +118,13 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/watch/providers?api_key=${tmdbApiKey}`
         ).then(res => res.json()).then(res => {
-          Object?.entries(res?.results).map(el => {
-            if (el[0].toLowerCase() === (userLanguageState === 'en' ? 'us' : userLanguageState.toLowerCase())) {
-              watchProviders = el[1]
-            }
-          })
+          if (Boolean(res?.results)) {
+            Object?.entries(res?.results).map(el => {
+              if (el[0].toLowerCase() === (userLanguageState === 'en' ? 'us' : userLanguageState.toLowerCase())) {
+                watchProviders = el[1]
+              }
+            })
+          }
         });
 
       const recommendations = await fetch(
@@ -131,7 +134,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       setMovieDetailsState(detailsWithOverview);
       setMovieCredits(credits);
       setMovieVideo(video?.results?.filter(vid => vid.site === 'YouTube' && vid.type === 'Trailer').slice(0, 1));
-      setMovieImages(setProductImages(images));
+      Boolean(images) && setMovieImages(setProductImages(images));
       setMovieKeywords(keywords.keywords);
       setMovieWatchProviders(watchProviders);
       setMovieExternalIds(externalIds);
@@ -148,10 +151,13 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   }
 
   const setProductImages = (images) => {
+    console.log('images', images);
     let res = [];
 
-    res = [...images?.backdrops, ...images?.posters]
-    return {...images, all: res};
+    if (images?.backdrops || images?.posters) {
+      res = [...images?.backdrops, ...images?.posters]
+      return {...images, all: res};
+    }
   }
 
   useEffect(() => {
@@ -194,6 +200,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
 
+  console.log('state', movieDetailsState)
+
   return (
     <ProductDetailsContainer>
       {/* Example meta exact */}
@@ -214,7 +222,11 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         <meta property="og:image:height" content="2222" />
       </Head>
 
-      <TitlePage title={movieDetailsState?.title} hasBackButton />
+      <TitlePage 
+        primaryTitle={movieDetailsState?.title ? undefined : "missingData"} 
+        title={movieDetailsState?.title ? movieDetailsState?.title : undefined}  
+        hasBackButton 
+      />
       
       <Header>
         <HeaderInfo>
@@ -258,12 +270,14 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
               )}
             </HeaderInfoDatasRight>
           </HeaderInfoDatas>
-          <HeaderInfoSummary>
-            {(noOverview && movieDetailsState?.overview?.length > 0) && (
-              <CustomMessage style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
-            )}
-            <Montserrat configuration={{lineHeight: '18px'}}>{movieDetailsState?.overview}</Montserrat>
-          </HeaderInfoSummary>
+          {(Boolean(movieDetailsState?.overview !== 'undefined') && Boolean(movieDetailsState?.overview)) && (
+            <HeaderInfoSummary>
+              {(noOverview && movieDetailsState?.overview?.length > 0) && (
+                <CustomMessage style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
+              )}
+              <Montserrat configuration={{lineHeight: '18px'}}>{movieDetailsState?.overview}</Montserrat>
+            </HeaderInfoSummary>
+          )}
           <HeaderInfoCrew>
             {searchPeopleRoleCrew(movieCredits?.crew, 'director')?.length > 0 && (
               <InfoCrew>
@@ -342,10 +356,12 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                 </HeaderInfoVote>
               )}
             </HeaderInfoVoteActionsLeft>
-            <HeaderInfoVoteActionsRight>
-              <ActionButtons product={movieDetailsState} className="action-buttons" />
-              <Share product={movieDetailsState} />
-            </HeaderInfoVoteActionsRight>
+            {(movieDetailsState.title || movieDetailsState.name) && (
+              <HeaderInfoVoteActionsRight>
+                <ActionButtons product={movieDetailsState} className="action-buttons" />
+                <Share product={movieDetailsState} />
+              </HeaderInfoVoteActionsRight>
+            )}
           </HeaderInfoVoteActions>
         </HeaderInfo>
         <HeaderCover>
@@ -353,15 +369,17 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         </HeaderCover>
       </Header>
       
-      <CastSection>
-        <RowCard 
-          listProducts={movieCredits?.cast?.slice(0, 5)}
-          type="person"
-          title="sectionTitleCast"
-          goToText="goToAllCast"
-          url={`/movie/cast/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
-        />
-      </CastSection>
+      {movieCredits?.cast && (
+        <CastSection>
+          <RowCard 
+            listProducts={movieCredits?.cast?.slice(0, 5)}
+            type="person"
+            title="sectionTitleCast"
+            goToText="goToAllCast"
+            url={`/movie/cast/${textToPath(movieDetails?.title) || textToPath(movieDetails?.name)}?id=${movieDetails?.id}`}
+          />
+        </CastSection>
+      )}
 
       <VideoAndInfoSection>
         {movieVideo?.length > 0 ? (

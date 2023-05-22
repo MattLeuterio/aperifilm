@@ -16,19 +16,20 @@ const TitlePage = ({
 			<Montserrat configuration={{fontSize: isMobile ? 24 : 32, lineHeight: isMobile ? 1.2 : '39px'}} type="titlePage">
 				{primaryTitle && (
 					<>
-						<FormattedMessage defaultMessage={primaryTitle} id={primaryTitle} />{" - "}
+						<FormattedMessage defaultMessage={primaryTitle} id={primaryTitle} />
 					</>
 				)}
-				<FormattedMessage defaultMessage={title} id={title} />
+				{(primaryTitle && title) && (
+					<>
+						{" - "}
+					</>
+				)}
+				{title && (
+					<FormattedMessage defaultMessage={title} id={title} />
+				)}
 			</Montserrat>
 		</TitlePageContainer>
 	)
 };
-
-
-
-TitlePage.defaultProps = {
-	title: 'Title Page',
-}
 
 export default TitlePage;

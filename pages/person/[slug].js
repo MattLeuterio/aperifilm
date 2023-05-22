@@ -241,7 +241,11 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
         <meta property="og:image:height" content="2222" />
       </Head>
 
-      <TitlePage title={personDetailsState?.name} hasBackButton />
+      <TitlePage 
+        primaryTitle={personDetailsState?.name ? undefined : "missingData"} 
+        title={personDetailsState?.name ? personDetailsState?.name : undefined} 
+        hasBackButton 
+      />
       
       <Container>
         <ContainerLeft>
@@ -267,10 +271,12 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
             )}
           </PeopleCover>
           <Actions>
-            <LeftActions>
-              <ActionButtons product={personDetailsState} type="person" className="action-buttons" />
-              <Share product={personDetailsState} />
-            </LeftActions>
+            {(personDetailsState?.name || personDetailsState?.title) && (
+              <LeftActions>
+                <ActionButtons product={personDetailsState} type="person" className="action-buttons" />
+                <Share product={personDetailsState} />
+              </LeftActions>
+            )}
             {socialLinks?.length > 0 && (
               <LinkSocialWrapper>
                 {socialLinks.map((link, index) => {
@@ -285,6 +291,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                           height="24px"
                         >
                           <Image 
+                            alt="icon"
                             className="icon"
                             src={link?.icon} 
                             width="24px !important"
@@ -343,7 +350,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           </PeopleInfo>
         </ContainerLeft>
         <ContainerRight>
-          {personDetailsState?.biography?.length > 0 && (
+          {(personDetailsState?.biography?.length > 0 && personDetailsState?.biography !== "undefined") && (
             <Biography>
               {(userLanguageState === 'it' && noBiography && personDetailsState?.biography?.length > 0) && (
                 <CustomMessage text="Traduzione italiana mancante" />
@@ -367,74 +374,76 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
             ))}
           </PopularProjectsSection> */}
 
+
           <ListProductsSection>
-            <FilteringWrapper>
-              <Tabs 
-                selected={activeTab}
-                onChange={onChangeTab}
-                tabsList={tabs} 
-              />
-              <CustomSelect
-                width="150px"
-                defaultValue={valueSelectSector}
-                onChange={(e) => handleOnChangeSector(e)}
-                name="color"
-                options={selectSectorOptions}
-              />
-            </FilteringWrapper>
-              {tableResults?.length > 0 ? (
-            <ListProductsTable>
+            {tableResults?.length > 0 ? (
+              <>
+                <FilteringWrapper>
+                  <Tabs 
+                    selected={activeTab}
+                    onChange={onChangeTab}
+                    tabsList={tabs} 
+                  />
+                  <CustomSelect
+                    width="150px"
+                    defaultValue={valueSelectSector}
+                    onChange={(e) => handleOnChangeSector(e)}
+                    name="color"
+                    options={selectSectorOptions}
+                  />
+                </FilteringWrapper>
+                <ListProductsTable>
+                  <TableHeader>
+                    <TableHeaderElement className="table-header-year">
+                      <FormattedMessage defaultMessage={"peopleTableHeaderYear"} id={"peopleTableHeaderYear"} />
+                    </TableHeaderElement>
+                    <TableHeaderElement className="table-header-title">
+                      <FormattedMessage defaultMessage={"peopleTableHeaderTitle"} id={"peopleTableHeaderTitle"} />
+                    </TableHeaderElement>
+                    <TableHeaderElement className="table-header-job">
+                      <FormattedMessage defaultMessage={"peopleTableHeaderJob"} id={"peopleTableHeaderJob"} />
+                    </TableHeaderElement>
+                  </TableHeader>
 
-              <TableHeader>
-                <TableHeaderElement className="table-header-year">
-                  <FormattedMessage defaultMessage={"peopleTableHeaderYear"} id={"peopleTableHeaderYear"} />
-                </TableHeaderElement>
-                <TableHeaderElement className="table-header-title">
-                  <FormattedMessage defaultMessage={"peopleTableHeaderTitle"} id={"peopleTableHeaderTitle"} />
-                </TableHeaderElement>
-                <TableHeaderElement className="table-header-job">
-                  <FormattedMessage defaultMessage={"peopleTableHeaderJob"} id={"peopleTableHeaderJob"} />
-                </TableHeaderElement>
-              </TableHeader>
+                    <TableResults>
+                      {tableResults?.map((el, index) => (
+                        <TableResultElement
+                          key={index}
+                          onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
+                        >
+                          <ElementYear>
+                            {
+                              activeTab?.id === 'movie' ? (
+                                el?.release_date?.length > 0 ? DateTime.fromISO(el.release_date)?.toFormat('yyyy').toLocaleString() : '-'
+                              ) : (
+                                el?.first_air_date?.length > 0 ? DateTime.fromISO(el.first_air_date)?.toFormat('yyyy').toLocaleString() : '-'
+                              )
+                              
+                            }
+                          </ElementYear>
+                          <ElementTitle>
+                            {el?.title || el?.name}
+                          </ElementTitle>
+                          <ElementJob>
+                            {
+                              valueSelectSector.value === 'cast' ? (
+                                <FormattedMessage defaultMessage={"peopleDepartmentActing"} id={"peopleDepartmentActing"} />
+                                ) : getDepartmentPeople(el.job)
+                            }
+                          </ElementJob>
+                        </TableResultElement>
+                      ))}
+                    </TableResults>
 
-                <TableResults>
-                  {tableResults?.map((el, index) => (
-                    <TableResultElement
-                      key={index}
-                      onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
-                    >
-                      <ElementYear>
-                        {
-                          activeTab?.id === 'movie' ? (
-                            el?.release_date?.length > 0 ? DateTime.fromISO(el.release_date)?.toFormat('yyyy').toLocaleString() : '-'
-                          ) : (
-                            el?.first_air_date?.length > 0 ? DateTime.fromISO(el.first_air_date)?.toFormat('yyyy').toLocaleString() : '-'
-                          )
-                          
-                        }
-                      </ElementYear>
-                      <ElementTitle>
-                        {el?.title || el?.name}
-                      </ElementTitle>
-                      <ElementJob>
-                        {
-                          valueSelectSector.value === 'cast' ? (
-                            <FormattedMessage defaultMessage={"peopleDepartmentActing"} id={"peopleDepartmentActing"} />
-                            ) : getDepartmentPeople(el.job)
-                        }
-                      </ElementJob>
-                    </TableResultElement>
-                  ))}
-                </TableResults>
+                  <TableFooter>
+                    <TableHeaderElement></TableHeaderElement>
+                  </TableFooter>
 
-              <TableFooter>
-                <TableHeaderElement></TableHeaderElement>
-              </TableFooter>
-
-            </ListProductsTable>
-              ) : (
-                  <CustomMessage text="noResults" />
-                )}
+                </ListProductsTable>  
+              </>
+            ) : (
+                <CustomMessage text="noResults" />
+              )}
           </ListProductsSection>
         </ContainerRight>
       </Container>
