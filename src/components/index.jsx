@@ -8,7 +8,8 @@ import WelcomeBanner from "./WelcomeBanner";
 import FullScreenPanel from "./FullScreenPanel";
 import SliderFullScreen from "./Sliders";
 import SliderRowCards from "./Sliders";
-import VotePanel from "./VotePanel";
+import {ModalVote} from "./Modals"
+import Experience from "./Experience";
 
 export {
   GlobalLayout,
@@ -21,5 +22,6 @@ export {
   FullScreenPanel,
   SliderFullScreen,
   SliderRowCards,
-  VotePanel
+  ModalVote,
+  Experience
 }

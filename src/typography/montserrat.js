@@ -84,6 +84,21 @@ const types = {
     fontSize: 24,
     fontWeight: 600,
     lineHeight: '29.26px'
+  },
+  modalExperienceQuestion: {
+    fontSize: 16,
+    fontWeight: 600,
+    textAlign: 'center',
+    lineHeight: 1.4,
+  },
+  modalExperienceExplanation: {
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  modalExperienceErrorMessage: {
+    fontSize: 12,
+    textAlign: 'center',
+    color: theme.colors.element.dark
   }
 };
 

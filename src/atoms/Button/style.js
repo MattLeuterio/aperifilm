@@ -34,6 +34,10 @@ export const ButtonContainer = styled.div`
     filter: opacity(0.3);
     pointer-events: none;
   `}
+
+  .icon {
+    margin-right: 6px;
+  }
   
   ${props => {
     switch (props.size) {
@@ -55,6 +59,17 @@ export const ButtonContainer = styled.div`
            width: 100px;
            height: 42px;
         `;
+
+      case Button.SIZE.ICON:
+        return css`
+           width: fit-content;
+           height: fit-content;
+           padding: ${props.iconPadding};
+
+           .icon {
+            margin-right: 0px;
+           }
+        `;
     }
   }};
 
@@ -64,10 +79,6 @@ export const ButtonContainer = styled.div`
     : theme.colors.element.dark
     };
     font-weight: 600;
-  }
-
-  .icon {
-    margin-right: 6px;
   }
 `;
 

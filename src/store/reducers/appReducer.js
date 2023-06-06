@@ -1,4 +1,4 @@
-import { SET_FULLSCREEN_PANEL, SET_VOTE_PANEL } from "../types";
+import { SET_FULLSCREEN_PANEL, SET_MODAL_DELETE, SET_MODAL_EXPERIENCE, SET_MODAL_VOTE } from "../types";
 
 const initialState = {
   fullScreenPanel: {
@@ -6,12 +6,21 @@ const initialState = {
     selected: 0,
     list: []
   },
-  votePanel: {
+  modalVote: {
+    isOpen: false,
+    selected: {}
+  },
+  modalExperience: {
+    isOpen: false,
+    selected: {}
+  },
+  modalDelete: {
     isOpen: false,
     selected: {}
   }
 };
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (state = initialState, action) {
   switch (action.type) {
     case SET_FULLSCREEN_PANEL:
@@ -20,10 +29,22 @@ export default function (state = initialState, action) {
         fullScreenPanel: action.payload,
       };
 
-    case SET_VOTE_PANEL:
+    case SET_MODAL_VOTE:
       return {
         ...state,
-        votePanel: action.payload,
+        modalVote: action.payload,
+      };
+
+    case SET_MODAL_EXPERIENCE:
+      return {
+        ...state,
+        modalExperience: action.payload,
+      };
+
+    case SET_MODAL_DELETE:
+      return {
+        ...state,
+        modalDelete: action.payload,
       };
 
     default:

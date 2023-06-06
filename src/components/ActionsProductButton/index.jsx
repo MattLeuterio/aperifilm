@@ -11,7 +11,7 @@ import AperitifBottleHalf from "../../assets/icons/aperitif-bottle-half.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUser } from '../../../pages/api/auth/users';
 import { setUserProducts } from '../../store/actions/userDataAction';
-import { setVotePanel } from '../../store/actions/appAction';
+import { setModalVote } from '../../store/actions/appAction';
 import { loginPath, tmdbApiKey, wasItVoted } from '../../js/utility';
 import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
@@ -56,6 +56,7 @@ const ActionsProductButton = ({
 		if (Boolean(userDataListProductsRedux)) {
 			setIsAlreadyVoted(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === product?.id).length > 0);
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDataListProducts, product, updateUser, action])
 
 	useEffect(() => {
@@ -100,7 +101,7 @@ const ActionsProductButton = ({
 		if (user) {
 			const isMovie = Boolean(product.title)
 	
-			dispatch(setVotePanel({isOpen: true, selected: {
+			dispatch(setModalVote({isOpen: true, selected: {
 				...productLanguage,
 				id: product.id, 
 				title: product.name || product.title,

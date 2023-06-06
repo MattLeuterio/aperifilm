@@ -75,6 +75,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
 
   useEffect(() => {
     getDetailsProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, collectionDetails]);
   
   return (

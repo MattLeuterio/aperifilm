@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
 import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionOverview, CollectionPart, CollectionSection, Episodes, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSeasons, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, Seasons, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/tvDetailsStyle";
 import { useEffect, useState } from "react";
-import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
+import { Experience, FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, Share, TitlePage } from "../../src/atoms";
 import Router, { useRouter } from "next/router";
@@ -346,6 +347,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           />
         </HeaderCover>
       </Header>
+
+      <Experience product={movieDetails} />
       
       {movieCredits?.cast && (
         <CastSection>
@@ -558,6 +561,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                               height="24px"
                             >
                               <Image 
+                                alt="icon"
                                 className="icon"
                                 src={link?.icon} 
                                 width="24px !important"

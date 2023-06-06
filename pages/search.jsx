@@ -49,6 +49,7 @@ export default function SearchResults({}) {
 
   useEffect(() => {
     getSearchDetails();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, router]);
 
   useEffect(() => {

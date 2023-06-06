@@ -22,7 +22,7 @@ const colors = {
   },
   component: {
     light: '#302E42',
-    dark: '#252836'
+    dark: '#252836',
   },
   gradients: {
     primary: 'linear-gradient(110.73deg, #FF0300 -42.11%, #C20010 91.75%)',

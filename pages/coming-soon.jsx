@@ -71,6 +71,7 @@ export default function ProductDetails({movieDetails, query}) {
 
   useEffect(() => {
     getComingSoonByRegion();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, movieDetails, pageSelected]);
   
   const handleOnChange = (e, page) => {

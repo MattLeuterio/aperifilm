@@ -1,7 +1,5 @@
-import styled, { css } from 'styled-components';
-import Button from '.';
+import styled from 'styled-components';
 import { DisplayFlex } from '../../js/Mixins';
-import theme from '../../theme';
 
 export const ActionButtonsContainer = styled.div`
   ${DisplayFlex({alignItems: 'center'})};

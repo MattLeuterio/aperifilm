@@ -99,47 +99,6 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
-      {/* TODO: delete */}
-      {/* {userDataRedux?.email && (
-        <Container>
-          {userDataRedux && Object.entries(userDataRedux).map(([key, value], i) => {
-            if (key !== 'list_products' && key !== 'favorite' && key !== 'voted' && key !== 'towatch') {
-              return (
-                <p key={i}>{i + 1} - {key}: {value}</p>
-              )
-            } 
-            })}
-
-            {userDataList?.lists?.favorite && (
-              <>
-                <h3><FormattedMessage defaultMessage={"menuLinkTitleFavorite"} id={"menuLinkTitleFavorite"} /></h3>
-                {userDataList?.lists?.favorite.map((elm, index) => (
-                  <p key={index}>{elm.it.title || elm.it.name}</p>
-                ))}
-              </>
-            )}
-
-            {userDataList?.lists?.vote && (
-              <>
-                <h3><FormattedMessage defaultMessage={"menuLinkTitleVoted"} id={"menuLinkTitleVoted"} /></h3>
-                {userDataList?.lists?.vote.map((elm, index) => (
-                  <p key={index}>{elm.title || elm.name}</p>
-                ))}
-              </>
-            )}
-
-            {userDataList?.lists?.watch && (
-              <>
-                <h3><FormattedMessage defaultMessage={"menuLinkTitleToWatch"} id={"menuLinkTitleToWatch"} /></h3>
-                {userDataList?.lists?.watch?.map((elm, index) => (
-                  <p key={index}>{elm.title || elm.name}</p>
-                ))}
-              </>
-            )}
-            
-        </Container>
-      )} */}
-
       <TitlePage title="menuLinkTitleDiscover" />
 
       {/* Discover FILM */}

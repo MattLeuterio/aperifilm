@@ -9,12 +9,23 @@ export const UserListsContainer = styled.div`
 export const TabsContainer = styled.div`
   margin-top: 40px;
 
+  @media ${theme.device.tablet} {
+    > div {
+      flex-wrap: wrap;
+      width: 100%;
+
+      > div {
+        margin-top: 10px;
+      }
+    }
+  }
   @media ${theme.device.mobileM} {
+    margin-top: 30px;
     > div {
       flex-wrap: wrap;
 
-      > div:not(:last-child) {
-        margin-bottom: 10px;
+      > div {
+        margin-top: 10px;
       }
     }
   }
@@ -62,7 +73,7 @@ export const FiltersContainer = styled.div`
   align-items: center;
   justify-content: space-between;
 
-  @media ${theme.device.tablet} {
+  @media ${theme.device.mobileM} {
     flex-direction: column-reverse;
     align-items: flex-start;
 
@@ -139,4 +150,29 @@ export const SearchInput = styled.input`
     outline: 0;
   }
 
+`;
+
+export const ExperienceContainer = styled.div`
+  width: 100%;
+  cursor: pointer;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+
+  > div {
+    transition: all 0.5s ease-in-out;
+    max-height: 90px;
+    overflow: hidden;
+  }
+
+  ${ props => props.isOpen && css`
+    > div {
+      max-height: 400px;
+
+      @media ${theme.device.mobileM} {
+        max-height: 1200px;
+      }
+    }
+  `};
 `;

@@ -1,16 +1,13 @@
 import theme from '../../theme';
 import { Bottom, CardContainer, Left, Right, StatisticsContainer, Top } from './style';
 import MainImageMock from '../../assets/images/background-mock.jpg';
-import { ActionButtons, Badge, Icon, Image, RatingBottle, StatisticsRowCard } from '../../atoms';
+import { ActionButtons, Badge, Image, RatingBottle, StatisticsRowCard } from '../../atoms';
 import Montserrat from '../../typography/montserrat';
-import ActionsProductButton from '../ActionsProductButton';
-import { ShareIcon } from '@heroicons/react/solid';
 import { searchGenre } from '../../js/genreList';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { checkImage, genderPlaceholder, imgBasePath, langConverter, pTypeConverter, roundVote, textToPath, tmdbApiKey } from '../../js/utility';
-import { getProductDetails } from '../../store/actions/productAction';
 import Router from 'next/router';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
@@ -40,6 +37,7 @@ const Card = ({
 		
 		useEffect(() => {
 			getDetailsProduct();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [userLanguageState, productDetailsState, product])
 
 		const handleOnClickCard = (e) => {

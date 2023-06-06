@@ -92,6 +92,7 @@ export default function ProductDetailsMovie({creditsDetails, productDetails, pro
 
   useEffect(() => {
     getDetailsProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, creditsDetails, productDetails]);
 
   const onChangeTab = tab => {

@@ -29,6 +29,7 @@
   "menuLinkTitleTrending": "Trending",
   "menuLinkTitleFavorite": "Favorite",
   "menuLinkTitleVoted": "Voted",
+  "menuLinkTitleExperience": "Experiences",
   "menuLinkTitleToWatch": "To watch",
   "menuLinkTitleHowItWorks": "How it works",
   "menuLinkTitleAboutUs": "About us",
@@ -135,11 +136,60 @@
   "tabMediaTitleBackgrounds": "Backgrounds",
   "tabMediaTitlePosters": "Posters",
 
-  "votePanelTitle": "Vote",
-  "votePanelButtonCancel": "Cancel",
-  "votePanelButtonConfirm": "Confirm",
-  "votePanelButtonDelete": "Delete vote",
+  "voteModalTitle": "Vote",
+  "voteModalSubtitle": "Esprimi il tuo voto con i nostri aperitivini.",
+  "voteModalButtonCancel": "Cancel",
+  "voteModalButtonConfirm": "Confirm",
+  "voteModalButtonDelete": "Delete vote",
 
+  "experienceSectionHeaderTitle": "La tua esperienza",
+  "experienceSectionHeaderButton": "Modifica",
+  "experienceSectionTextQuestion": "Hai già guardato",
+  "experienceSectionTextNotYet": "Ancora no 😐",
+  "experienceSectionTextDone": "Certo 😎",
+
+  "experienceDataDate": "Data",
+  "experienceDataPlace": "Dove",
+  "experienceDataPlaymate": "Compagnia",
+  "experienceDataAperitif": "Aperitivo",
+  "experienceDataEmoji": "Il tuo pensiero",
+
+  "experienceSectionActionDone": "Certo!",
+  "experienceSectionActionNotYet": "Non ancora",
+
+  "experienceSectionActionNotYetLogged": "Aggiungilo ai da guardare",
+  "experienceSectionActionNotYetAlreadyInListToWatch": "È già nei da guardare, è arrivato il momento! 🍷",
+  "experienceSectionActionDoneNoLogin": "Registrati e/o accedi per salvarlo ne La mia esperienza",
+  "experienceSectionActionNotYetLogin": "Registrati e/o accedi per aggiungerlo ai da guardare",
+
+  "experienceModalActionContinue": "Continue",
+  "experienceModalActionBack": "Back",
+  "experienceModalActionSkip": "Skip",
+  "experienceModalSubtitle": "La tua esperienza",
+  "experienceStepQuestionVote": "Dai il tuo voto",
+  "experienceStepQuestionDate": "Quando lo hai guardato?",
+  "experienceStepQuestionPlace": "Dove lo hai guardato?",
+  "experienceStepQuestionPeople": "Con chi lo hai guardato? ",
+  "experienceStepQuestionPlaymate": "Inserisci la tua compagnia!",
+  "experienceStepQuestionEmoji": "Il tuo pensiero con una emoji 😎",
+  "experienceStepQuestionAperitif": "Hai aperitiviggiato durante la visione? 😋",
+  "experienceStepQuestionEnd": "Abbiamo finito! 🤩",
+
+  "experienceStepExplanationEmoji": "Puoi aggiungere una sola emoji, scegli bene!",
+  "experienceStepExplanationAperitif": "Non ci sono limiti, aggiungi tutto!",
+
+  "experiencePlaceOptionPeopleAlone": "Da solo/a",
+  "experiencePlaceOptionPeopleMate": "In compagnia",
+
+  "experienceEndTitle": "Grazie per aver condiviso la tua visione!",
+  "experienceEndSubtitle": "Puoi modificarla in qualsiasi momento dalla sezione Le mie liste.",
+
+  "maxDate": "Non puoi inserire date nel futuro 😝",
+  "invalidDate": "Data non valida 🧐",
+  "minDate": "Il film non era ancora uscito 🎥",
+  
+  "modalDeleteMessage": "Confermi di voler eliminare questa Esperienza?",
+  
   "yourListsSelectOrderLast": "Last added",
   "yourListsSelectOrderFirst": "First added",
   "yourListsSelectOrderMoreDrunk": "More Drunk",

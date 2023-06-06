@@ -1,5 +1,5 @@
 import { Image } from "./atoms";
-import { AtSymbolIcon, EyeIcon, HeartIcon, HomeIcon, InformationCircleIcon, TrendingUpIcon } from "@heroicons/react/solid";
+import { AtSymbolIcon, EyeIcon, FilmIcon, HeartIcon, HomeIcon, InformationCircleIcon, TrendingUpIcon } from "@heroicons/react/solid";
 import AperitifBottleDisable from "./assets/icons/aperitif-bottle-disable.png"
 import AperitifBottleActive from "./assets/icons/aperitif-bottle-active.png"
 
@@ -25,7 +25,8 @@ export const userRoutes = [
   {
     to: "/user/vote",
     title: 'menuLinkTitleVoted',
-    icon: (<><Image 
+    icon: (<><Image
+            alt="icon-vote" 
             className="icon-image--disable"
             src={AperitifBottleDisable.src} 
             width="9px !important"
@@ -33,6 +34,7 @@ export const userRoutes = [
             layout="fixed" 
           />
           <Image 
+            alt="icon-vote"
             className="icon-image--active"
             src={AperitifBottleActive.src} 
             width="9px !important"
@@ -44,6 +46,11 @@ export const userRoutes = [
     to: "/user/watch",
     title: 'menuLinkTitleToWatch',
     icon: <EyeIcon />
+  },
+  {
+    to: "/user/experience",
+    title: 'menuLinkTitleExperience',
+    icon: <FilmIcon />
   },
 ];
 

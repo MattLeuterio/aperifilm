@@ -148,6 +148,11 @@ export const wasItVoted = (id, list) => {
   if (voted) return voted;
 }
 
+export const wasItAddedOnExperience = (id, list) => {  
+  const experience = list?.filter(el => el.id === id).experience;
+  if (experience) return experience;
+}
+
 export const selectTypeOptions = [
   {
     value: 'film-tv',

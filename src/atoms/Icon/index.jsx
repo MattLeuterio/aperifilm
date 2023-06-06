@@ -3,7 +3,8 @@ import { ApericonsContainer, IconContainer } from './style';
 
 const Icon = ({
 	children, width, height, fill, stroke, 
-	strokeWidth, className, handleOnClick
+	strokeWidth, className, handleOnClick,
+	disable
 }) => {
 		return (
 				<IconContainer
@@ -14,6 +15,7 @@ const Icon = ({
 					stroke={stroke}
 					strokeWidth={strokeWidth}
 					onClick={handleOnClick}
+					disable={disable}
 				>
 					{children}
 				</IconContainer>
@@ -26,6 +28,7 @@ Icon.defaultProps = {
 	width: '20px',
 	height: '20px',
 	strokeWidth: '2px',
+	disable: false,
 }
 
 export default Icon;

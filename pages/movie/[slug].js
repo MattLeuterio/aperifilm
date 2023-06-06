@@ -1,25 +1,23 @@
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";
-import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, Keyword, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoKeywords, MediaSectionInfoKeywordsList, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/movieDetailsStyle";
+import { BackdropSection, CastSection, CollectionInfo, CollectionInfoBottom, CollectionInfoTop, CollectionList, CollectionPart, CollectionSection, ExternalElm, Header, HeaderCover, HeaderInfo, HeaderInfoCrew, HeaderInfoDatas, HeaderInfoDatasGenres, HeaderInfoDatasLeft, HeaderInfoDatasRight, HeaderInfoSummary, HeaderInfoVote, HeaderInfoVoteActions, HeaderInfoVoteActionsLeft, HeaderInfoVoteActionsRight, InfoCrew, InfoSection, InfoSectionElement, InfoSectionWrapperElement, LinkSocial, LinkSocialWrapper, MediaSection, MediaSectionGallery, MediaSectionGalleryHeader, MediaSectionGalleryImages, MediaSectionImage, MediaSectionInfo, MediaSectionInfoExternal, MediaSectionInfoExternalLeft, MediaSectionInfoExternalList, MediaSectionInfoExternalRight, MediaSectionInfoExternalToWatch, MediaSectionInfoTitle, ProductDetailsContainer, RecommendationsSection, ReleaseDate, RowCards, Runtime, VideoAndInfoSection, VideoSection } from "../../src/styles/Pages/movieDetailsStyle";
 import { useEffect, useState } from "react";
-import { FullScreenPanel, RowCard, WelcomeBanner } from "../../src/components";
+import { RowCard, Experience } from "../../src/components";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { ActionButtons, Badge, Button, CustomMessage, GoTo, Icon, Image, RatingBottle, Share, TitlePage } from "../../src/atoms";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { checkImage, currency, formatDate, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, searchPeopleRoleCrew, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
-import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
+import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, LinkIcon } from "@heroicons/react/solid";
 import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
 import theme from "../../src/theme";
-import { DateTime } from "luxon";
 import Link from "next/link";
 import dynamic from 'next/dynamic'
 import { setFullscreenPanel } from "../../src/store/actions/appAction";
 import FacebookIcon from "../../src/assets/icons/logo-facebook.png";
 import InstagramIcon from "../../src/assets/icons/logo-instagram.png";
 import TwitterIcon from "../../src/assets/icons/logo-twitter.png";
-import { dividerClasses } from "@mui/material";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -28,7 +26,6 @@ export async function getServerSideProps(context) {
     const resolvedUrl = parseContext(context.resolvedUrl).split('/')[1]
     const res = await fetch(`https://api.themoviedb.org/3/${resolvedUrl}/${query.id}?api_key=${tmdbApiKey}`);
     const movieDetails = await res.json()
-    console.log('movieDetails', movieDetails);
     return {
       props: {
         movieDetails,
@@ -48,10 +45,8 @@ export async function getServerSideProps(context) {
 
 export default function ProductDetails({movieDetails, productTypeContext, query}) {
   const router = useRouter();
-  const dispatch = useDispatch();
-  console.log('movieDetails', movieDetails)
+  const dispatch = useDispatch();  
   
-  const { slug, id: pid } = router.query;
   const [loading, setLoading] = useState(false);
   const [welcomeVisible, setWelcomeVisible] = useState(true);
   const [movieDetailsState, setMovieDetailsState] = useState({});
@@ -151,7 +146,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   }
 
   const setProductImages = (images) => {
-    console.log('images', images);
     let res = [];
 
     if (images?.backdrops || images?.posters) {
@@ -162,6 +156,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
 
   useEffect(() => {
     getDetailsProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, movieDetails, query]);
 
   useEffect(() => {
@@ -170,6 +165,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     } else {
       setMovieCollection([])
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, movieDetailsState]);
 
   useEffect(() => {
@@ -200,7 +196,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
     dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
 
-  console.log('state', movieDetailsState)
+
 
   return (
     <ProductDetailsContainer>
@@ -368,6 +364,8 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           <Image alt={`${movieDetailsState?.title} poster`} width="100%" height="100%" src={checkImage(movieDetailsState?.poster_path)} />
         </HeaderCover>
       </Header>
+      
+      <Experience product={movieDetails} />
       
       {movieCredits?.cast && (
         <CastSection>
@@ -590,6 +588,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                               height="24px"
                             >
                               <Image 
+                                alt={"icon"}
                                 className="icon"
                                 src={link?.icon} 
                                 width="24px !important"

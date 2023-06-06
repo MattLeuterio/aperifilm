@@ -61,6 +61,7 @@ export default function ProductDetails({movieDetails, query}) {
 
   useEffect(() => {
     getDetailsProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, movieDetails, pageSelected]);
   
   const handleOnChange = (e, page) => {

@@ -85,12 +85,10 @@ const Header = ({}) => {
 					dispatch(setUserDataFromLogin(res[0]?.fields));
 				} else {
 					const listProducts = {
-						favorite: [
-						],
-						vote: [
-						],
-						watch: [
-						]
+						favorite: [],
+						vote: [],
+						watch: [],
+						experience: []
 					}
 					const body = {
 						"sub": user?.sub,
@@ -125,7 +123,7 @@ const Header = ({}) => {
 			
 			const listProducts = Object.keys(JSONproduct).length > 0 
 			? JSONproduct
-			: { favorite: [], watch: [], vote: [] } 
+			: { favorite: [], watch: [], vote: [], experience: [] } 
 			setUserListProducts(listProducts);
 		}
   	}, [userData]);
@@ -300,6 +298,7 @@ const Header = ({}) => {
 					) : (
 						<Button
 							handleOnClick={() => handleOnClickLoginButton(loginPath)}
+							text="buttonLogin"
 							className="login-button"
 							active
 							url={loginPath}

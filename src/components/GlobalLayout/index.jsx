@@ -6,22 +6,35 @@ import { Container, Content, Main } from './style';
 import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
-import { FullScreenPanel, VotePanel } from ".."
+import { FullScreenPanel, ModalVote } from ".."
+import { ModalDelete, ModalExperience } from '../Modals';
 
 const GlobalLayout = ({ children }) => {
 	const user = useSelector((state) => state.userData);
 	const [listImages, setListImages] = useState([]);
-	const [votePanelSelected, setVotePanelSelected] = useState({});
+	const [votePanelSelected, setModalVoteSelected] = useState({});
+	const [modalExperienceSelected, setModalExperienceSelected] = useState({});
+	const [modalDeleteSelected, setModalDeleteSelected] = useState({});
 	const listFullScreenPanel = useSelector((state) => state.app?.fullScreenPanel?.list);
-	const selectedVotePanel = useSelector((state) => state.app?.votePanel?.selected);
+	const selectedVotePanel = useSelector((state) => state.app?.modalVote?.selected);
+	const selectedModalExperience = useSelector((state) => state.app?.modalExperience?.selected);
+	const selectedModalDelete = useSelector((state) => state.app?.modalDelete?.selected);
 	
 	useEffect(() => {
 		setListImages(listFullScreenPanel)
 	}, [listFullScreenPanel])
 
 	useEffect(() => {
-		setVotePanelSelected(selectedVotePanel)
+		setModalVoteSelected(selectedVotePanel)
 	}, [selectedVotePanel])
+
+	useEffect(() => {
+		setModalExperienceSelected(selectedModalExperience)
+	}, [selectedModalExperience])
+
+	useEffect(() => {
+		setModalDeleteSelected(selectedModalDelete)
+	}, [selectedModalDelete])
 	return (
 			<>
 				<Head>
@@ -41,7 +54,9 @@ const GlobalLayout = ({ children }) => {
 				</Container>
 
 				<FullScreenPanel list={listImages} />
-				<VotePanel selected={votePanelSelected} />
+				<ModalVote selected={votePanelSelected} />
+				<ModalExperience selected={modalExperienceSelected} />
+				<ModalDelete selected={modalExperienceSelected} />
 			</>
 	)
 };

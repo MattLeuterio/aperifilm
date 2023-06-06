@@ -11,9 +11,8 @@ const Button = ({
 	url, text, className, colorText, handleOnClick, 
 	children, backgroundColor, active, size,
 	iconWidth, iconHeight, iconStroke, iconFill,
-	number, disabled, hide
+	number, disabled, hide, iconPadding,
 }) => {
-
 		return (
 				<ButtonContainer
 					hide={hide}
@@ -24,6 +23,7 @@ const Button = ({
 					color={colorText}
 					backgroundColor={backgroundColor}
 					active={active}
+					iconPadding={iconPadding}
 				>
 					{children && (
 						<Icon 
@@ -43,9 +43,9 @@ const Button = ({
 								<FormattedMessage defaultMessage={text} id={text} />
 							</a>
 						</Link>
-					) : (
+					) : text?.length > 0 ? (
 						<Label active={active}><FormattedMessage defaultMessage={text} id={text} /></Label>
-					)}
+					) : null}
 
 					{number > 0 && (
 						<NumberWrapper active={active}>
@@ -59,12 +59,12 @@ const Button = ({
 Button.SIZE = {
 	SMALL: 'small',
 	MEDIUM: 'medium',
-	LARGE: 'large'
+	LARGE: 'large',
+	ICON: 'icon',
 }
 
 Button.defaultProps = {
 	url: '',
-	text: 'buttonLogin',
 	colorText: theme.colors.mainBrandColors.dark,
 	backgroundColor: theme.colors.mainBrandColors.dark,
 	active: false,
@@ -73,7 +73,8 @@ Button.defaultProps = {
 	iconHeight: '20px',
 	iconFill: 'transparent',
 	iconStroke: theme.colors.element.light,
-	number: 0
+	number: 0,
+	iconPadding: '11px',
 }
 
 export default Button;

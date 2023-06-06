@@ -14,23 +14,21 @@ import { Tooltip } from '@mui/material';
 const ActionButtons = ({
 	className, size, product, type
 }) => {
-		const router = useRouter();
-		const { user, error, isLoading } = useUser();
-		return (
-			<ActionButtonsContainer className={className}>
-				<Tooltip title="Salva nei preferiti" placement="top-start">
-					<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
-				</Tooltip>
+	return (
+		<ActionButtonsContainer className={className}>
+			<Tooltip title="Salva nei preferiti" placement="top-start">
+				<ActionsProductButton className={type === 'person-card' ? 'favorite-btn' : ''} product={product} size={size} action="favorite"/>
+			</Tooltip>
 
-				{(type !== 'person' && type !== 'person-card') && (
-					<>
-						<ActionsProductButton product={product} size={size} action="watch"/>
-						<ActionsProductButton product={product} size={size} action="vote"/>
-					</>
-				)}
-				
-			</ActionButtonsContainer>
-		)
+			{(type !== 'person' && type !== 'person-card') && (
+				<>
+					<ActionsProductButton product={product} size={size} action="watch"/>
+					<ActionsProductButton product={product} size={size} action="vote"/>
+				</>
+			)}
+			
+		</ActionButtonsContainer>
+	)
 };
 
 ActionButtons.defaultProps = {

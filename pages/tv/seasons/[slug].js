@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import { FormattedMessage } from "react-intl";
 import { useDispatch, useSelector } from "react-redux";

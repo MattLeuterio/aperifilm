@@ -1,6 +1,6 @@
 import theme from '../../theme';
 import { CustomSelectContainer } from './style';
-import Select from 'react-select';;
+import Select from 'react-select';
 
 
 const CustomSelect = ({

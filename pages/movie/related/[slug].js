@@ -87,6 +87,7 @@ export default function RelatedDetailsMovie({relatedDetails, productDetails, pro
 
   useEffect(() => {
     getDetailsProduct();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userLanguageState, relatedDetails, productDetails, pageSelected]);
 
   const onChangeTab = tab => {

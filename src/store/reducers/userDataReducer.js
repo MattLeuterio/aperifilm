@@ -33,6 +33,9 @@ export default function (state = initialState, action) {
       lists.vote.map(el => {
         if (!allUniqueProducts?.includes(el?.id)) allUniqueProducts.push(el.id);
       })
+      lists.experience.map(el => {
+        if (!allUniqueProducts?.includes(el?.id)) allUniqueProducts.push(el.id);
+      })
       return {
         ...state,
         list_products: [
@@ -42,6 +45,7 @@ export default function (state = initialState, action) {
               favorite: action.payload.favorite,
               vote: action.payload.vote,
               watch: action.payload.watch,
+              experience: action.payload.experience,
             }
           }
         ],

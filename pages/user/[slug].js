@@ -1,12 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {CustomMessage, CustomSelect, Icon, Tabs, TitlePage } from "../../src/atoms";
-import { Card } from "../../src/components";
+import { Card, Experience } from "../../src/components";
 import { SearchIcon, XIcon } from '@heroicons/react/solid';
-import { parseContext, pTypeConverterLang, selectTypeOptions } from "../../src/js/utility";
-import { Main, PageMainContainer, ResultsContainer, SearchContainer, SearchInput, FiltersContainer, TabsContainer, UserListsContainer } from "../../src/styles/Pages/userListsStyle";
+import { imgBasePath, parseContext, pTypeConverterLang, selectTypeOptions } from "../../src/js/utility";
+import { Main, PageMainContainer, ResultsContainer, SearchContainer, SearchInput, FiltersContainer, TabsContainer, UserListsContainer, ExperienceContainer } from "../../src/styles/Pages/userListsStyle";
 import theme from "../../src/theme";
 import en from "../../lang/en.json";
 import it from "../../lang/it.json";
@@ -41,6 +42,7 @@ export default function UserLists({query}) {
   const userListProductsState = useSelector((state) => state.userData?.list_products[0]);
 
   const isMobile = useMediaQuery(426);
+  const isTablet = useMediaQuery(769);
 
   const tabsListDefault = [
     {
@@ -58,6 +60,11 @@ export default function UserLists({query}) {
       label: 'menuLinkTitleToWatch',
       number: null
     },
+    {
+      id: 'experience',
+      label: 'menuLinkTitleExperience',
+      number: null
+    },
   ]
 
   const { user, error, isLoading } = useUser();
@@ -71,6 +78,7 @@ export default function UserLists({query}) {
   const [filters, setFilters] = useState(initialFilters);
   const [filteredList, setFilteredList] = useState(resultsList);
   const [valueSearch, setValueSearch] = useState("");
+  const [experienceOpened, setExperienceOpened] = useState();
 
   useEffect(() => {
     if (!user) Router.push('/');
@@ -80,7 +88,7 @@ export default function UserLists({query}) {
     setValueSearch(value);
     if (valueSearch.length >= 2) {
       const regex = new RegExp(value, "gi");
-			const filt = filteredList.filter(p=>p.title.match(regex));
+			const filt = filteredList.filter(p=>p[userLanguage].title.match(regex));
       setFilteredList(filt);
     } else {
       filtByType();
@@ -122,7 +130,8 @@ export default function UserLists({query}) {
   }, [query])
 
   useEffect(() => {
-    setUserProductsList(userListProductsState?.lists)
+    setUserProductsList(userListProductsState?.lists);
+    setExperienceOpened(userListProductsState?.lists?.experience[0].id);
   }, [userListProductsState])
 
   useEffect(() => {
@@ -147,6 +156,11 @@ export default function UserLists({query}) {
         id: 'watch',
         label: 'menuLinkTitleToWatch',
         number: userProductsList?.watch?.length
+      },
+      {
+        id: 'experience',
+        label: 'menuLinkTitleExperience',
+        number: userProductsList?.experience?.length
       },
     ])
 
@@ -218,16 +232,18 @@ export default function UserLists({query}) {
           <meta name="theme-color" content="#ffffff"></meta>
         </Head>
   
-        <TitlePage title="sidebarYourListTitle" />
+        <TitlePage primaryTitle="sidebarYourListTitle" title={isTablet ? activeTab?.label : null} />
   
-        <TabsContainer>
-          <Tabs
-            sizeButtons="large"
-            selected={activeTab}
-            onChange={onChangeTab}
-            tabsList={tabsList}
-          />
-        </TabsContainer>
+        {!isTablet && (
+          <TabsContainer>
+            <Tabs
+              sizeButtons="large"
+              selected={activeTab}
+              onChange={onChangeTab}
+              tabsList={tabsList}
+            />
+          </TabsContainer>
+        )}
         <PageMainContainer>
           <Main>
             <FiltersContainer>
@@ -267,9 +283,22 @@ export default function UserLists({query}) {
             </FiltersContainer>
             <ResultsContainer>
               {filteredList?.length > 0 ? filteredList?.map((prod) => {
-                return (
-                <Card key={prod?.id} product={prod[userLanguage]} type={prod.product_type} productType={pTypeConverterLang(prod.product_type)} className="card" />
-              )}) : (
+                if (prod?.experience) {
+                  return (
+                    <ExperienceContainer onClick={() => setExperienceOpened(prod?.id)} isOpen={experienceOpened === prod?.id}>
+                      <Experience 
+                        title={prod[userLanguageState]?.title || prod[userLanguageState]?.name} product={prod?.en || prod?.it} 
+                        background={prod[userLanguageState]?.backdrop_path ? `${imgBasePath}/${prod[userLanguageState]?.backdrop_path}` : null }
+                        />
+                    </ExperienceContainer>
+                  )
+
+                } else {
+                  return (
+                    <Card key={prod?.id} product={prod[userLanguage]} type={prod.product_type} productType={pTypeConverterLang(prod.product_type)} className="card" />
+                  )
+                }
+              }) : (
                 <CustomMessage text={"yourListMessageNoContent"} />
               )}
             </ResultsContainer>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Head from "next/head";
 import { useDispatch, useSelector } from "react-redux";
 import { Container, MediaSectionImage, ProductDetailsContainer, ResultsContainer } from "../../../src/styles/Pages/mediaDetailsStyle";

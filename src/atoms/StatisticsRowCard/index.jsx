@@ -44,6 +44,7 @@ const StatisticsRowCard = ({
 							height="14px"
 						>
 							<Image 
+								alt="icon"
 								className="icon"
 								src={ApericheersIcon.src} 
 								width="14px !important"
