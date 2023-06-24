@@ -125,9 +125,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
       ]
     }, []);
 
-    console.log('movie', movie);
-    console.log('tv', tv);
-
     setTotalResults({
       movie: { cast: movie[0]?.results.length, crew: movie[1]?.results.length },
       tv: { cast: tv[0]?.results.length, crew: tv[1]?.results.length },
@@ -139,7 +136,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
     // TABS
     let newTabs = [];
     if (totalResults?.movie?.cast > 0 || totalResults?.movie?.crew > 0) {
-      console.log('here', 'here')
       newTabs.push({
         id: 'movie',
         label: 'productTypeFilm',
@@ -486,6 +482,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                   <CustomSelect
                     width="150px"
                     defaultValue={selectSectorOptions[0]?.label}
+                    value={valueSelectSector}
                     onChange={(e) => handleOnChangeSector(e)}
                     name="color"
                     options={selectSectorOptions}

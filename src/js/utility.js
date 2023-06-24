@@ -178,8 +178,6 @@ export const selectTypeOptions = [
 
 
 export const currency = (value, country) => {
-  console.log('qui', value, country)
-
   if (value && country) {
     const selectedCountry = currencyCountries.filter(c => c.CountryCode === country)[0];
     const resultd = (value)?.toLocaleString(selectedCountry?.CountryCode, { 
@@ -188,6 +186,5 @@ export const currency = (value, country) => {
     });
     return resultd
   }
-
   return undefined;
 }

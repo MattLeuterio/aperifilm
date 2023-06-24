@@ -88,7 +88,6 @@ export default function UserLists({query}) {
 	const handleOnChange = (value) => {
     setValueSearch(value);
     if (valueSearch.length >= 2) {
-      console.log('dentro')
       const regex = new RegExp(value, "gi");
 			const filt = filteredList.filter(p=>p[userLanguage]?.title?.match(regex));
       setFilteredList(filt);
