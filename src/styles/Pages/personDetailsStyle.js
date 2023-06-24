@@ -216,7 +216,10 @@ export const TableHeaderElement = styled.div`
   }
 `;
 
-export const TableResults = styled.div``;
+export const TableResults = styled.div`
+  max-height: 500px;
+  overflow: auto;
+`;
 
 export const TableResultElement = styled.div`
   padding: 15px 30px;

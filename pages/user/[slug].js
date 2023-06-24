@@ -89,7 +89,12 @@ export default function UserLists({query}) {
     setValueSearch(value);
     if (valueSearch.length >= 2) {
       const regex = new RegExp(value, "gi");
-			const filt = filteredList.filter(p=>p[userLanguage]?.title?.match(regex));
+			const filt = filteredList.filter(p=>{
+        if (p.product_type === "tv" || p.product_type === "person") {
+          return p[userLanguage]?.name?.match(regex)
+        }
+        return p[userLanguage]?.title?.match(regex)
+      });
       setFilteredList(filt);
     } else {
       filtByType();

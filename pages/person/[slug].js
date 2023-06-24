@@ -313,11 +313,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 		//dispatch(setUserTranslate(el?.value));
 	}
 
-  console.log('tableResults', tableResults);
-  console.log('totalResults', totalResults);
-  console.log('tabs', tabs);
-  console.log('selectSectorOptions', selectSectorOptions);
-
   return (
     <PersonDetailsContainer>
       <Head>
@@ -462,6 +457,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           <PopularProjectsSection>
             {personPopularProject?.slice(0,4).map(proj => (
               <PopularProject
+                key={proj?.id}
                 onClick={() => Router.push(`/${proj.media_type}/${textToPath(proj?.name) || textToPath(proj?.title)}?id=${proj?.id}`)}
               >
                 <Image className="popular-project-poster" alt={`${proj?.name || proj?.title} poster`} width="100%" height="100%" src={checkImage(proj.poster_path)} />
