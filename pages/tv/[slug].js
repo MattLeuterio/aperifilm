@@ -11,7 +11,7 @@ import Router, { useRouter } from "next/router";
 import { checkImage, formatDate, getTvSeriesStatus, getTvSeriesType, imgBasePath, langConverter, parseContext, pTypeConverter, roundVote, textToPath, tmdbApiKey } from "../../src/js/utility";
 import Montserrat from "../../src/typography/montserrat";
 import { CalendarIcon, ClockIcon, DesktopComputerIcon, EyeIcon, HashtagIcon, LinkIcon, ShareIcon } from "@heroicons/react/solid";
-import { ArrowNarrowRightIcon } from "@heroicons/react/outline";
+import { ArrowNarrowRightIcon, TranslateIcon } from "@heroicons/react/outline";
 import theme from "../../src/theme";
 import { DateTime } from "luxon";
 import Link from "next/link";
@@ -274,7 +274,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
           </HeaderInfoDatas>
           <HeaderInfoSummary>
           {(noOverview && movieDetailsState?.overview?.length > 0) && (
-            <CustomMessage style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
+            <CustomMessage icon={<TranslateIcon />} style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
           )}
             <Montserrat configuration={{lineHeight: '18px'}}>{movieDetailsState?.overview}</Montserrat>
           </HeaderInfoSummary>

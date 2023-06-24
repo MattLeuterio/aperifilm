@@ -90,7 +90,7 @@
   "infoTvSeasonsTitle": "Stagioni:",
   "infoTvEpisodesTitle": "Episodi:",
   "infoTvLastSeasonTitle": "Ultima stagione",
-  "infoTvAllSeasonsActions": "All seasons",
+  "infoTvAllSeasonsActions": "Tutte le stagioni",
   "infoTvSeasonTitle": "Stagione",
   "collectionPageNumberFilm": "Film:",
   "seasonsEpisodes": "Episodi",
@@ -201,7 +201,7 @@
   "yourListsSelectTypePeople": "Persone",
   "yourListsSelectTypeCollections": "Collezioni",
 
-  "yourListMessageNoContent": "Non ci sono contenuti.",
+  "yourListMessageNoContent": "Non ci sono contenuti",
   "yourListSearchPlaceholder": "Filtra per titolo",
 
   "shareTitle": "Condividi",

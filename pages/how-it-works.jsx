@@ -1,8 +1,22 @@
 import Head from "next/head";
 import { HowItWorksContainer } from "../src/styles/Pages/howItWorksStyle";
 import { TitlePage, CustomMessage } from "../src/atoms";
+import theme from "../src/theme";
+import { FlagIcon } from "@heroicons/react/solid";
 
 export default function ProductDetails({}) {
+
+  const iconMessage = {
+      size: {
+        width: "20px",
+        height: "20px",
+        strokeWidth: "1px"
+      },
+      color: {
+        stroke: "transparent",
+        fill: theme.colors.element.dark
+      }
+  }
   
   return (
     <HowItWorksContainer>
@@ -20,8 +34,7 @@ export default function ProductDetails({}) {
       </Head>
 
       <TitlePage title={"pageTitleHowItWorks"} hasBackButton />
-
-      <CustomMessage text="Work in progress"  style={{marginTop: "20px", fontSize: "16px"}} />
+      <CustomMessage icon={<FlagIcon />} iconSettings={iconMessage} text="Work in progress"  style={{marginTop: "20px", fontSize: "14px"}} />
 
     </HowItWorksContainer>
   );

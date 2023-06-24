@@ -17,6 +17,7 @@ import FacebookIcon from "../../../src/assets/icons/logo-facebook.png";
 import InstagramIcon from "../../../src/assets/icons/logo-instagram.png";
 import TwitterIcon from "../../../src/assets/icons/logo-twitter.png";
 import { ActionsProductButton, Card } from "../../../src/components";
+import { TranslateIcon } from "@heroicons/react/outline";
 
 export async function getServerSideProps(context) {
   try {
@@ -126,7 +127,7 @@ export default function CollectionDetails({collectionDetails, productTypeContext
           </Montserrat>
           <HeaderInfoSummary>
             {(noOverview && collectionDetailsState?.overview?.length > 0) && (
-              <CustomMessage style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
+              <CustomMessage icon={<TranslateIcon />} style={{marginTop: '20px'}} text="Traduzione italiana mancante" />
             )}
             <Montserrat configuration={{lineHeight: '18px'}}>{collectionDetailsState?.overview}</Montserrat>
           </HeaderInfoSummary>

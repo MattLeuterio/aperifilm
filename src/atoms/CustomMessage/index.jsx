@@ -1,20 +1,33 @@
 import theme from '../../theme';
 import { CustomMessageContainer } from './style';
-import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
-import { useState } from 'react';
 import Icon from '../Icon';
-import { Router } from 'next/router';
-import { HeartIcon } from '@heroicons/react/outline';
-import { ActionsProductButton } from '../../components';
 
 
 export default function CustomMessage ({
-	className, text, style
+	className, text, style, iconSettings, icon
 }) {
-		return (
-			<CustomMessageContainer style={style} className={className}>
-				<FormattedMessage defaultMessage={text} id={text} />
-			</CustomMessageContainer>
-		)
+	
+	return (
+		<CustomMessageContainer style={style} className={className}>
+			{icon && (
+				<Icon
+					className="icon"
+					stroke={iconSettings?.color?.stroke}
+					fill={iconSettings?.color?.fill}
+					width={iconSettings?.size?.width}
+					height={iconSettings?.size?.height}
+					strokeWidth={iconSettings?.size?.strokeWidth}
+					handleOnClick={() => handleOnClickFavorite()}
+				>
+					{icon}
+				</Icon>
+			)}
+			<FormattedMessage defaultMessage={text} id={text} />
+		</CustomMessageContainer>
+	)
 };
+
+CustomMessage.defaultProps = {
+
+}

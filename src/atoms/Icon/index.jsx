@@ -6,20 +6,21 @@ const Icon = ({
 	strokeWidth, className, handleOnClick,
 	disable
 }) => {
-		return (
-				<IconContainer
-					className={className}
-					width={width}
-					height={height}
-					fill={fill}
-					stroke={stroke}
-					strokeWidth={strokeWidth}
-					onClick={handleOnClick}
-					disable={disable}
-				>
-					{children}
-				</IconContainer>
-		)
+
+	return (
+		<IconContainer
+			className={className}
+			width={width}
+			height={height}
+			fill={fill}
+			stroke={stroke}
+			strokeWidth={strokeWidth}
+			onClick={handleOnClick}
+			disable={disable}
+		>
+			{children}
+		</IconContainer>
+	)
 };
 
 Icon.defaultProps = {

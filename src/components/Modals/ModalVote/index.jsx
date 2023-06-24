@@ -77,8 +77,11 @@ const ModalVote = ({
 					"language": userData.language,
 					"list_products": JSON.stringify(json)
 			}
+
+		if (Boolean(voteStateSelected.en) || Boolean(voteStateSelected.it) && Boolean(voteStateSelected.id)) {
 			updateUser(userData.record_id, body);
 			dispatch(setUserProducts(json));
+		}
 		} else {
 			const updateProduct = userData.list_products[0].lists.vote.filter(el => el.id === voteStateSelected.id);
 			const listWithoutUpdatedProduct = userData.list_products[0].lists.vote.filter(el => el.id !== voteStateSelected.id);

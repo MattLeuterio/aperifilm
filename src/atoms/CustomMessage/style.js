@@ -17,4 +17,8 @@ export const CustomMessageContainer = styled.div`
   div:not(:last-child) {
     margin-right: 6px;
   }
+
+  .icon {
+    margin-right: 8px;
+  }
 `;

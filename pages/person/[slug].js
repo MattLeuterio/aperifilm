@@ -20,6 +20,7 @@ import { CakeIcon, PhotographIcon, ShareIcon } from "@heroicons/react/solid";
 import { profileHandler } from "@auth0/nextjs-auth0/dist/handlers";
 import { defaultTabsList } from "../../src/atoms/Tabs";
 import { DateTime } from "luxon";
+import { ClipboardIcon, TranslateIcon } from "@heroicons/react/outline";
 
 export async function getServerSideProps(context) {
   try {
@@ -44,25 +45,24 @@ export async function getServerSideProps(context) {
   }
 }
 
+const defaultSelectSectorOptions = [
+  {
+    value: 'cast',
+    label: 'Cast'
+  },
+  {
+    value: 'crew',
+    label: 'Crew'
+  }
+]
+
 export default function PeopleDetails({personDetails, productTypeContext, query}) {
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const tabs = defaultTabsList;
-
-  const selectSectorOptions = [
-    {
-      value: 'cast',
-      label: 'Cast'
-    },
-    {
-      value: 'crew',
-      label: 'Crew'
-    }
-  ]
   
-  const { slug, id: pid } = router.query
   const [personDetailsState, setPersonDetailsState] = useState({});
+  const [tabs, setTabs] = useState(defaultTabsList);
+  const [selectSectorOptions, setSelectSectorOptions] = useState(defaultSelectSectorOptions);
   const [personImages, setPersonImages] = useState({});
   const [personPopularProject, setPersonPopularProject] = useState([]);
   const [personMovieProject, setPersonMovieProject] = useState([]);
@@ -72,8 +72,17 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
   const [noBiography, setNoBiography] = useState(false);
   const [activeTab, setActiveTab] = useState(tabs[0]);
   const [valueSelectSector, setValueSelectSector] = useState(selectSectorOptions[0]);
+  const [totalResults, setTotalResults] = useState({
+    movie: {
+      cast: 0,
+      crew: 0,
+    },
+    tv: {
+      cast: 0,
+      crew: 0,
+    }
+  })
   const [tableResults, setTableResults] = useState([]);
-  const [fullScreenIsOpen, setFullScreenIsOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(true);
   const user = useSelector((state) => state.userData);
   const userLanguageState = useSelector((state) => state.userData.language);
@@ -96,8 +105,93 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
   }, [userLanguageState, personDetailsState]);
 
   useEffect(() => {
+    const movie = Object.entries(personMovieProject).reduce((acc, [key, val]) => {
+      return [
+        ...acc,
+        {
+          name: key,
+          results: val
+        }
+      ]
+    }, []);
+
+    const tv = Object.entries(personTvProject).reduce((acc, [key, val]) => {
+      return [
+        ...acc,
+        {
+          name: key,
+          results: val
+        }
+      ]
+    }, []);
+
+    console.log('movie', movie);
+    console.log('tv', tv);
+
+    setTotalResults({
+      movie: { cast: movie[0]?.results.length, crew: movie[1]?.results.length },
+      tv: { cast: tv[0]?.results.length, crew: tv[1]?.results.length },
+    })
+
+  }, [personMovieProject])
+
+  useEffect(() => {
+    // TABS
+    let newTabs = [];
+    if (totalResults?.movie?.cast > 0 || totalResults?.movie?.crew > 0) {
+      console.log('here', 'here')
+      newTabs.push({
+        id: 'movie',
+        label: 'productTypeFilm',
+        icon: null
+      })
+    }
+
+    if (totalResults?.tv?.cast > 0 || totalResults?.tv?.crew > 0) {
+      newTabs.push({
+        id: 'tv',
+        label: 'productTypeTvSeries',
+        icon: null
+      })
+    }
+    setTabs(newTabs);
+
+    // SELECT SECTOR
+    const ciao = [
+      {
+        value: 'cast',
+        label: 'Cast'
+      },
+      {
+        value: 'crew',
+        label: 'Crew'
+      }
+    ]
+
+    let newSelectsSector = [];
+    if (totalResults?.movie?.cast > 0 || totalResults?.tv?.cast > 0) {
+      newSelectsSector.push({
+        value: 'cast',
+        label: 'Cast'
+      })
+    }
+    if (totalResults?.movie?.crew > 0 || totalResults?.tv?.crew > 0) {
+      newSelectsSector.push({
+        value: 'crew',
+        label: 'Crew'
+      })
+    }
+
+    setSelectSectorOptions(newSelectsSector);
+  }, [totalResults])
+
+  useEffect(() => {
+    setValueSelectSector(selectSectorOptions[0]);
+  }, [selectSectorOptions]);
+
+  useEffect(() => {
     const type = activeTab.id;
-    const sector = valueSelectSector.value;
+    const sector = valueSelectSector?.value;
 
     let movieFiltered = [];
     let tvFiltered = [];
@@ -222,6 +316,11 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 		setValueSelectSector(el);
 		//dispatch(setUserTranslate(el?.value));
 	}
+
+  console.log('tableResults', tableResults);
+  console.log('totalResults', totalResults);
+  console.log('tabs', tabs);
+  console.log('selectSectorOptions', selectSectorOptions);
 
   return (
     <PersonDetailsContainer>
@@ -354,7 +453,7 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
           {(personDetailsState?.biography?.length > 0 && personDetailsState?.biography !== "undefined") && (
             <Biography>
               {(userLanguageState === 'it' && noBiography && personDetailsState?.biography?.length > 0) && (
-                <CustomMessage text="Traduzione italiana mancante" />
+                <CustomMessage icon={<TranslateIcon />} text="Traduzione italiana mancante" />
               )}
               <Montserrat configuration={{lineHeight: '18px'}}>{personDetailsState?.biography}</Montserrat>
             </Biography>
@@ -377,7 +476,6 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
 
 
           <ListProductsSection>
-            {tableResults?.length > 0 ? (
               <>
                 <FilteringWrapper>
                   <Tabs 
@@ -387,68 +485,68 @@ export default function PeopleDetails({personDetails, productTypeContext, query}
                   />
                   <CustomSelect
                     width="150px"
-                    defaultValue={valueSelectSector}
+                    defaultValue={selectSectorOptions[0]?.label}
                     onChange={(e) => handleOnChangeSector(e)}
                     name="color"
                     options={selectSectorOptions}
                   />
                 </FilteringWrapper>
-                <ListProductsTable>
-                  <TableHeader>
-                    <TableHeaderElement className="table-header-year">
-                      <FormattedMessage defaultMessage={"peopleTableHeaderYear"} id={"peopleTableHeaderYear"} />
-                    </TableHeaderElement>
-                    <TableHeaderElement className="table-header-title">
-                      <FormattedMessage defaultMessage={"peopleTableHeaderTitle"} id={"peopleTableHeaderTitle"} />
-                    </TableHeaderElement>
-                    <TableHeaderElement className="table-header-job">
-                      <FormattedMessage defaultMessage={"peopleTableHeaderJob"} id={"peopleTableHeaderJob"} />
-                    </TableHeaderElement>
-                  </TableHeader>
+                {tableResults?.length > 0 ? (
+                  <ListProductsTable>
+                    <TableHeader>
+                      <TableHeaderElement className="table-header-year">
+                        <FormattedMessage defaultMessage={"peopleTableHeaderYear"} id={"peopleTableHeaderYear"} />
+                      </TableHeaderElement>
+                      <TableHeaderElement className="table-header-title">
+                        <FormattedMessage defaultMessage={"peopleTableHeaderTitle"} id={"peopleTableHeaderTitle"} />
+                      </TableHeaderElement>
+                      <TableHeaderElement className="table-header-job">
+                        <FormattedMessage defaultMessage={"peopleTableHeaderJob"} id={"peopleTableHeaderJob"} />
+                      </TableHeaderElement>
+                    </TableHeader>
 
-                    <TableResults>
-                      {tableResults?.map((el, index) => (
-                        <TableResultElement
-                          key={index}
-                          onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
-                        >
-                          <ElementYear>
-                            {
-                              activeTab?.id === 'movie' ? (
-                                el?.release_date?.length > 0 ? DateTime.fromISO(el.release_date)?.toFormat('yyyy').toLocaleString() : '-'
-                              ) : (
-                                el?.first_air_date?.length > 0 ? DateTime.fromISO(el.first_air_date)?.toFormat('yyyy').toLocaleString() : '-'
-                              )
-                              
-                            }
-                          </ElementYear>
-                          <ElementTitle>
-                            {el?.title || el?.name}
-                          </ElementTitle>
-                          <ElementJob>
-                            {
-                              valueSelectSector.value === 'cast' ? (
-                                <FormattedMessage defaultMessage={"peopleDepartmentActing"} id={"peopleDepartmentActing"} />
-                                ) : getDepartmentPeople(el.job)
-                            }
-                          </ElementJob>
-                        </TableResultElement>
-                      ))}
-                    </TableResults>
+                      <TableResults>
+                        {tableResults?.map((el, index) => (
+                          <TableResultElement
+                            key={index}
+                            onClick={() => Router.push(`/${el.media_type}/${textToPath(el?.name) || textToPath(el?.title)}?id=${el?.id}`)}
+                          >
+                            <ElementYear>
+                              {
+                                activeTab?.id === 'movie' ? (
+                                  el?.release_date?.length > 0 ? DateTime.fromISO(el.release_date)?.toFormat('yyyy').toLocaleString() : '-'
+                                ) : (
+                                  el?.first_air_date?.length > 0 ? DateTime.fromISO(el.first_air_date)?.toFormat('yyyy').toLocaleString() : '-'
+                                )
+                                
+                              }
+                            </ElementYear>
+                            <ElementTitle>
+                              {el?.title || el?.name}
+                            </ElementTitle>
+                            <ElementJob>
+                              {
+                                valueSelectSector.value === 'cast' ? (
+                                  <FormattedMessage defaultMessage={"peopleDepartmentActing"} id={"peopleDepartmentActing"} />
+                                  ) : getDepartmentPeople(el.job)
+                              }
+                            </ElementJob>
+                          </TableResultElement>
+                        ))}
+                      </TableResults>
 
-                  <TableFooter>
-                    <TableHeaderElement></TableHeaderElement>
-                  </TableFooter>
+                    <TableFooter>
+                      <TableHeaderElement></TableHeaderElement>
+                    </TableFooter>
 
-                </ListProductsTable>  
+                  </ListProductsTable> 
+                ) : (
+                  <CustomMessage icon={<ClipboardIcon />} iconSettings={{size: {strokeWidth: "1px"}}} text="noResults" />
+                )} 
               </>
-            ) : (
-                <CustomMessage text="noResults" />
-              )}
           </ListProductsSection>
         </ContainerRight>
       </Container>
-      
     </PersonDetailsContainer>
   );
 }

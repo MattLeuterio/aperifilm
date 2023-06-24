@@ -9,6 +9,7 @@ import { Card } from "../src/components";
 import { langConverter, parseContext, textToPath, tmdbApiKey } from "../src/js/utility";
 import { HomeContainer, Keyword, ResultsContainer, SearchContainer, TabsContainer } from "../src/styles/Pages/searchStyle";
 import Montserrat from "../src/typography/montserrat";
+import { ClipboardIcon } from "@heroicons/react/outline";
 
 export default function SearchResults({}) {
   const tabsListDefault = [
@@ -234,7 +235,7 @@ export default function SearchResults({}) {
             <meta name="theme-color" content="#ffffff"></meta>
           </Head>
           <TitlePage title="pageTitleSearchResults" hasBackButton />
-          <CustomMessage text="noResults" style={{marginTop: '40px'}} />
+          <CustomMessage icon={<ClipboardIcon />} text="noResults" style={{marginTop: '40px', fontSize: "14px"}} />
 
       </SearchContainer>
     )

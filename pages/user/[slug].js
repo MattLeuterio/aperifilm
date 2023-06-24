@@ -13,6 +13,7 @@ import en from "../../lang/en.json";
 import it from "../../lang/it.json";
 import useMediaQuery from "../../src/hooks/useMediaQuery";
 import { useUser } from "@auth0/nextjs-auth0";
+import { ClipboardIcon } from "@heroicons/react/outline";
 
 const initialFilters = {
   type: 'film-tv',
@@ -87,8 +88,9 @@ export default function UserLists({query}) {
 	const handleOnChange = (value) => {
     setValueSearch(value);
     if (valueSearch.length >= 2) {
+      console.log('dentro')
       const regex = new RegExp(value, "gi");
-			const filt = filteredList.filter(p=>p[userLanguage].title.match(regex));
+			const filt = filteredList.filter(p=>p[userLanguage]?.title?.match(regex));
       setFilteredList(filt);
     } else {
       filtByType();
@@ -299,7 +301,7 @@ export default function UserLists({query}) {
                   )
                 }
               }) : (
-                <CustomMessage text={"yourListMessageNoContent"} />
+                <CustomMessage icon={<ClipboardIcon />} iconSettings={{size: {strokeWidth: "1px"}}}  text={"yourListMessageNoContent"} />
               )}
             </ResultsContainer>
           </Main>
