@@ -343,12 +343,12 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
                   <RatingBottle vote={roundVote(movieDetailsState?.vote_average, 1)} />   
                 </HeaderInfoVote>
               )}
-              {userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === movieDetailsState.id).length > 0 && (
+              {userDataListProductsRedux?.vote?.filter(el => el.id === movieDetailsState.id).length > 0 && (
                 <HeaderInfoVote>
                   <Montserrat className="info-vote" type="productDetailsInfoCrewTitle">
                     <FormattedMessage defaultMessage={"yourVote"} id={"yourVote"} />
                   </Montserrat>
-                  <RatingBottle personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === movieDetailsState.id)[0]?.user_vote * 2} />   
+                  <RatingBottle personalVote vote={userDataListProductsRedux?.vote?.filter(el => el.id === movieDetailsState.id)[0]?.user_vote * 2} />   
                 </HeaderInfoVote>
               )}
             </HeaderInfoVoteActionsLeft>

@@ -16,6 +16,7 @@ import CustomMessage from "./CustomMessage";
 import Tabs from "./Tabs";
 import Paginate from "./Paginate";
 import Share from "./Share";
+import Toast from "./Toast";
 
 export {
   ActiveLink,
@@ -35,5 +36,6 @@ export {
   CustomMessage,
   Tabs,
   Paginate,
-  Share
+  Share,
+  Toast
 }

@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
 
 export default function UserLists({query}) {
   const userLanguageState = useSelector((state) => state.userData?.language);
-  const userListProductsState = useSelector((state) => state.userData?.list_products[0]);
+  const userListProductsState = useSelector((state) => state.userData?.list_products);
 
   const isMobile = useMediaQuery(426);
   const isTablet = useMediaQuery(769);
@@ -136,8 +136,8 @@ export default function UserLists({query}) {
   }, [query])
 
   useEffect(() => {
-    setUserProductsList(userListProductsState?.lists);
-    setExperienceOpened(userListProductsState?.lists?.experience[0].id);
+    setUserProductsList(userListProductsState);
+    setExperienceOpened(userListProductsState?.experience[0]?.id);
   }, [userListProductsState])
 
   useEffect(() => {

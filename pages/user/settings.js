@@ -68,7 +68,7 @@ export default function UserLists() {
   
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const onSubmit = (data) => {
-    const json = userState.list_products[0].lists;
+    const json = userState.list_products;
 
     const body = {
       "email": data.email,

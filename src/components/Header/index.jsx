@@ -124,6 +124,7 @@ const Header = ({}) => {
 			const listProducts = Object.keys(JSONproduct).length > 0 
 			? JSONproduct
 			: { favorite: [], watch: [], vote: [], experience: [] } 
+
 			setUserListProducts(listProducts);
 		}
   	}, [userData]);

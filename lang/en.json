@@ -223,5 +223,17 @@
   "settingsErrorMessageMaxLenght": "Cannot have more than 20 characters",
   "settingsErrorMessageEmailInvalid": "Invalid email address",
   "settingsErrorMessageUrlInvalid": "Invalid url",
-  "settingsErrorMessageRequired": "Required field"
+  "settingsErrorMessageRequired": "Required field",
+
+  "toastErrorDefault": "Warning: an error has occurred while trying to process your request",
+  "toastSuccessDefault": "Operation successfully completed",
+  "toastSuccessAddToFavorite": "Added to your favorites",
+  "toastSuccessRemoveToFavorite": "Removed from your favourites",
+  "toastSuccessAddToWatch": "Added to watchlist",
+  "toastSuccessRemoveToWatch": "Removed from your watchlist",
+  "toastSuccessAddToVote": "Your vote was recorded",
+  "toastSuccessUpdateVote": "Your vota was updated",
+  "toastSuccessRemoveToVote": "Your vote was deleted",
+  "toastSuccessAddToExperience": "Experience added",
+  "toastSuccessRemoveToExperience": "Experience removed"
 }

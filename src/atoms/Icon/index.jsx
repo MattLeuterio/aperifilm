@@ -4,7 +4,7 @@ import { ApericonsContainer, IconContainer } from './style';
 const Icon = ({
 	children, width, height, fill, stroke, 
 	strokeWidth, className, handleOnClick,
-	disable
+	disable, style
 }) => {
 
 	return (
@@ -12,6 +12,7 @@ const Icon = ({
 			className={className}
 			width={width}
 			height={height}
+			style={style}
 			fill={fill}
 			stroke={stroke}
 			strokeWidth={strokeWidth}

@@ -36,8 +36,8 @@ const Experience = ({
 
 	useEffect(() => {
 		if (Boolean(userDataListProductsRedux)) {
-			setIsAlreadyOnTheList(userDataListProductsRedux[0]?.lists?.experience?.filter(el => el.id === product?.id).length > 0);
-			setExperienceData(userDataListProductsRedux[0]?.lists?.experience?.filter(el => el.id === product?.id)[0]?.experience);
+			setIsAlreadyOnTheList(userDataListProductsRedux?.experience?.filter(el => el.id === product?.id).length > 0);
+			setExperienceData(userDataListProductsRedux?.experience?.filter(el => el.id === product?.id)[0]?.experience);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDataListProducts, product, updateUser])
@@ -84,7 +84,7 @@ const Experience = ({
 
 	const handleOnClickNotYet = () => {
 		if (user) {
-			const alreadyInListToWatch = userDataListProductsRedux[0]?.lists?.watch?.filter(el => el.id === product?.id).length > 0;
+			const alreadyInListToWatch = userDataListProductsRedux?.watch?.filter(el => el.id === product?.id).length > 0;
 			if(alreadyInListToWatch) {
 				setSituation("alreadyInListToWatch")
 			} else {

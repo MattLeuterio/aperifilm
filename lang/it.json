@@ -223,5 +223,17 @@
   "settingsErrorMessageMaxLenght": "Non può avere più di 20 caratteri",
   "settingsErrorMessageEmailInvalid": "Indirizzo email non valido",
   "settingsErrorMessageUrlInvalid": "Url non valido",
-  "settingsErrorMessageRequired": "Campo obbligatorio"
+  "settingsErrorMessageRequired": "Campo obbligatorio",
+
+  "toastErrorDefault": "Attenzione: si è verificato un errore nell'elaborare la tua richiesta",
+  "toastSuccessDefault": "Operazione eseguita con successo",
+  "toastSuccessAddToFavorite": "Aggiunto ai tuoi preferiti",
+  "toastSuccessRemoveToFavorite": "Rimosso dai tuoi preferiti",
+  "toastSuccessAddToWatch": "Aggiunto ai da guardare",
+  "toastSuccessRemoveToWatch": "Rimosso dai da guardare",
+  "toastSuccessAddToVote": "Il tuo voto è stato registrato",
+  "toastSuccessUpdateVote": "Il tuo voto è stato aggiornato",
+  "toastSuccessRemoveToVote": "Il tuo voto è stato rimosso",
+  "toastSuccessAddToExperience": "Esperienza aggiunta",
+  "toastSuccessRemoveToExperience": "Esperienza rimossa"
 }

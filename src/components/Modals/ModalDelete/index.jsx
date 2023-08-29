@@ -14,6 +14,7 @@ import HalfBottle from '../../../assets/icons/aperitif-bottle-half.svg';
 import EmptyBottle from '../../../assets/icons/aperitif-bottle-empty.svg';
 import { updateUser } from '../../../../pages/api/auth/users';
 import { setUserProducts } from '../../../store/actions/userDataAction';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const ModalDelete = ({
@@ -30,9 +31,9 @@ const ModalDelete = ({
 
 	useEffect(() => {
 		if (Boolean(userDataListProductsRedux)) {
-			const elementAlreadyVoted = userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === modalStateSelected.id).length > 0;
+			const elementAlreadyVoted = userDataListProductsRedux?.vote?.filter(el => el.id === modalStateSelected.id).length > 0;
 			if(elementAlreadyVoted) {
-				setVote(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === modalStateSelected.id)[0]?.user_vote);
+				setVote(userDataListProductsRedux?.vote?.filter(el => el.id === modalStateSelected.id)[0]?.user_vote);
 			}
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,10 +45,10 @@ const ModalDelete = ({
 	}
 
 	const handleOnConfirm = () => {
-		const newList = userDataListProductsRedux[0]?.lists?.experience?.filter(el => el.id !== modalStateSelected.id);
+		const newList = userDataListProductsRedux?.experience?.filter(el => el.id !== modalStateSelected.id);
 		
 		const json = {
-			...userDataListProductsRedux[0]?.lists,
+			...userDataListProductsRedux,
 			"experience": newList
 		};
 
@@ -63,8 +64,14 @@ const ModalDelete = ({
 			"language": userData.language,
 			"list_products": JSON.stringify(json)
 		}
-		updateUser(userData.record_id, body);
-		dispatch(setUserProducts(json));
+		const res = updateUser(userData.record_id, body);
+		res.then((e) => {
+			toast.success('toastSuccessRemoveToExperience');
+			dispatch(setUserProducts(json));
+		}).catch((err) => {
+			toast.error('toastErrorDefault')
+			setIsActive(true);
+		})
 
 		handleOnClose();
 	};

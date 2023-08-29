@@ -67,7 +67,7 @@ export default function Home({discoverMovieList, comingSoonMovieList, discoverTv
 
   useEffect(() => {
     if (userDataRedux?.list_products) {
-      setUserDataList(userDataRedux?.list_products[0]);
+      setUserDataList(userDataRedux?.list_products);
     }
   }, [userDataRedux]);
 

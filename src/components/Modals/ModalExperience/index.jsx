@@ -23,6 +23,7 @@ import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import it from 'date-fns/locale/it';
 import { formatDate } from '../../../js/utility';
 registerLocale('it', it)
+import toast, { Toaster } from 'react-hot-toast';
 
 const ModalExperience = ({
 }) => {
@@ -34,7 +35,7 @@ const ModalExperience = ({
 	const modalStateIsOpen = useSelector((state) => state.app.modalExperience?.isOpen);
 	const experienceStateSelected = useSelector((state) => state.app.modalExperience?.selected);
 	const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
-	const experienceListProductsRedux = useSelector((state) => state.userData?.list_products[0]?.lists?.experience);
+	const experienceListProductsRedux = useSelector((state) => state.userData?.list_products?.experience);
 	const userData = useSelector((state) => state.userData)
 
 	const [experienceData, setExperienceData] = useState(defaultExperience);
@@ -173,15 +174,15 @@ const ModalExperience = ({
 	}
 
 	const handleOnSaveExperience = () => {
-		const elementAlreadyInList = userDataListProductsRedux[0]?.lists?.experience?.filter(el => el.id === experienceStateSelected.id).length > 0;
+		const elementAlreadyInList = userDataListProductsRedux?.experience?.filter(el => el.id === experienceStateSelected.id).length > 0;
 
 
 		if (experienceStateSelected.en && experienceStateSelected.it) {
 			if (!elementAlreadyInList) {
 				const json = {
-					...userDataListProductsRedux[0]?.lists,
+					...userDataListProductsRedux,
 					"experience": [
-						...userDataListProductsRedux[0]?.lists.experience,
+						...userDataListProductsRedux?.experience,
 						{ 
 							en: experienceStateSelected.en,
 							it: experienceStateSelected.it,
@@ -205,11 +206,17 @@ const ModalExperience = ({
 						"language": userData.language,
 						"list_products": JSON.stringify(json)
 				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
+				const res = updateUser(userData.record_id, body);
+				res.then((e) => {
+					toast.success('toastSuccessAddToExperience');
+					dispatch(setUserProducts(json));
+				}).catch((err) => {
+					toast.error('toastErrorDefault')
+					setIsActive(true);
+				})
 			} else {
-				const updateProduct = userData.list_products[0].lists.experience.filter(el => el.id === experienceStateSelected.id);
-				const listWithoutUpdatedProduct = userData.list_products[0].lists.experience.filter(el => el.id !== experienceStateSelected.id);
+				const updateProduct = userData.list_products?.experience.filter(el => el.id === experienceStateSelected.id);
+				const listWithoutUpdatedProduct = userData.list_products?.experience.filter(el => el.id !== experienceStateSelected.id);
 				
 				const newExperienceDataList = [
 					...listWithoutUpdatedProduct,
@@ -224,7 +231,7 @@ const ModalExperience = ({
 				]
 				
 				const json = {
-					...userDataListProductsRedux[0].lists,
+					...userDataListProductsRedux,
 					"experience": newExperienceDataList
 				}
 				
@@ -240,8 +247,14 @@ const ModalExperience = ({
 					"language": userData.language,
 					"list_products": JSON.stringify(json)
 				}
-				updateUser(userData.record_id, body);
-				dispatch(setUserProducts(json));
+				const res = updateUser(userData.record_id, body);
+				res.then((e) => {
+					toast.success('toastSuccessRemoveToExperience');
+					dispatch(setUserProducts(json));
+				}).catch((err) => {
+					toast.error('toastErrorDefault')
+					setIsActive(true);
+				})
 			}
 	
 			handleOnClose();

@@ -14,6 +14,7 @@ import HalfBottle from '../../../assets/icons/aperitif-bottle-half.svg';
 import EmptyBottle from '../../../assets/icons/aperitif-bottle-empty.svg';
 import { updateUser } from '../../../../pages/api/auth/users';
 import { setUserProducts } from '../../../store/actions/userDataAction';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const ModalVote = ({
@@ -30,9 +31,9 @@ const ModalVote = ({
 
 	useEffect(() => {
 		if (Boolean(userDataListProductsRedux)) {
-			const elementAlreadyVoted = userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
+			const elementAlreadyVoted = userDataListProductsRedux?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
 			if(elementAlreadyVoted) {
-				setVote(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id)[0]?.user_vote);
+				setVote(userDataListProductsRedux?.vote?.filter(el => el.id === voteStateSelected.id)[0]?.user_vote);
 			}
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -48,13 +49,13 @@ const ModalVote = ({
 	}
 
 	const handleOnConfirmVote = () => {
-		const elementAlreadyVoted = userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
+		const elementAlreadyVoted = userDataListProductsRedux?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
 
 		if (!elementAlreadyVoted) {
 			const json = {
-				...userDataListProductsRedux[0]?.lists,
+				...userDataListProductsRedux,
 				"vote": [
-					...userDataListProductsRedux[0].lists.vote,
+					...userDataListProductsRedux?.vote,
 					{ 
 						en: voteStateSelected.en,
 						it: voteStateSelected.it,
@@ -79,12 +80,18 @@ const ModalVote = ({
 			}
 
 		if (Boolean(voteStateSelected.en) || Boolean(voteStateSelected.it) && Boolean(voteStateSelected.id)) {
-			updateUser(userData.record_id, body);
-			dispatch(setUserProducts(json));
+			const res = updateUser(userData.record_id, body);
+			res.then((e) => {
+				toast.success('toastSuccessAddToVote');
+				dispatch(setUserProducts(json));
+			}).catch((err) => {
+				toast.error('toastErrorDefault')
+				setIsActive(true);
+			})
 		}
 		} else {
-			const updateProduct = userData.list_products[0].lists.vote.filter(el => el.id === voteStateSelected.id);
-			const listWithoutUpdatedProduct = userData.list_products[0].lists.vote.filter(el => el.id !== voteStateSelected.id);
+			const updateProduct = userData.list_products?.vote.filter(el => el.id === voteStateSelected.id);
+			const listWithoutUpdatedProduct = userData.list_products?.vote.filter(el => el.id !== voteStateSelected.id);
 
 			const newVoteList = [
 				...listWithoutUpdatedProduct,
@@ -97,7 +104,7 @@ const ModalVote = ({
 			]
 
 			const json = {
-				...userDataListProductsRedux[0].lists,
+			...userDataListProductsRedux,
 				"vote": newVoteList
 			}
 			const body = {
@@ -112,8 +119,14 @@ const ModalVote = ({
 				"language": userData.language,
 				"list_products": JSON.stringify(json)
 			}
-			updateUser(userData.record_id, body);
-			dispatch(setUserProducts(json));
+			const res = updateUser(userData.record_id, body);
+			res.then((e) => {
+				toast.success('toastSuccessUpdateVote');
+				dispatch(setUserProducts(json));
+			}).catch((err) => {
+				toast.error('toastErrorDefault')
+				setIsActive(true);
+			})
 
 		}
 
@@ -121,13 +134,13 @@ const ModalVote = ({
 	}
 
 	const handleOnDeleteVote = () => {
-		const elementAlreadyVoted = userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
+		const elementAlreadyVoted = userDataListProductsRedux?.vote?.filter(el => el.id === voteStateSelected.id).length > 0;
 
 		if (elementAlreadyVoted) {
-			const newVoteList = userData.list_products[0].lists.vote.filter(el => el.id !== voteStateSelected.id);
+			const newVoteList = userData.list_products?.vote.filter(el => el.id !== voteStateSelected.id);
 
 			const json = {
-				...userDataListProductsRedux[0].lists,
+				...userDataListProductsRedux,
 				"vote": newVoteList
 			}
 			const body = {
@@ -142,8 +155,14 @@ const ModalVote = ({
 				"language": userData.language,
 				"list_products": JSON.stringify(json)
 			}
-			updateUser(userData.record_id, body);
-			dispatch(setUserProducts(json));
+			const res = updateUser(userData.record_id, body);
+			res.then((e) => {
+				toast.success('toastSuccessRemoveToVote');
+				dispatch(setUserProducts(json));
+			}).catch((err) => {
+				toast.error('toastErrorDefault')
+				setIsActive(true);
+			})
 			setVote(undefined);
 		} else {
 			setVote(undefined);

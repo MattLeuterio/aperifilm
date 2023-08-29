@@ -3,7 +3,7 @@ import { ActionsProductButtonContainer } from './style';
 import Link from 'next/link';
 import { FormattedMessage } from 'react-intl';
 import { useEffect, useState } from 'react';
-import { Icon, Image } from '../../atoms';
+import { Icon, Image, Toast } from '../../atoms';
 import { Router, useRouter } from 'next/router';
 import { CheckCircleIcon, HeartIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import AperitifBottleWhite from "../../assets/icons/aperitif-bottle-disable.png"
@@ -17,6 +17,7 @@ import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
 import { styled } from '@mui/material/styles';
 import { useTheme } from 'styled-components';
 import { useUser } from '@auth0/nextjs-auth0';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 const ActionsProductButton = ({
@@ -44,7 +45,6 @@ const ActionsProductButton = ({
 	}));
 
 	const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
-
 	const userData = useSelector((state) => state.userData)
 
 	useEffect(() => {
@@ -54,7 +54,7 @@ const ActionsProductButton = ({
 	useEffect(() => {
 		setIsActive(isAlreadyOnTheList(action, product?.id));
 		if (Boolean(userDataListProductsRedux)) {
-			setIsAlreadyVoted(userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === product?.id).length > 0);
+			setIsAlreadyVoted(userDataListProductsRedux?.vote?.filter(el => el.id === product?.id).length > 0);
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDataListProducts, product, updateUser, action])
@@ -106,7 +106,7 @@ const ActionsProductButton = ({
 				id: product.id, 
 				title: product.name || product.title,
 				product_type: isMovie ? 'movie' : 'tv',
-				user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)}}))
+				user_vote: wasItVoted(product.id, userDataListProductsRedux?.vote)}}))
 		} else {
 			router.push(loginPath)
 		}
@@ -123,15 +123,15 @@ const ActionsProductButton = ({
 			if (Object.keys(productLanguage.en)) {
 				if (!isActive) {
 					const json = {
-						...userDataListProductsRedux[0].lists,
+						...userDataListProductsRedux,
 						"watch": [
-							...userDataListProductsRedux[0].lists?.watch,
+							...userDataListProductsRedux?.watch,
 							{ 
 								...productLanguage,
 								id: product.id, 
 								title: product.title || product.name, 
 								product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
-								user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
+								user_vote: wasItVoted(product.id, userDataListProductsRedux?.vote)
 							}
 						]
 					};
@@ -147,12 +147,18 @@ const ActionsProductButton = ({
 							"language": userData.language,
 							"list_products": JSON.stringify(json)
 					}
-					updateUser(userData.record_id, body);
-					dispatch(setUserProducts(json));
+						const res = updateUser(userData.record_id, body);
+						res.then((e) => {
+							toast.success('toastSuccessAddToWatch');
+							dispatch(setUserProducts(json));
+						}).catch((err) => {
+							toast.error('toastErrorDefault')
+							setIsActive(true);
+						})
 				} else {
-					const newWatchList = userData.list_products[0].lists?.watch.filter(el => el.id !== product.id);
+					const newWatchList = userData.list_products?.watch.filter(el => el.id !== product.id);
 					const json = {
-						...userDataListProductsRedux[0].lists,
+						...userDataListProductsRedux,
 						"watch": newWatchList
 					}
 					const body = {
@@ -167,8 +173,14 @@ const ActionsProductButton = ({
 						"language": userData.language,
 						"list_products": JSON.stringify(json)
 					}
-					updateUser(userData.record_id, body);
-					dispatch(setUserProducts(json));
+					const res = updateUser(userData.record_id, body);
+					res.then((e) => {
+						toast.success('toastSuccessRemoveToWatch');
+						dispatch(setUserProducts(json));
+					}).catch((err) => {
+						toast.error('toastErrorDefault')
+						setIsActive(true);
+					})
 				}
 			}
 		} else {
@@ -187,36 +199,42 @@ const ActionsProductButton = ({
 			if (Object.keys(productLanguage.en)) {
 				if (!isActive) {
 					const json = {
-						...userDataListProductsRedux[0]?.lists,
+						...userDataListProductsRedux,
 						"favorite": [
-							...userDataListProductsRedux[0].lists?.favorite,
+							...userDataListProductsRedux?.favorite,
 							{ 
 								...productLanguage,
 								id: product.id,
 								title: product.title || product.name,
 								product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
-								user_vote: wasItVoted(product.id, userDataListProductsRedux[0]?.lists.vote)
+								user_vote: wasItVoted(product.id, userDataListProductsRedux?.vote)
 							}
 						]
 					};
 					const body = {
-							"sub": userData.sub,
-							"given_name": userData.given_name,
-							"family_name": userData.family_name,
-							"nickname": userData.nickname,
-							"picture": userData.picture,
-							"locale": router.locale,
-							"updated_at": userData.updated_at,
-							"email": userData.email,
-							"language": userData.language,
-							"list_products": JSON.stringify(json)
+						"sub": userData.sub,
+						"given_name": userData.given_name,
+						"family_name": userData.family_name,
+						"nickname": userData.nickname,
+						"picture": userData.picture,
+						"locale": router.locale,
+						"updated_at": userData.updated_at,
+						"email": userData.email,
+						"language": userData.language,
+						"list_products": JSON.stringify(json)
 					}
-					updateUser(userData.record_id, body);
-					dispatch(setUserProducts(json));
+					const res = updateUser(userData.record_id, body);
+					res.then((e) => {
+						toast.success('toastSuccessAddToFavorite');
+						dispatch(setUserProducts(json));
+					}).catch((err) => {
+						toast.error('toastErrorDefault')
+						setIsActive(true);
+					})
 				} else {
-					const newFavoriteList = userData.list_products[0].lists.favorite.filter(el => el.id !== product.id);
+					const newFavoriteList = userData.list_products.favorite.filter(el => el.id !== product.id);
 					const json = {
-						...userDataListProductsRedux[0].lists,
+						...userDataListProductsRedux,
 						"favorite": newFavoriteList
 					}
 					const body = {
@@ -231,8 +249,14 @@ const ActionsProductButton = ({
 						"language": userData.language,
 						"list_products": JSON.stringify(json)
 					}
-					updateUser(userData.record_id, body);
-					dispatch(setUserProducts(json));
+					const res = updateUser(userData.record_id, body);
+					res.then((e) => {
+						toast.success('toastSuccessRemoveToFavorite');
+						dispatch(setUserProducts(json));
+					}).catch((err) => {
+						toast.error('toastErrorDefault')
+						setIsActive(false);
+					})
 				}
 			}
 		} else {
@@ -241,8 +265,8 @@ const ActionsProductButton = ({
 	}
 
 	const isAlreadyOnTheList = (type, idProd) => {
-		if (userDataListProducts && userDataListProducts[0]?.lists) {
-			return Boolean(userDataListProducts[0]?.lists[type].find(el => Number(el.id) === idProd))
+		if (userDataListProducts) {
+			return Boolean(userDataListProducts[type]?.find(el => Number(el.id) === idProd))
 		}
 	}
 
@@ -307,79 +331,88 @@ const ActionsProductButton = ({
 				return ""
 		}
 	}
+	let container;
 
 	return (
-		<LightTooltip title={tooltipText(type)} placement="top">
-			<ActionsProductButtonContainer
-				// disable={!user}
-				size={size}
-				type={type}
-				onClick={(e) => handleOnClick(e, action)}
-				className={className}
-				active={isActive}
-			>
-				{action === 'favorite' && (
-					<Icon
-						className="icon-action btn--favorite"
-						stroke="transparent"
-						fill="transparent"
-						width="100%"
-						height="100%"
-						handleOnClick={() => handleOnClickFavorite()}
-					>
-						<HeartIcon />
-					</Icon>
-				)}
+		<>
+		  <Toast
+			reverseOrder={false}
+			gutter={8}
+			containerClassName=""
+			containerStyle={{}}
+			/>
+			<LightTooltip title={tooltipText(type)} placement="top">
+				<ActionsProductButtonContainer
+					// disable={!user}
+					size={size}
+					type={type}
+					onClick={(e) => handleOnClick(e, action)}
+					className={className}
+					active={isActive}
+				>
+					{action === 'favorite' && (
+						<Icon
+							className="icon-action btn--favorite"
+							stroke="transparent"
+							fill="transparent"
+							width="100%"
+							height="100%"
+							handleOnClick={() => handleOnClickFavorite()}
+						>
+							<HeartIcon />
+						</Icon>
+					)}
 
-				{action === 'watch' && (
-					<Icon
-						className="icon-action btn--watch"
-						stroke="transparent"
-						fill="transparent"
-						width="100%"
-						height="100%"
-						handleOnClick={() => handleOnClickWatch()}
-					>
-						{isActive ? (
-								<CheckCircleIcon />
-							) : (
-								<PlusCircleIcon />
-						)}
-					</Icon>
-				)}
+					{action === 'watch' && (
+						<Icon
+							className="icon-action btn--watch"
+							stroke="transparent"
+							fill="transparent"
+							width="100%"
+							height="100%"
+							handleOnClick={() => handleOnClickWatch()}
+						>
+							{isActive ? (
+									<CheckCircleIcon />
+								) : (
+									<PlusCircleIcon />
+							)}
+						</Icon>
+					)}
 
-				{action === 'vote' && (
-					<Icon
-						className="icon-action btn--vote"
-						stroke="transparent"
-						fill="transparent"
-						width="100%"
-						height="100%"
-						handleOnClick={() => handleOnClickVote(product)}
-					>
-						{isAlreadyVoted ? (
-								<Image 
-									className="icon-image"
-									src={AperitifBottleHalf.src}
-									alt="icon image" 
-									width="9px !important"
-									height="20px !important"
-									layout="fixed" 
-								/>
-							) : (
-								<Image 
-									className="icon-image"
-									src={AperitifBottleWhite.src}
-									alt="icon image" 
-									width="9px !important"
-									height="20px !important"
-									layout="fixed" 
-								/>
-						)}
-					</Icon>
-				)}
-			</ActionsProductButtonContainer>
-		</LightTooltip>
+					{action === 'vote' && (
+						<Icon
+							className="icon-action btn--vote"
+							stroke="transparent"
+							fill="transparent"
+							width="100%"
+							height="100%"
+							handleOnClick={() => handleOnClickVote(product)}
+						>
+							{isAlreadyVoted ? (
+									<Image 
+										className="icon-image"
+										src={AperitifBottleHalf.src}
+										alt="icon image" 
+										width="9px !important"
+										height="20px !important"
+										layout="fixed" 
+									/>
+								) : (
+									<Image 
+										className="icon-image"
+										src={AperitifBottleWhite.src}
+										alt="icon image" 
+										width="9px !important"
+										height="20px !important"
+										layout="fixed" 
+									/>
+							)}
+						</Icon>
+					)}
+				</ActionsProductButtonContainer>
+			</LightTooltip>
+		</>
 	)
 };
 

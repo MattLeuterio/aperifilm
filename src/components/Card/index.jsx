@@ -84,8 +84,8 @@ const Card = ({
 							{/* Position Absolute */}
 							<Badge text={productType} top="15px" left="15px"/>
 							<ActionButtons product={productDetails} size="small" className="action-buttons" />
-							{(Boolean(userDataListProductsRedux) && userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
-								<RatingBottle size="small" className="rating-container personal-vote" personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)[0]?.user_vote * 2} />
+							{(Boolean(userDataListProductsRedux) && userDataListProductsRedux?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
+								<RatingBottle size="small" className="rating-container personal-vote" personalVote vote={userDataListProductsRedux?.vote?.filter(el => el.id === productDetails?.id)[0]?.user_vote * 2} />
 							) : (
 								<>
 									{productDetails?.vote_average > 0 && (
@@ -190,8 +190,8 @@ const Card = ({
 							)}
 						</Top>
 						<Bottom type={type}>
-							{(Boolean(userDataListProductsRedux) &&userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
-								<RatingBottle personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)[0]?.user_vote * 2} />
+							{(Boolean(userDataListProductsRedux) &&userDataListProductsRedux?.vote?.filter(el => el.id === productDetails?.id)?.length > 0) ? (
+								<RatingBottle personalVote vote={userDataListProductsRedux?.vote?.filter(el => el.id === productDetails?.id)[0]?.user_vote * 2} />
 							) : (
 								<>
 									{productDetails?.vote_average > 0 && (
@@ -286,8 +286,8 @@ const Card = ({
 								<Montserrat className="card-position" type="bold" configuration={{fontSize: 32, fontWeight: 600, lineHeight: "39.01px", color: theme.colors.element.light}}>{position}</Montserrat>
 							</Top>
 							<Bottom type={type}>
-								{userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails?.id)?.length > 0 ? (
-									<RatingBottle size="small" className="personal-vote" personalVote vote={userDataListProductsRedux[0]?.lists?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
+								{userDataListProductsRedux?.vote?.filter(el => el.id === productDetails?.id)?.length > 0 ? (
+									<RatingBottle size="small" className="personal-vote" personalVote vote={userDataListProductsRedux?.vote?.filter(el => el.id === productDetails.id)[0]?.user_vote * 2} />
 								) : (
 									<>
 										{productDetails?.vote_average > 0 && (

@@ -11,7 +11,9 @@ const colors = {
   },
   base: {
     darkGray: '#ACACA7',
-    green: '#219653',
+    green: '#397b55',
+    red: '#962121',
+    yellow: '#966b21',
     blue: '#2F80ED'
   },
   element: {

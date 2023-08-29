@@ -16,9 +16,13 @@ export const setUserLanguage = (lang) => async (dispatch) => {
 
 export const setUserDataFromLogin = (data) => async (dispatch) => {
   try {
+    const editedData = {
+      ...data,
+      list_products: JSON.parse(data.list_products)
+    }
     dispatch({
       type: SET_USER_DATA_FROM_LOGIN,
-      payload: data,
+      payload: editedData,
     });
   } catch (error) {
     dispatch({
