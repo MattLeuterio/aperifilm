@@ -348,7 +348,7 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
         </HeaderCover>
       </Header>
 
-      <Experience product={movieDetails} />
+      <Experience product={movieDetailsState} />
       
       {movieCredits?.cast && (
         <CastSection>

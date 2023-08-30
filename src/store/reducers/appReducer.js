@@ -1,4 +1,4 @@
-import { SET_FULLSCREEN_PANEL, SET_MODAL_DELETE, SET_MODAL_EXPERIENCE, SET_MODAL_VOTE } from "../types";
+import { SET_FULLSCREEN_PANEL, SET_MODAL_DELETE, SET_MODAL_EXPERIENCE, SET_MODAL_SHARE, SET_MODAL_VOTE } from "../types";
 
 const initialState = {
   fullScreenPanel: {
@@ -15,6 +15,10 @@ const initialState = {
     selected: {}
   },
   modalDelete: {
+    isOpen: false,
+    selected: {}
+  },
+  modalShare: {
     isOpen: false,
     selected: {}
   }
@@ -45,6 +49,12 @@ export default function (state = initialState, action) {
       return {
         ...state,
         modalDelete: action.payload,
+      };
+
+    case SET_MODAL_SHARE:
+      return {
+        ...state,
+        modalShare: action.payload,
       };
 
     default:

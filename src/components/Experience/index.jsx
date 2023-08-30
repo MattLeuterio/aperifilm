@@ -273,7 +273,7 @@ const Experience = ({
 						{situation === 'main' ? (
 							<>
 								<FormattedMessage defaultMessage={"experienceSectionTextQuestion"} id={"experienceSectionTextQuestion"} />{" "} 
-								<Montserrat type="medium" htmlAttribute="span" configuration={{color: theme.colors.mainBrandColors.light}}>{product?.title || product.name}</Montserrat>?
+								<Montserrat type="medium" htmlAttribute="span" configuration={{color: theme.colors.mainBrandColors.light}}> {product?.title || product.name}</Montserrat>?
 							</>
 
 						) : situation === "login" ? (
