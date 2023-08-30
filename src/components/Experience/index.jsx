@@ -30,6 +30,9 @@ const Experience = ({
 
 	const userDataListProductsRedux = useSelector((state) => state.userData.list_products);
 
+	const [released, setReleased] = useState(true);
+	const todayDate = new Date().toISOString().slice(0, 10);
+
 	useEffect(() => {
 		setUserDataListProducts(userDataListProductsRedux);
 	}, [userDataListProductsRedux])
@@ -41,6 +44,31 @@ const Experience = ({
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userDataListProducts, product, updateUser])
+
+	useEffect(() => {
+		if (product) {
+			setReleased(todayDate > product.release_date)
+		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [product]);
+
+	useEffect(() => {
+			const alreadyInListToWatch = userDataListProductsRedux?.watch?.filter(el => el.id === product?.id).length > 0;
+			
+			if (released) {
+				setSituation('main');
+			} else if (!released && !alreadyInListToWatch) {
+				setSituation('addToWatch')
+			} else if (!released && alreadyInListToWatch) { 
+				setSituation('notYetWatchAlreadyinListToWatch')
+			}
+	
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [released, userDataListProductsRedux]);
+
+	useEffect(() => {
+		getDetails(product)
+	}, [product])
 
 	const getDetails = async (el) => {
 		const isCollection = Boolean(el?.parts);
@@ -94,10 +122,6 @@ const Experience = ({
 			setSituation("addToWatch-login")
 		}
 	}
-
-	useEffect(() => {
-		getDetails(product)
-	}, [product])
 
 	const handleOnOpenDeleteModal = () => {
 		const isMovie = Boolean(product.title)
@@ -278,6 +302,8 @@ const Experience = ({
 
 						) : situation === "login" ? (
 							<FormattedMessage defaultMessage={"experienceSectionTextDone"} id={"experienceSectionTextDone"} />
+						) : situation === "notYetWatchAlreadyinListToWatch" || !released ? (
+							""
 						) : (
 							<FormattedMessage defaultMessage={"experienceSectionTextNotYet"} id={"experienceSectionTextNotYet"} />
 						)}
@@ -302,6 +328,8 @@ const Experience = ({
 						</ActionContainer>
 					) : situation === 'addToWatch-login' ? (
 						<FormattedMessage defaultMessage={"experienceSectionActionNotYetLogin"} id={"experienceSectionActionNotYetLogin"} />
+					) : situation === 'notYetWatchAlreadyinListToWatch' ? (
+						<FormattedMessage defaultMessage={"experienceSectionActionNotYetAlreadyInListToWatch"} id={"experienceSectionActionNotYetAlreadyInListToWatch"} />
 					) : (
 						<FormattedMessage defaultMessage={"experienceSectionActionNotYetAlreadyInListToWatch"} id={"experienceSectionActionNotYetAlreadyInListToWatch"} />
 					)

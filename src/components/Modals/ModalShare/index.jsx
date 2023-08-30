@@ -179,7 +179,7 @@ const ModalShare = ({
 										<ClipboardCopyIcon />
 									</Icon>
 									<Montserrat type={"small"}>
-										<FormattedMessage defaultMessage={!copied ? "shareCopyLink" : "shareCopied"} id={!copied ? "shareCopyLink" : "shareCopied"} />
+										<FormattedMessage defaultMessage={"shareCopyLink"} id={"shareCopyLink"} />
 									</Montserrat>
 								</CopyUrl>
 							</Line>

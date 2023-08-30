@@ -12,7 +12,7 @@ import useMediaQuery from '../../../hooks/useMediaQuery';
 import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { MinusCircleIcon, PencilAltIcon, PlusCircleIcon } from '@heroicons/react/outline';
+import { MinusCircleIcon, PlusCircleIcon } from '@heroicons/react/outline';
 import { updateUser } from '../../../../pages/api/auth/users';
 import { setUserProducts } from '../../../store/actions/userDataAction';
 import { aperitifOptions, defaultExperience, emojiOptions, experienceSteps, placeOptions, playmateEmojiOptions } from '../../../js/experience';
@@ -21,7 +21,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from  "react-datepicker";
 import it from 'date-fns/locale/it';
-import { formatDate } from '../../../js/utility';
 registerLocale('it', it)
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -53,7 +52,6 @@ const ModalExperience = ({
 	const [currentDate, setCurrentDate] = useState(new Date());
 
 	useEffect(() => {
-		
 		const selected = experienceListProductsRedux?.filter(el => el.id === experienceStateSelected.id);
 		if (selected?.length > 0) setExperienceData(selected[0].experience)
 		else setExperienceData(defaultExperience);
@@ -79,7 +77,6 @@ const ModalExperience = ({
 
 	const handleOnBack = () => {
 		if(error?.length > 0) setExperienceData({...experienceData, [actualStep]: undefined});
-
 		if (actualStep === "emoji" && !experienceData?.playmate) {
 			setPlaymateList([]);
 			setExperienceData({...experienceData, people: undefined});

@@ -18,6 +18,7 @@ import { setFullscreenPanel } from "../../src/store/actions/appAction";
 import FacebookIcon from "../../src/assets/icons/logo-facebook.png";
 import InstagramIcon from "../../src/assets/icons/logo-instagram.png";
 import TwitterIcon from "../../src/assets/icons/logo-twitter.png";
+import { DateTime } from "luxon";
 const ReactPlayer = dynamic(() => import("react-player/lazy"), { ssr: false });
 
 export async function getServerSideProps(context) {
@@ -195,7 +196,6 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const handleOnClickImage = (index, isOpen, list) => {
     dispatch(setFullscreenPanel({isOpen, selected: index, list}));
   }
-
 
 
   return (
