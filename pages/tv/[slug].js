@@ -116,11 +116,13 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
       await fetch(
         `https://api.themoviedb.org/3/${productTypeContext}/${query.id}/watch/providers?api_key=${tmdbApiKey}`
         ).then(res => res.json()).then(res => {
-          Object?.entries(res?.results).map(el => {
-            if (el[0].toLowerCase() === (userLanguageState === 'en' ? 'us' : userLanguageState.toLowerCase())) {
-              watchProviders = el[1]
-            }
-          })
+          if(res.success) {
+            Object?.entries(res?.results)?.map(el => {
+              if (el[0].toLowerCase() === (userLanguageState === 'en' ? 'us' : userLanguageState.toLowerCase())) {
+                watchProviders = el[1]
+              }
+            })
+          }
         });
 
       const recommendations = await fetch(
@@ -149,8 +151,10 @@ export default function ProductDetails({movieDetails, productTypeContext, query}
   const setProductImages = (images) => {
     let res = [];
 
-    res = [...images?.backdrops, ...images?.posters]
-    return {...images, all: res};
+    if (images.length > 0) {
+      res = [...images?.backdrops, ...images?.posters]
+      return {...images, all: res};
+    }
   }
 
   useEffect(() => {
