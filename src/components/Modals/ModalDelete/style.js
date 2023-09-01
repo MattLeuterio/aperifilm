@@ -40,7 +40,6 @@ export const VotePanelContainer = styled.div`
     width: 100%;
     height: 100vh;
     border-radius: 0;
-    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
