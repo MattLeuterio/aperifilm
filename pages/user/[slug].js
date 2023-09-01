@@ -137,7 +137,9 @@ export default function UserLists({query}) {
 
   useEffect(() => {
     setUserProductsList(userListProductsState);
-    setExperienceOpened(userListProductsState?.experience[0]?.id);
+    if (userListProductsState?.experience.length > 0) {
+      setExperienceOpened(userListProductsState?.experience[0]?.id);
+    }
   }, [userListProductsState])
 
   useEffect(() => {
