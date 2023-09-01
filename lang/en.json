@@ -184,6 +184,10 @@
   "experienceEndTitle": "Grazie per aver condiviso la tua visione!",
   "experienceEndSubtitle": "Puoi modificarla in qualsiasi momento dalla sezione Le mie liste.",
 
+  "experiencePanelEdit": "Edit",
+  "experiencePanelDelete": "Delete",
+  "experiencePanelGo": "Go to detail",
+
   "maxDate": "Non puoi inserire date nel futuro 😝",
   "invalidDate": "Data non valida 🧐",
   "minDate": "Il film non era ancora uscito 🎥",
@@ -235,5 +239,7 @@
   "toastSuccessUpdateVote": "Your vota was updated",
   "toastSuccessRemoveToVote": "Your vote was deleted",
   "toastSuccessAddToExperience": "Experience added",
-  "toastSuccessRemoveToExperience": "Experience removed"
+  "toastSuccessRemoveToExperience": "Experience removed",
+
+  "createInstagramStories": "Create a story"
 }

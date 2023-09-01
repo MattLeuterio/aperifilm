@@ -19,7 +19,7 @@ export const ExperienceBox = styled.div`
   padding: 30px 20px 40px;
 
   ${props => Boolean(props.background) && css`
-    background-image: ${props => `linear-gradient(90deg, #101116 0%, rgba(0, 0, 0, 0.59) 187.92%),url(${props.background})`};
+    background-image: ${props => `linear-gradient(90deg,#23252e 0%,rgb(0 0 0 / 77%) 187.92%),url(${props.background})`};
     background-position: top center;
     background-size: cover;
   `};
@@ -79,6 +79,37 @@ export const ExperienceHeaderButton = styled.div`
   @media ${theme.device.mobileM} {
     margin-right: auto;
     margin-top: 40px;
+  }
+
+  .icon-experience {
+    svg {
+      transition: all .2s ease-in-out;
+    }
+
+    &.edit {
+      &:hover {
+        svg {
+          stroke: ${theme.colors.base.blue};
+          transform: scale(1.2) rotate(15deg);
+        }
+      }
+    }
+    &.delete {
+      &:hover {
+        svg {
+          stroke: ${theme.colors.mainBrandColors.light};
+          transform: scale(1.2) rotate(-15deg);
+        }
+      }
+    }
+    &.go {
+      &:hover {
+        svg {
+          stroke: ${theme.colors.base.green};
+          transform: scale(1.2) translateX(3px);
+        }
+      }
+    }
   }
 `;
 

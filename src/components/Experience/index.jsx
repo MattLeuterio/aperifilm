@@ -13,12 +13,18 @@ import { useUser } from '@auth0/nextjs-auth0';
 import Montserrat from '../../typography/montserrat';
 import ActionsProductButton from '../ActionsProductButton';
 import { useRouter } from 'next/router';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import { styled } from '@mui/material/styles';
+import { useTheme } from 'styled-components';
+import en from "../../../lang/en.json";
+import it from "../../../lang/it.json";
 
 const Experience = ({
 	product, title, background, urlProduct
 }) => {
 	const dispatch = useDispatch();
 	const router = useRouter();
+	const globalTheme = useTheme();
 
 	const { user, error, isLoading } = useUser();
 	const userLanguageState = useSelector((state) => state.userData.language);
@@ -32,6 +38,17 @@ const Experience = ({
 
 	const [released, setReleased] = useState(true);
 	const todayDate = new Date().toISOString().slice(0, 10);
+
+	const LightTooltip = styled(({ className, ...props }) => (
+		<Tooltip {...props} classes={{ popper: className }} />
+	))(({ theme }) => ({
+		[`& .${tooltipClasses.tooltip}`]: {
+			backgroundColor: globalTheme.colors.element.light,
+			color: globalTheme.colors.component.light,
+			boxShadow: theme.shadows[1],
+			fontSize: 11,
+		},
+	}));
 
 	useEffect(() => {
 		setUserDataListProducts(userDataListProductsRedux);
@@ -47,7 +64,8 @@ const Experience = ({
 
 	useEffect(() => {
 		if (product) {
-			setReleased(todayDate > product.release_date)
+			const releaseDate = product.release_date || product.first_air_date
+			setReleased(todayDate > releaseDate)
 		}
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [product]);
@@ -154,31 +172,46 @@ const Experience = ({
 					</ExperienceHeaderTitle>
 
 					<ExperienceHeaderButton>
-						<Button 
-							backgroundColor={theme.colors.mainBrandColors.light}
-							size={"icon"} 
-							handleOnClick={() => handleOnClickDone()}
-							iconPadding={"9px"}
-						>
-							<PencilAltIcon />
-						</Button>
-						<Button 
-							backgroundColor={theme.colors.mainBrandColors.light}
-							size={"icon"} 
-							handleOnClick={() => handleOnOpenDeleteModal()}
-							iconPadding={"9px"}
-						>
-							<TrashIcon />
-						</Button>
-						<Button 
-							backgroundColor={theme.colors.mainBrandColors.light}
-							size={"icon"}
-							// onClick={() => Router.push(`/${product.title ? "movie" : "tv"}/${textToPath(product?.title || product?.name)}?id=${product?.id}`)} 
-							handleOnClick={() => router.push(`/${product.title ? "movie" : "tv"}/${textToPath(product?.title || product?.name)}?id=${product?.id}`)}
-							iconPadding={"9px"}
-						>
-							<ChevronRightIcon />
-						</Button>
+						<LightTooltip title={userLanguageState === 'en' ? en["experiencePanelEdit"] : it["experiencePanelEdit"]} placement="top">
+							<div>
+								<Button
+									className={"icon-experience edit"} 
+									backgroundColor={theme.colors.mainBrandColors.light}
+									size={"icon"} 
+									handleOnClick={() => handleOnClickDone()}
+									iconPadding={"9px"}
+								>
+									<PencilAltIcon />
+								</Button>
+							</div>
+						</LightTooltip>
+						<LightTooltip title={userLanguageState === 'en' ? en["experiencePanelDelete"] : it["experiencePanelDelete"]} placement="top">
+							<div>
+								<Button
+									className={"icon-experience delete"} 
+									backgroundColor={theme.colors.mainBrandColors.light}
+									size={"icon"} 
+									handleOnClick={() => handleOnOpenDeleteModal()}
+									iconPadding={"9px"}
+								>
+									<TrashIcon />
+								</Button>
+							</div>
+						</LightTooltip>
+						<LightTooltip title={userLanguageState === 'en' ? en["experiencePanelGo"] : it["experiencePanelGo"]} placement="top">
+							<div>
+								<Button
+									className={"icon-experience go"} 
+									backgroundColor={theme.colors.mainBrandColors.light}
+									size={"icon"}
+									// onClick={() => Router.push(`/${product.title ? "movie" : "tv"}/${textToPath(product?.title || product?.name)}?id=${product?.id}`)} 
+									handleOnClick={() => router.push(`/${product.title ? "movie" : "tv"}/${textToPath(product?.title || product?.name)}?id=${product?.id}`)}
+									iconPadding={"9px"}
+								>
+									<ChevronRightIcon />
+								</Button>
+							</div>
+						</LightTooltip>
 					</ExperienceHeaderButton>
 				</ExperienceHeader>
 				<ExperienceBody>
