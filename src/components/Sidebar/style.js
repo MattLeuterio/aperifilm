@@ -36,12 +36,13 @@ export const MenuSectionLinks = styled.div`
     color: ${theme.colors.element.dark};
     display: flex;
     align-items: center;
-
+    
+    
     &:not(:last-child) {
       margin-bottom: 20px;
     }
-
-     > div {
+    
+    > div {
       background-color: ${theme.colors.component.light};
       border-radius: 6px;
       width: 28px;
@@ -50,18 +51,19 @@ export const MenuSectionLinks = styled.div`
       justify-content: center;
       align-items: center;
       margin-right: 10px;
-
+      
+      
       > div.icon-image--active {
         display: none;
       }
-
+      
       > svg {
         fill: ${theme.colors.element.dark};
         width: 20px;
         height: 20px;
       }
     }
-
+    
     &.active {
       color: ${theme.colors.element.light};
 
@@ -79,6 +81,12 @@ export const MenuSectionLinks = styled.div`
         
       }
 
+      &:hover {
+        div {
+          background-color: ${theme.colors.mainBrandColors.dark};
+        }
+      }
+
 
       a {
         font-weight: 600;
@@ -91,6 +99,17 @@ export const MenuSectionLinks = styled.div`
           fill: ${theme.colors.element.light};
           width: 20px;
           height: 20px;
+        }
+      }
+    }
+
+    &:hover {
+
+      div {
+        background-color: ${theme.colors.component.dark};
+
+        svg {
+          transform: scale(1.2) rotate(-15deg);
         }
       }
     }

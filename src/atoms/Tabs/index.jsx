@@ -41,6 +41,7 @@ const Tabs = ({
 			<TabsContainer className={className}>
 				{tabsList?.map((tab, index) => (
 					<Button
+						className={tab.id === selectedTab.id ? "active" : ""}
 						key={index}
 						disabled={isSearch && !tab?.number}
 						hide={isSearch && !tab?.number}
@@ -48,7 +49,6 @@ const Tabs = ({
 						size={sizeButtons}
 						iconFill={iconFill}
 						iconStroke={iconStroke}
-						className="collection-action-btn"
 						handleOnClick={() => handleOnClickTab(tab)}
 						active={tab.id === selectedTab.id}
 						text={tab.label}
