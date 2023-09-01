@@ -1,8 +1,8 @@
 import theme from '../../../theme';
-import { ModalContainer, BackgroundOpacity, Header, Body, Line, CopyUrl } from './style';
+import { ModalContainer, BackgroundOpacity, Header, Body, Line, ButtonShareContainer } from './style';
 import { FormattedMessage } from 'react-intl';
 import { useEffect, useState } from 'react';
-import { Icon } from '../../../atoms';
+import { Icon, Image } from '../../../atoms';
 import { useRouter } from 'next/router';
 import Montserrat from '../../../typography/montserrat';
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +26,7 @@ import {
 	EmailIcon
 } from 'next-share';
 import toast from 'react-hot-toast';
+import InstagramIcon from "../../../assets/icons/logo-instagram.png";
 
 
 const ModalShare = ({
@@ -86,7 +87,7 @@ const ModalShare = ({
 								className={"modal-title"} 
 								configuration={
 									{
-										fontSize: isTablet ? 24 : 36, 
+										fontSize: isTablet ? 24 : 28, 
 										fontWeight: 600, 
 										color: theme.colors.element.light,
 										textAlign: "center",
@@ -99,42 +100,42 @@ const ModalShare = ({
 
 						<Body>
 							<Line>
-							{/* Facebook */}
-							<FacebookShareButton
-								url={urlToShare}
-								quote={quoteToShare}
-								hashtag={hashtagToShare}
-								blankTarget
-							>
-								<FacebookIcon 
-									size={36} 
-									round
-								/>	
-							</FacebookShareButton>
+								{/* Facebook */}
+								<FacebookShareButton
+									url={urlToShare}
+									quote={quoteToShare}
+									hashtag={hashtagToShare}
+									blankTarget
+								>
+									<FacebookIcon 
+										size={28} 
+										round
+									/>	
+									<Montserrat type={"small"}>
+										Facebook
+									</Montserrat>
+								</FacebookShareButton>
 
-							{/* Twitter */}
-							<TwitterShareButton
-								url={urlToShare}
-								title={quoteToShare}
-								hashtag={hashtagToShare}
-								blankTarget
-							>
-								<TwitterIcon size={36} round />
-							</TwitterShareButton>
+								{/* Twitter */}
+								<TwitterShareButton
+									url={urlToShare}
+									title={quoteToShare}
+									hashtag={hashtagToShare}
+									blankTarget
+								>
+									<TwitterIcon size={28} round />
+									<Montserrat type={"small"}>
+										Twitter
+									</Montserrat>
+								</TwitterShareButton>
 
-							{/* Reddit */}
-							<RedditShareButton
-								url={urlToShare}
-								title={quoteToShare}
-								blankTarget
-							>
-								<RedditIcon size={36} round />
-							</RedditShareButton>
-
-							{/* Linkedin */}
-							<LinkedinShareButton url={urlToShare} blankTarget>
-								<LinkedinIcon size={36} round />
-							</LinkedinShareButton>
+								{/* Linkedin */}
+								<LinkedinShareButton url={urlToShare} blankTarget>
+									<LinkedinIcon size={28} round />
+									<Montserrat type={"small"}>
+										Linkedin
+									</Montserrat>
+								</LinkedinShareButton>
 							</Line>
 
 							<Line>
@@ -145,7 +146,10 @@ const ModalShare = ({
 									separator=":: "
 									blankTarget
 								>
-									<WhatsappIcon size={36} round />
+									<WhatsappIcon size={28} round />
+									<Montserrat type={"small"}>
+										Whatsapp
+									</Montserrat>
 								</WhatsappShareButton>
 
 								{/* Telegram */}
@@ -154,25 +158,42 @@ const ModalShare = ({
 									title={quoteToShare}
 									blankTarget
 								>
-									<TelegramIcon size={36} round />
+									<TelegramIcon size={28} round />
+									<Montserrat type={"small"}>
+										Telegram
+									</Montserrat>
 								</TelegramShareButton>
 
+								{/* Reddit */}
+								<RedditShareButton
+									url={urlToShare}
+									title={quoteToShare}
+									blankTarget
+								>
+									<RedditIcon size={28} round />
+									<Montserrat type={"small"}>
+										Reddit
+									</Montserrat>
+								</RedditShareButton>
+							</Line>
+
+							<Line>
 								{/* Email */}
 								<EmailShareButton
 									url={urlToShare}
 									subject={product?.title || product?.name}
 									body={`${product?.title || product?.name} - `}
 								>
-									<EmailIcon size={36} round />
+									<EmailIcon size={28} round />
+									<Montserrat type={"small"}>
+										Email
+									</Montserrat>
 								</EmailShareButton>
-							</Line>
-
-							<Line>
-								<CopyUrl onClick={() => copy()}>
+								<ButtonShareContainer onClick={() => copy()}>
 									<Icon
 										className="icon-copy"
-										width="31px"
-										height="31px"
+										width="28px"
+										height="28px"
 										fill={theme.colors.element.dark}
 										stroke='transparent'
 									>
@@ -181,7 +202,20 @@ const ModalShare = ({
 									<Montserrat type={"small"}>
 										<FormattedMessage defaultMessage={"shareCopyLink"} id={"shareCopyLink"} />
 									</Montserrat>
-								</CopyUrl>
+								</ButtonShareContainer>
+								<ButtonShareContainer onClick={() => console.log('create story')}>
+									<Image 
+										alt="icon"
+										className="icon-instagram"
+										src={InstagramIcon.src} 
+										width="28px !important"
+										height="28px !important"
+										layout="fixed" 
+									/>
+									<Montserrat type={"small"}>
+										<FormattedMessage defaultMessage={"createInstagramStories"} id={"createInstagramStories"} />
+									</Montserrat>
+								</ButtonShareContainer>
 							</Line>
 						</Body>
 

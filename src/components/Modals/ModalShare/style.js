@@ -70,6 +70,25 @@ export const Body = styled.div`
 `;
 
 export const Line = styled.div`
+  display: flex;
+  button {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    padding: 4px 6px !important;
+    border-radius: 8px !important;
+    color: ${theme.colors.element.light} !important;
+    background-color: ${theme.colors.component.light} !important;
+
+    svg {
+      margin-right: 8px;
+    }
+
+    &:hover {
+    background-color: ${theme.colors.element.select} !important;
+  }
+  }
   &:not(:last-child) {
     margin-bottom: 10px;
   }
@@ -79,23 +98,40 @@ export const Line = styled.div`
   }
 `;
 
-export const CopyUrl = styled.div`
+export const ButtonShareContainer = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  padding: 3px 5px;
+  padding: 4px 6px;
   border-radius: 8px;
+  color: ${theme.colors.element.light};
+  background-color: ${theme.colors.component.light};
+  margin-right: 10px;
+
+  &:not(:last-child) {
+  }
 
   &:hover {
-    background-color: ${theme.colors.element.dark};
+    background-color: ${theme.colors.element.select};
   }
 
   .icon-copy {
     padding: 5px;
-    background-color: ${theme.colors.component.light};
+    background-color: ${theme.colors.component.dark};
     border-radius: 50%;
     margin-right: 10px;
+  }
+
+  .icon-instagram {
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+    box-shadow: 0px 3px 10px rgba(0,0,0,.25);
+    border-radius: 50%;
+    padding: 5px 5px 5px 4px;
+    margin-right: 8px;
+
+    img {
+    }
   }
 
 `;
