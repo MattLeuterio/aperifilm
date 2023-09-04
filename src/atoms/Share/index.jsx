@@ -20,6 +20,7 @@ const Share = ({
 				id: product.id, 
 				title: product.name || product.title,
 				product_type: isPerson ? 'person' : isCollection ? 'collection' : isMovie ? 'movie' : 'tv',
+				product: product
 			}
 		}))
 	}

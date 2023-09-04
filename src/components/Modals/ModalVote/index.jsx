@@ -86,7 +86,7 @@ const ModalVote = ({
 				dispatch(setUserProducts(json));
 			}).catch((err) => {
 				toast.error('toastErrorDefault')
-				setIsActive(true);
+				//setIsActive(true);
 			})
 		}
 		} else {

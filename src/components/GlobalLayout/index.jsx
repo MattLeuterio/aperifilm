@@ -7,7 +7,7 @@ import LogoAperifilm from "../../assets/images/logo-aperifilm.svg";
 import { useSelector } from 'react-redux';
 import Head from 'next/head';
 import { FullScreenPanel, ModalVote } from ".."
-import { ModalDelete, ModalExperience, ModalShare } from '../Modals';
+import { ModalDelete, ModalExperience, ModalShare, ModalStories } from '../Modals';
 
 const GlobalLayout = ({ children }) => {
 	const user = useSelector((state) => state.userData);
@@ -15,11 +15,13 @@ const GlobalLayout = ({ children }) => {
 	const [votePanelSelected, setModalVoteSelected] = useState({});
 	const [modalExperienceSelected, setModalExperienceSelected] = useState({});
 	const [modalShareSelected, setModalShareSelected] = useState({});
+	const [modalStoriesSelected, setModalStoriesSelected] = useState({});
 	const [modalDeleteSelected, setModalDeleteSelected] = useState({});
 	const listFullScreenPanel = useSelector((state) => state.app?.fullScreenPanel?.list);
 	const selectedVotePanel = useSelector((state) => state.app?.modalVote?.selected);
 	const selectedModalExperience = useSelector((state) => state.app?.modalExperience?.selected);
 	const selectedModalShare = useSelector((state) => state.app?.modalShare?.selected);
+	const selectedModalStories = useSelector((state) => state.app?.modalStories?.selected);
 	const selectedModalDelete = useSelector((state) => state.app?.modalDelete?.selected);
 	
 	useEffect(() => {
@@ -37,9 +39,15 @@ const GlobalLayout = ({ children }) => {
 	useEffect(() => {
 		setModalShareSelected(selectedModalShare)
 	}, [selectedModalShare])
+
+	useEffect(() => {
+		setModalStoriesSelected(selectedModalStories)
+	}, [selectedModalStories])
+
 	useEffect(() => {
 		setModalDeleteSelected(selectedModalDelete)
 	}, [selectedModalDelete])
+
 	return (
 			<>
 				<Head>
@@ -63,6 +71,7 @@ const GlobalLayout = ({ children }) => {
 				<ModalExperience selected={modalExperienceSelected} />
 				<ModalDelete selected={modalExperienceSelected} />
 				<ModalShare selected={modalShareSelected} />
+				<ModalStories selected={modalStoriesSelected} />
 			</>
 	)
 };

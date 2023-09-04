@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import Montserrat from '../../../typography/montserrat';
 import { useDispatch, useSelector } from 'react-redux';
 import { ClipboardCopyIcon, XIcon } from '@heroicons/react/solid';
-import { setModalShare } from '../../../store/actions/appAction';
+import { setModalShare, setModalStories } from '../../../store/actions/appAction';
 import useMediaQuery from '../../../hooks/useMediaQuery';
 import {
 	FacebookShareButton,
@@ -29,9 +29,7 @@ import toast from 'react-hot-toast';
 import InstagramIcon from "../../../assets/icons/logo-instagram.png";
 
 
-const ModalShare = ({
-	product
-}) => {
+const ModalShare = ({}) => {
 	const isTablet = useMediaQuery(769);
 	const router = useRouter();
 	const dispatch = useDispatch();
@@ -44,6 +42,7 @@ const ModalShare = ({
 	}, []);
 
 	const modalStateIsOpen = useSelector((state) => state.app.modalShare?.isOpen);
+	const modalStateSelected = useSelector((state) => state.app.modalShare?.selected);
 	
 	const [copied, setCopied] = useState(false);
 
@@ -60,6 +59,11 @@ const ModalShare = ({
 
 	
 	const handleOnClose = () => {
+		dispatch(setModalShare({isOpen: false, selected: {}}));
+	}
+
+	const handleOnClickStories = () => {
+		dispatch(setModalStories({isOpen: true, selected: modalStateSelected}))
 		dispatch(setModalShare({isOpen: false, selected: {}}));
 	}
 
@@ -181,8 +185,8 @@ const ModalShare = ({
 								{/* Email */}
 								<EmailShareButton
 									url={urlToShare}
-									subject={product?.title || product?.name}
-									body={`${product?.title || product?.name} - `}
+									subject={modalStateSelected?.title || modalStateSelected?.name}
+									body={`${modalStateSelected?.title || product?.name} - `}
 								>
 									<EmailIcon size={28} round />
 									<Montserrat type={"small"}>
@@ -203,7 +207,7 @@ const ModalShare = ({
 										<FormattedMessage defaultMessage={"shareCopyLink"} id={"shareCopyLink"} />
 									</Montserrat>
 								</ButtonShareContainer>
-								<ButtonShareContainer onClick={() => console.log('create story')}>
+								<ButtonShareContainer onClick={() => handleOnClickStories()}>
 									<Image 
 										alt="icon"
 										className="icon-instagram"

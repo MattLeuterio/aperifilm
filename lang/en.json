@@ -241,5 +241,8 @@
   "toastSuccessAddToExperience": "Experience added",
   "toastSuccessRemoveToExperience": "Experience removed",
 
-  "createInstagramStories": "Create a story"
+  "createInstagramStories": "Create a story",
+
+  "modalStoriesSubtitle": "Crea la tua storia e poi scarica l’immagine da condividere su Instagram.",
+  "modalSettingLayout": "Layout"
 }

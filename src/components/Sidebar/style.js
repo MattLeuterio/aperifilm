@@ -37,7 +37,6 @@ export const MenuSectionLinks = styled.div`
     display: flex;
     align-items: center;
     
-    
     &:not(:last-child) {
       margin-bottom: 20px;
     }

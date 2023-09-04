@@ -1,4 +1,4 @@
-import { SET_FULLSCREEN_PANEL, SET_FULLSCREEN_PANEL_ERROR, SET_MODAL_DELETE, SET_MODAL_DELETE_ERROR, SET_MODAL_EXPERIENCE, SET_MODAL_EXPERIENCE_ERROR, SET_MODAL_SHARE, SET_MODAL_SHARE_ERROR, SET_MODAL_VOTE, SET_MODAL_VOTE_ERROR } from "../types";
+import { SET_FULLSCREEN_PANEL, SET_FULLSCREEN_PANEL_ERROR, SET_MODAL_DELETE, SET_MODAL_DELETE_ERROR, SET_MODAL_EXPERIENCE, SET_MODAL_EXPERIENCE_ERROR, SET_MODAL_SHARE, SET_MODAL_SHARE_ERROR, SET_MODAL_STORIES, SET_MODAL_STORIES_ERROR, SET_MODAL_VOTE, SET_MODAL_VOTE_ERROR } from "../types";
 
 export const setFullscreenPanel = (data) => async (dispatch) => {
   try {
@@ -82,6 +82,23 @@ export const setModalShare = (data) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: SET_MODAL_SHARE_ERROR,
+      payload: error,
+    });
+  }
+};
+
+export const setModalStories = (data) => async (dispatch) => {
+  try {
+    dispatch({
+      type: SET_MODAL_STORIES,
+      payload: {
+        isOpen: data.isOpen,
+        selected: data.selected
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: SET_MODAL_STORIES_ERROR,
       payload: error,
     });
   }
