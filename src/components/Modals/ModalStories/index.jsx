@@ -75,9 +75,6 @@ const ModalStories = ({
 		dispatch(setModalStories({isOpen: false, selected: {}}));
 	}
 
-	console.log('settings', settings)
-	console.log('wave', LayoutWave1)
-
 	return (
 		<>
 			{modalStateIsOpen && (
